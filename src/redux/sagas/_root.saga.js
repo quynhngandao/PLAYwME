@@ -1,4 +1,5 @@
 import { all } from 'redux-saga/effects';
+import animalSaga from './animal.saga';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
@@ -10,10 +11,13 @@ import userSaga from './user.saga';
 // some sagas trigger other sagas, as an example
 // the registration triggers a login
 // and login triggers setting the user
+// the user triggers getting the user
+// the animal triggers getting and setting the animal 
 export default function* rootSaga() {
   yield all([
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    animalSaga()
   ]);
 }
