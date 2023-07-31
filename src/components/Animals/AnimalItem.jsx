@@ -1,13 +1,11 @@
 import {
-  Box,
-  Fab,
-  Card,
   CardContent,
-  CardMedia,
   Typography,
   CardActionArea,
-  CardActions,
   IconButton,
+  Card,
+  CardMedia,
+  Fab,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -19,7 +17,13 @@ import placeholderImage from "./notfoundcat.gif";
 // Import CSS
 import "./AnimalItem.css";
 
-export default function AnimalItem({ animal }) {
+export default function AnimalItem({
+  animal,
+  styledCard,
+  styledCardMedia,
+  styledFab,
+  cardShadow,
+}) {
   // useSelector to grab animal data from redux store
   const petfinder = useSelector((store) => store.petfinder);
   const user = useSelector((store) => store.user);
@@ -48,7 +52,7 @@ export default function AnimalItem({ animal }) {
         breeds: clickedAnimal.breeds.primary,
         photos:
           clickedAnimal.photos && clickedAnimal.photos.length > 0
-            ? clickedAnimal.primary_photo_cropped.full
+            ? clickedAnimal.photos[0].full
             : "",
         url: clickedAnimal.url,
       };
@@ -64,50 +68,19 @@ export default function AnimalItem({ animal }) {
       {petfinder && (
         <div className="animals">
           {petfinder.map((animal) => (
-            <Card
-              key={animal.id}
-              className="card"
-              sx={{
-                minWidth: 300,
-                maxWidth: 300,
-                minHeight: 470,
-                maxHeight: 470,
-                boxShadow: 5,
-
-                bgcolor: (theme) =>
-                  theme.palette.mode === "dark" ? "#101010" : "#fff",
-                color: (theme) =>
-                  theme.palette.mode === "dark" ? "grey.200" : "grey.500",
-              }}
-            >
+            <Card key={animal.id} className="card" sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
                 <CardMedia
-                  sx={{
-                    width: "100%",
-                    minWidth: 300,
-                    maxWidth: 300,
-                    height: "100%",
-                    minHeight: 300,
-                    maxHeight: 300,
-                    borderRadius: 3,
-                  }}
+                  sx={styledCardMedia}
                   component="img"
-                  image={animal.primary_photo_cropped.full}
+                  image={animal.photos[0].full}
                   alt={animal.name}
                 />
               ) : (
                 // NOT AVAILABLE IMAGE
                 <CardMedia
-                  sx={{
-                    width: "100%",
-                    minWidth: 300,
-                    maxWidth: 300,
-                    height: "100%",
-                    minHeight: 300,
-                    maxHeight: 300,
-                    borderRadius: 3,
-                  }}
+                  sx={styledCardMedia}
                   component="img"
                   image={placeholderImage}
                   alt="not available"
@@ -115,17 +88,8 @@ export default function AnimalItem({ animal }) {
               )}
               <CardActionArea>
                 {/* Favorite Button */}
-                <IconButton>
-                  <Fab
-                    onClick={(e) => handleFavorite(e, animal)}
-                    size="medium"
-                    aria-label="favorite"
-                    sx={{
-                      position: "absolute",
-                      transform: "translate(550%, -100%)",
-                      opacity: "0.5",
-                    }}
-                  >
+                <IconButton onClick={(e) => handleFavorite(e, animal)}>
+                  <Fab sx={styledFab} size="medium" aria-label="favorite">
                     <FavoriteBorderIcon htmlColor="#6294ff" fontSize="large" />
                   </Fab>
                 </IconButton>
