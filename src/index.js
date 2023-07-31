@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import {theme} from './Theme/theme'
+import {theme} from './theme/theme'
 
 import store from './redux/store';
 
