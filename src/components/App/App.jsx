@@ -6,11 +6,11 @@ import {
   Switch,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// Import styling
+// Import styling 
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import "./App.css";
-import PetsIcon from "@mui/icons-material/Pets";
+import PetsIcon from '@mui/icons-material/Pets';
 // Import protected route
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 // Import pages
@@ -23,6 +23,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 
 function App() {
   const dispatch = useDispatch();
+
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
