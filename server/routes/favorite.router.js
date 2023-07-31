@@ -1,12 +1,26 @@
-const express = require('express');
-const pool = require('../modules/pool');
+const express = require("express");
+const pool = require("../modules/pool");
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require("../modules/authentication-middleware");
 
 /**
- * GET route template
+ * Get favorited animals for a user to display
  */
-router.get('/', (req, res) => {
-  // GET route code here
+router.get("/", rejectUnauthenticated, (req, res) => {
+  let sqlQuery = `SELECT * FROM "animal";`;
+
+  pool
+    .query(sqlQuery)
+    .then((result) => {
+      res.send(result.rows);
+      console.log("GET request from database: ", result.rows);
+    })
+    .catch((error) => {
+      console.log("Error in GET from database: ", error);
+      res.sendStatus(500);
+    });
 });
 
 /**
