@@ -4,18 +4,18 @@
 
 .animals {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
   justify-items: center;
-  margin: 10px;
+  margin: 20px;
 }
 
 .favorite-animals {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
   justify-items: center;
-  margin: 15px;
+  margin: 20px;
 }
 
 .card {
