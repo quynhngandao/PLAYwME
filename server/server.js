@@ -26,8 +26,11 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+// handle GET request to petfinder API
 app.use('/api/animal', animalsRouter)
+// handle GET, DELETE request for user's favorite animals
 app.use('/favorite', favoriteRouter)
+// handle POST, PUT request for user's submission 
 app.use('/request', requestRouter)
 
 
