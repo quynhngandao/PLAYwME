@@ -2,13 +2,14 @@ const { default: axios } = require("axios");
 const express = require("express");
 const router = express.Router();
 const petfinder = require("@petfinder/petfinder-js");
+const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 const client = new petfinder.Client({
   apiKey: process.env.PETFINDER_API_KEY,
   secret: process.env.PETFINDER_SECRET,
 });
 
 // GET REQUEST FOR PEETFINDER API
-router.get("/", (req, res) => {
+router.get("/", rejectUnauthenticated, (req, res) => {
   const limit = 30;
   const location = req.query.location || "MN";
 
