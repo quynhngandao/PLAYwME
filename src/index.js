@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-// MUI ThemeProvider for styling
 import { ThemeProvider } from '@mui/material/styles';
 import {theme} from './theme/theme'
+
 import store from './redux/store';
+
 import App from './components/App/App';
 
 
@@ -16,5 +17,6 @@ root.render(
       <App />
       </ThemeProvider>
     </Provider>
+
   </React.StrictMode>
 );
