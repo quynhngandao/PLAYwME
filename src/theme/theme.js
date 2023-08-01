@@ -32,26 +32,33 @@ export const theme = createTheme({
     h1: {
       fontFamily: "fraunces",
       fontSize: "6rem",
+      lineHeight:1,
     },
     h2: {
       fontFamily: "fraunces",
       fontSize: "4rem",
+      lineHeight:1,
     },
     h3: {
       fontFamily: "fraunces",
-      fontSize: "3rem",
+      fontSize: "2.5rem",
+  
     },
     h4: {
       fontFamily: "fraunces",
-      fontSize: "2rem",
+      fontSize: "1.5rem",
+   
     },
     h5: {
-      fontFamily: "fraunces",
-      fontSize: "1rem",
+      fontFamily: "roboto",
+      fontSize: "1.2rem",
+
+    
     },
     h6: {
       fontFamily: "fraunces",
-      fontSize: ".7rem",
+      fontSize: ".5rem",
+      lineHeight:1,
     },
   },
 });

@@ -9,16 +9,20 @@ import {
   CardActionArea,
   CardActions,
   IconButton,
+  Button,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
 import { useDispatch } from "react-redux";
-import { InsertEmoticon } from "@mui/icons-material";
 
 // FUNCTION
-export default function FavoriteAnimal() {
+export default function FavoriteAnimal({
+  styledCard,
+  styledCardMedia,
+}) {
   const user = useSelector((store) => store.user);
   const favorite = useSelector((store) => store.favorite);
   const dispatch = useDispatch();
@@ -32,17 +36,17 @@ export default function FavoriteAnimal() {
       {favorite && (
         <div className="favorite-animals">
           {favorite.map((animal) => (
-            <Card key={animal.id}>
+            <Card key={animal.id} sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
-                <CardMedia
+                <CardMedia sx={styledCardMedia}
                   component="img"
                   image={animal.photos}
                   alt={animal.name}
                 />
               ) : (
                 // NOT AVAILABLE IMAGE
-                <CardMedia
+                <CardMedia sx={styledCardMedia}
                   component="img"
                   image={placeholderImage}
                   alt="not available"
@@ -50,8 +54,26 @@ export default function FavoriteAnimal() {
               )}
               <CardActionArea>
                 <CardActions>
+                  {/* EDIT BUTTON */}
+                  <IconButton>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      startIcon={<EditNoteIcon />}
+                    >
+                      Edit
+                    </Button>
+                  </IconButton>
                   {/* DELETE BUTTON */}
-                  <IconButton></IconButton>
+                  <IconButton>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </IconButton>
                 </CardActions>
               </CardActionArea>
               {/* DETAILS OF ANIMAL*/}
