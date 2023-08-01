@@ -12,17 +12,31 @@ import {
   Button,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditNoteIcon from '@mui/icons-material/EditNote';
+import EditNoteIcon from "@mui/icons-material/EditNote";
+
+import { useDispatch } from "react-redux";
 
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
-import { useDispatch } from "react-redux";
+
+// custom styling
+const body = {
+  color: "primary.dark",
+  fontSize: "15px",
+  fontWeight: "bold",
+  fontFamily: "fraunces",
+  verticalAlign: "middle",
+};
+const title = {
+  mt: "3px",
+  mb: "7px",
+  color: "primary.main",
+  fontSize: "1.5em",
+  fontFamily: "fraunces",
+};
 
 // FUNCTION
-export default function FavoriteAnimal({
-  styledCard,
-  styledCardMedia,
-}) {
+export default function FavoriteAnimal({ styledCard, styledCardMedia }) {
   const user = useSelector((store) => store.user);
   const favorite = useSelector((store) => store.favorite);
   const dispatch = useDispatch();
@@ -30,8 +44,8 @@ export default function FavoriteAnimal({
   // RENDER
   return (
     <>
-      <Typography sx={{ m: 1, p: 1 }} variant="h4" color="primary.dark">
-        Here are your animals
+      <Typography variant="h3" color="primary.main" className="page-heading">
+         Please Review Your Animal Selection
       </Typography>
       {favorite && (
         <div className="favorite-animals">
@@ -39,18 +53,28 @@ export default function FavoriteAnimal({
             <Card key={animal.id} sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
-                <CardMedia sx={styledCardMedia}
-                  component="img"
-                  image={animal.photos}
-                  alt={animal.name}
-                />
+                <CardActionArea>
+                  <a href={animal.url}>
+                    <CardMedia
+                      sx={styledCardMedia}
+                      component="img"
+                      image={animal.photos}
+                      alt={animal.name}
+                    />
+                  </a>
+                </CardActionArea>
               ) : (
                 // NOT AVAILABLE IMAGE
-                <CardMedia sx={styledCardMedia}
-                  component="img"
-                  image={placeholderImage}
-                  alt="not available"
-                />
+                <CardActionArea>
+                  <a href={animal.url}>
+                    <CardMedia
+                      sx={styledCardMedia}
+                      component="img"
+                      image={placeholderImage}
+                      alt="not available"
+                    />
+                  </a>
+                </CardActionArea>
               )}
               <CardActionArea>
                 <CardActions>
@@ -79,16 +103,8 @@ export default function FavoriteAnimal({
               {/* DETAILS OF ANIMAL*/}
               <CardContent>
                 {/* NAME */}
-                <Typography gutterBottom variant="h4">
+                <Typography sx={title}>
                   {animal.name}
-                </Typography>
-                {/* AGE */}
-                <Typography variant="h5">
-                  {animal.age} &#x2022; {animal.breeds}
-                </Typography>
-                {/* LINK */}
-                <Typography variant="h6">
-                  <a href={animal.url}>For more information</a>
                 </Typography>
               </CardContent>
             </Card>

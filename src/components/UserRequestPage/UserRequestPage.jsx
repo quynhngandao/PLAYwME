@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteAnimal from "../Animals/FavoriteAnimal";
@@ -35,7 +36,7 @@ const favorite = useSelector(store => store.favorite)
   return (
     <div>
       <header className="App-header">
-        <h1 className="available-animal">Review Page</h1>
+        <Typography variant="h2" color="primary.main" className="page-title">Review Page</Typography>
       </header>
       <FavoriteAnimal
         styledCardMedia={styledCardMedia}

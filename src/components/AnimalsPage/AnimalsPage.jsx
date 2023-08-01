@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { borderRadius } from "@mui/system";
 import React, { useEffect } from "react";
@@ -62,7 +63,7 @@ export default function AnimalsPage() {
   return (
     <div>
       <header className="App-header">
-        <h1 className="available-animal">Available Animals</h1>
+        <Typography variant="h2" color="primary.main" className="page-tile">Available Animals</Typography>
       </header>
       <AnimalItem
         styledFab={styledFab}
