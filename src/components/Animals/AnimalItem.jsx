@@ -6,23 +6,39 @@ import {
   Card,
   CardMedia,
   Fab,
+  Button,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useSelector, useDispatch } from "react-redux";
-
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
-
 // Import CSS
 import "./AnimalItem.css";
+
+const body = {
+  color: "primary.dark",
+  fontSize: "15px",
+  fontWeight: "bold",
+  fontFamily: "fraunces",
+  verticalAlign: "middle",
+};
+const title = {
+  mt: "3px",
+  mb: "7px",
+  color: "primary.main",
+  fontSize: "1.5em", 
+  fontFamily: "fraunces", 
+};
 
 export default function AnimalItem({
   animal,
   styledCard,
   styledCardMedia,
-  styledFab,
-  cardShadow,
+  textLink,
+  styledCardMediaNoImage,
+  styledHeartIcon,
+  styledHeartButton,
 }) {
   // useSelector to grab animal data from redux store
   const petfinder = useSelector((store) => store.petfinder);
@@ -71,50 +87,50 @@ export default function AnimalItem({
             <Card key={animal.id} className="card" sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
-                <CardMedia
-                  sx={styledCardMedia}
-                  component="img"
-                  image={animal.photos[0].full}
-                  alt={animal.name}
-                />
+                <CardActionArea>
+                  <a href={animal.url}>
+                    <CardMedia
+                      sx={styledCardMedia}
+                      component="img"
+                      image={animal.photos[0].full}
+                      alt={animal.name}
+                    />
+                  </a>
+                </CardActionArea>
               ) : (
                 // NOT AVAILABLE IMAGE
-                <CardMedia
-                  sx={styledCardMedia}
-                  component="img"
-                  image={placeholderImage}
-                  alt="not available"
-                />
+
+                <CardActionArea>
+                  <a href={animal.url}>
+                    <CardMedia
+                      sx={styledCardMediaNoImage}
+                      component="img"
+                      image={placeholderImage}
+                      alt="not available"
+                    />
+                  </a>
+                </CardActionArea>
               )}
-              <CardActionArea>
-                {/* Favorite Button */}
-                <IconButton onClick={(e) => handleFavorite(e, animal)}>
-                  <Fab sx={styledFab} size="medium" aria-label="favorite">
-                    <FavoriteBorderIcon htmlColor="#6294ff" fontSize="large" />
-                  </Fab>
-                </IconButton>
-              </CardActionArea>
+
+              {/* Favorite Button */}
+              <IconButton
+                sx={styledHeartButton}
+                onClick={(e) => handleFavorite(e, animal)}
+              >
+                <FavoriteBorderIcon sx={styledHeartIcon} />
+              </IconButton>
+
               {/* DETAILS */}
               <CardContent>
                 {/* NAME */}
-                <Typography
-                  fontWeight="700"
-                  fontFamily="fraunces"
-                  gutterBottom
-                  variant="h4"
-                  component="div"
-                >
-                  {animal.name}
-                </Typography>
-
+                <Typography sx={title}>{animal.name}</Typography>
                 {/* AGE */}
-                <Typography variant="h5">
+                <Typography sx={body}>
                   {animal.age} &#x2022; {animal.breeds?.primary}
                 </Typography>
-
-                {/* LINK */}
-                <Typography variant="h6" text="primary.main">
-                  <a href={animal.url}>For more information</a>
+                {/* AGE */}
+                <Typography sx={body}>
+                  {animal.contact.address.city}, {animal.contact.address.state}
                 </Typography>
               </CardContent>
             </Card>

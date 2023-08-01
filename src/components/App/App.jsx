@@ -20,6 +20,7 @@ import AnimalsPage from "../AnimalsPage/AnimalsPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+import UserRequestPage from "../UserRequestPage/UserRequestPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,13 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
+          <Route
+            // shows UserRequestPage if logged in 
+            exact
+            path="/request"
+          >
+            <UserRequestPage />
+          </Route>
 
           <ProtectedRoute
             // logged in shows AnimalsPage else shows LoginPage
