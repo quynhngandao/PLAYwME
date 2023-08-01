@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -11,10 +14,13 @@ function RegisterForm() {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         username: username,
         password: password,
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
       },
     });
   }; // end registerUser
@@ -50,7 +56,43 @@ function RegisterForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-      </div>
+        </div>
+        <div>
+        <label htmlFor="first-name">
+          First Name:
+          <input
+            type="text"
+            name="name"
+            value={firstName}
+            required
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </label>
+        </div>
+        <div>
+        <label htmlFor="last-name">
+          Last Name:
+          <input
+            type="text"
+            name="name"
+            value={lastName}
+            required
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </label>
+     </div>
+     <div>
+        <label htmlFor="email">
+         Email:
+          <input
+            type="text"
+            name="email"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+     </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>
