@@ -38,6 +38,11 @@ function Nav() {
             <Link className="navLink" to="/petfinder">
               Animals
             </Link>
+
+            <Link className="navLink" to="/request">
+              Request
+            </Link>
+
 {/* Logout Button */}
             <LogOutButton className="navLink" />
           </>
