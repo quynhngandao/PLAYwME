@@ -50,23 +50,23 @@ export default function FavoriteAnimal({ styledCard, styledCardMedia }) {
       {favorite && (
         <div className="favorite-animals">
           {favorite.map((animal) => (
-            <Card key={animal.id} sx={styledCard}>
+            <Card key={animal.animal_details.id} sx={styledCard}>
               {/* Image */}
-              {animal.photos && animal.photos.length > 0 ? (
+              {animal.animal_details.photos && animal.animal_details.photos.length > 0 ? (
                 <CardActionArea>
-                  <a href={animal.url}>
+                  <a href={animal.animal_details.url}>
                     <CardMedia
                       sx={styledCardMedia}
                       component="img"
-                      image={animal.photos}
-                      alt={animal.name}
+                      image={animal.animal_details.photos}
+                      alt={animal.animal_details.name}
                     />
                   </a>
                 </CardActionArea>
               ) : (
                 // NOT AVAILABLE IMAGE
                 <CardActionArea>
-                  <a href={animal.url}>
+                  <a href={animal.animal_details.url}>
                     <CardMedia
                       sx={styledCardMedia}
                       component="img"
@@ -104,7 +104,7 @@ export default function FavoriteAnimal({ styledCard, styledCardMedia }) {
               <CardContent>
                 {/* NAME */}
                 <Typography sx={title}>
-                  {animal.name}
+                  {animal.animal_details.name}
                 </Typography>
               </CardContent>
             </Card>
