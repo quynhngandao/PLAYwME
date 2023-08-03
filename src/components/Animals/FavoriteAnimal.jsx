@@ -45,14 +45,15 @@ export default function FavoriteAnimal({ styledCard, styledCardMedia }) {
   return (
     <>
       <Typography variant="h3" color="primary.main" className="page-heading">
-         Please Review Your Animal Selection
+        Please Review Your Animal Selection
       </Typography>
       {favorite && (
         <div className="favorite-animals">
           {favorite.map((animal) => (
             <Card key={animal.animal_details.id} sx={styledCard}>
               {/* Image */}
-              {animal.animal_details.photos && animal.animal_details.photos.length > 0 ? (
+              {animal.animal_details.photos &&
+              animal.animal_details.photos.length > 0 ? (
                 <CardActionArea>
                   <a href={animal.animal_details.url}>
                     <CardMedia
@@ -88,24 +89,29 @@ export default function FavoriteAnimal({ styledCard, styledCardMedia }) {
                       Edit
                     </Button>
                   </IconButton>
-                  {/* DELETE BUTTON */}
-                  <IconButton>
+                  {/* DELETE BUTTON - should only show for logged in user */}
+                  { animal.user_id == user.id ? 
+                  <IconButton onClick={() => {
+                      dispatch({
+                        type: "DELETE_ANIMAL",
+                        payload: animal.animal_details.id,
+                      });
+                    }}
+                  >
                     <Button
                       variant="outlined"
                       color="error"
                       startIcon={<DeleteIcon />}
                     >
                       Delete
-                    </Button>
-                  </IconButton>
+                    </Button> 
+                  </IconButton> : <></> }
                 </CardActions>
               </CardActionArea>
               {/* DETAILS OF ANIMAL*/}
               <CardContent>
                 {/* NAME */}
-                <Typography sx={title}>
-                  {animal.animal_details.name}
-                </Typography>
+                <Typography sx={title}>{animal.animal_details.name}</Typography>
               </CardContent>
             </Card>
           ))}
