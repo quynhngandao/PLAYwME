@@ -39,8 +39,8 @@ function Nav() {
               Animals
             </Link>
 
-            <Link className="navLink" to="/request">
-              Request
+            <Link className="navLink" to="/review">
+              Review
             </Link>
 
 {/* Logout Button */}

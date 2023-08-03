@@ -16,7 +16,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
   client.animal
     .search({ limit, location })
     .then((response) => {
-      console.log("server response from animal api:", response.data);
+      console.log("server response from animal api successful:");
       res.send(response.data);
     })
     .catch((err) => {

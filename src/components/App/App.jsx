@@ -59,13 +59,14 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-          <Route
-            // shows UserRequestPage if logged in 
+         
+           <ProtectedRoute
+            //  logged in shows shows UserRequestPage else shows LoginPage
             exact
-            path="/request"
+            path="/review"
           >
             <UserRequestPage />
-          </Route>
+            </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows AnimalsPage else shows LoginPage
