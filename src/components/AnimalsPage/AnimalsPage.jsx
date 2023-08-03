@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
-import { red } from "@mui/material/colors";
-import { borderRadius } from "@mui/system";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnimalItem from "../Animals/AnimalItem";
 
-// Style
+/*****STYLE*****/
 import "../App/App.css";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import SearchBar from "../SearchBar/SearchBar";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
@@ -15,7 +15,6 @@ const styledCardMediaNoImage = {
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
-
 const styledCard = {
   width: "100%",
   height: 400,
@@ -39,8 +38,8 @@ const styledHeartIcon = {
   marginRight: 1,
   ariaLabel: "favorite",
   htmlColor: "#ff95a6",
-  fontSize:"1.5em",
-  color:"pink"
+  fontSize: "1.5em",
+  color: "pink",
 };
 const styledHeartButton = {
   float: "right",
@@ -50,30 +49,42 @@ const textLink = {
   variant: "h6",
   color: (theme) => theme.palette.primary.dark,
 };
+/*****STYLE-END*****/
 
 export default function AnimalsPage() {
   const petfinder = useSelector((store) => store.petfinder);
-
+  const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({ type: "FETCH_API" });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      <header className="App-header">
-        <Typography variant="h2" color="primary.main" className="page-tile">Available Animals</Typography>
-      </header>
-      <AnimalItem
-        styledFab={styledFab}
-        styledCardMedia={styledCardMedia}
-        styledCard={styledCard}
-        textLink={textLink}
-        styledCardMediaNoImage={styledCardMediaNoImage}
-        styledHeartIcon={styledHeartIcon}
-        styledHeartButton={styledHeartButton}
-      />
+      {/* Conditional rendering based on loading status */}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <header className="App-header">
+            <Typography variant="h2" color="primary.main" className="page-tile">
+              Available Animals
+            </Typography>
+          </header>
+          {/* SEARCH BAR */}
+          <SearchBar />
+          <AnimalItem
+            styledFab={styledFab}
+            styledCardMedia={styledCardMedia}
+            styledCard={styledCard}
+            textLink={textLink}
+            styledCardMediaNoImage={styledCardMediaNoImage}
+            styledHeartIcon={styledHeartIcon}
+            styledHeartButton={styledHeartButton}
+          />
+        </>
+      )}
     </div>
   );
 }

@@ -3,7 +3,10 @@ import { put, takeEvery, takeLatest } from "redux-saga/effects";
 
 // Fetch from API
 function* getAnimalsInMN(action) {
-  try {
+
+  try {  
+    // Loading spinner while page loads
+    yield put({ type: "SET_LOADING" });
     // Make the API call
     const response = yield axios.get("/api/animal", {
       params: {
@@ -13,6 +16,8 @@ function* getAnimalsInMN(action) {
     yield put({ type: "SET_ANIMAL", payload: response.data });
   } catch (error) {
     console.log("Error with animals GET request from redux: ", error);
+  } finally {
+    yield put({ type: "UNSET_LOADING" });
   }
 }
 
