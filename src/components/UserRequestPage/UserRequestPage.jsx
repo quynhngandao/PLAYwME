@@ -1,10 +1,21 @@
-import { Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Button,
+  Fab,
+  Stack,
+  Divider,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteAnimal from "../Animals/FavoriteAnimal";
+import SendIcon from "@mui/icons-material/Send";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 // Style
 import "../App/App.css";
+import ContactForm from "../ContactForm/ContactForm";
 // Custom sx props
 const styledCard = {
   width: "100%",
@@ -21,12 +32,18 @@ const styledCardMedia = {
 };
 const textLink = {
   variant: "h6",
-  color: (theme) => (theme.palette.primary.dark),
-}
+  color: (theme) => theme.palette.primary.dark,
+};
+const styledFab = {
+  margin: 0,
+  ariaLabel: "send",
+  size: "medium",
+};
 
 export default function AnimalsPage() {
   const petfinder = useSelector((store) => store.petfinder);
-const favorite = useSelector(store => store.favorite)
+  const favorite = useSelector((store) => store.favorite);
+  const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,14 +52,35 @@ const favorite = useSelector(store => store.favorite)
 
   return (
     <div>
-      <header className="App-header">
-        <Typography variant="h2" color="primary.main" className="page-title">Review Page</Typography>
-      </header>
-      <FavoriteAnimal
-        styledCardMedia={styledCardMedia}
-        styledCard={styledCard}
-        textLink={textLink}
-      />
+      {/* Conditional rendering based on loading status */}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <Box>
+          <header className="App-header">
+            <Typography
+              variant="h2"
+              color="primary.main"
+              className="page-title"
+            >
+              Review Page
+            </Typography>
+          </header>
+          <Box minHeight="350px">
+            {/* ANIMAL DISPLAY */}
+            <FavoriteAnimal
+              styledCardMedia={styledCardMedia}
+              styledCard={styledCard}
+              textLink={textLink}
+            />
+          </Box>
+          <Stack direction="row">
+            {/* REQUEST FORM */}
+            <ContactForm />
+           
+          </Stack>
+        </Box>
+      )}
     </div>
   );
 }

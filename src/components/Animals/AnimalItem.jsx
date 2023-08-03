@@ -7,6 +7,7 @@ import {
   CardMedia,
   Fab,
   Button,
+  Tooltip
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -90,19 +91,20 @@ export default function AnimalItem({
               {animal.photos && animal.photos.length > 0 ? (
                 <CardActionArea>
                   <a href={animal.url}>
+                  <Tooltip title="Click For More Details" placement="top">
                     <CardMedia
                       sx={styledCardMedia}
                       component="img"
                       image={animal.photos[0].full}
                       alt={animal.name}
-                    />
+                    /></Tooltip>
                   </a>
-                </CardActionArea>
+                </CardActionArea> 
               ) : (
                 // NOT AVAILABLE IMAGE
-
                 <CardActionArea>
                   <a href={animal.url}>
+                    
                     <CardMedia
                       sx={styledCardMediaNoImage}
                       component="img"
@@ -110,15 +112,18 @@ export default function AnimalItem({
                       alt="not available"
                     />
                   </a>
-                </CardActionArea>
-              )}
+                </CardActionArea> 
+              )} 
+             
 
               {/* Favorite Button */}
               <IconButton
                 sx={styledHeartButton}
                 onClick={(e) => handleFavorite(e, animal)}
               >
+                 <Tooltip title="Add to Favorite" placement="left-start">
                 <FavoriteBorderIcon sx={styledHeartIcon} />
+                </Tooltip>
               </IconButton>
 
               {/* DETAILS */}

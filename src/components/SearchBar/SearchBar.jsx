@@ -22,11 +22,11 @@ const Search = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.primary.light, 0.25),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.primary.light, 0.50),
+    backgroundColor: alpha(theme.palette.primary.light, 0.35),
   },
 
   [theme.breakpoints.up('sm')]: {
-    width: '50em',
+    width: '40em',
   },
 }));
 
@@ -49,7 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '50ch',
+      width: '70ch',
     },
   },
 }));
