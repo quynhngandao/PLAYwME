@@ -40,8 +40,8 @@ export default function CheckboxDropdown() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel placeholder="Select your animal" id="demo-multiple-checkbox-label">Animal</InputLabel>
+      <FormControl sx={{ mt:1 , width: 520 }}>
+        <InputLabel placeholder="Select your animal" id="demo-multiple-checkbox-label">Select Animals</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"

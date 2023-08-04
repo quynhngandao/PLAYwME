@@ -23,10 +23,10 @@ const Modalpopup = ({ open, onClose }) => {
         </DialogTitle>
         
         <DialogContent>
-          <DialogContentText>Please fill out your information to request a playtime</DialogContentText>
+          <DialogContentText margin={2}>Please fill out your information to request a playtime</DialogContentText>
           <Stack spacing={2} margin={2}>
           
-            <TextField type="datetime-local" variant="outlined" />
+            <TextField placeholder="Select date and time" type="datetime-local" />
             <CheckboxDropdown/>
             <FormControlLabel
               control={<Checkbox defaultChecked color="primary" />}

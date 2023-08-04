@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import FavoriteAnimal from "../Animals/FavoriteAnimal";
+import FavoriteAnimalItem from "../Animals/FavoriteAnimalItem";
 import SendIcon from "@mui/icons-material/Send";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
@@ -68,13 +68,14 @@ export default function AnimalsPage() {
           </header>
           <Box minHeight="350px">
             {/* ANIMAL DISPLAY */}
-            <FavoriteAnimal
+            <FavoriteAnimalItem
               styledCardMedia={styledCardMedia}
               styledCard={styledCard}
               textLink={textLink}
             />
           </Box>
           <Stack direction="row">
+
             {/* REQUEST FORM */}
             <ContactForm />
            

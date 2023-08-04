@@ -44,7 +44,6 @@ export default function AnimalItem({
   // useSelector to grab animal data from redux store
   const petfinder = useSelector((store) => store.petfinder);
   const user = useSelector((store) => store.user);
-
   // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
 
@@ -81,6 +80,11 @@ export default function AnimalItem({
     }
   };
 
+  // Open new tab when picture is clicked 
+  const openInNewTab = (url) => {
+    window.open(url);
+  };
+
   return (
     <>
       {petfinder && (
@@ -89,8 +93,7 @@ export default function AnimalItem({
             <Card key={animal.id} className="card" sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
-                <CardActionArea>
-                  <a href={animal.url}>
+                 <CardActionArea onClick={() => openInNewTab(animal.url)}>
                   <Tooltip title="Click For More Details" placement="top">
                     <CardMedia
                       sx={styledCardMedia}
@@ -98,7 +101,6 @@ export default function AnimalItem({
                       image={animal.photos[0].full}
                       alt={animal.name}
                     /></Tooltip>
-                  </a>
                 </CardActionArea> 
               ) : (
                 // NOT AVAILABLE IMAGE
