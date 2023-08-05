@@ -21,6 +21,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import UserRequestPage from "../UserRequestPage/UserRequestPage";
+import ThankYouPage from "../ThankYouPage/ThankYouPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,14 @@ function App() {
           >
             <AnimalsPage />
           </ProtectedRoute>
+      
+          <ProtectedRoute
+            //  logged in shows shows UserRequestPage else shows LoginPage
+            exact
+            path="/thankyou"
+          >
+            <ThankYouPage />
+            </ProtectedRoute>
 
           <Route exact path="/login">
             {user.id ? (
@@ -114,7 +123,7 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
+      
       </div>
     </Router>
   );

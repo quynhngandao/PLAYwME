@@ -1,51 +1,63 @@
-import { Fab, FormControlLabel, IconButton, Button, Checkbox, DialogContentText, DialogTitle, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material";
+import {
+  Fab,
+  FormControlLabel,
+  IconButton,
+  Button,
+  Checkbox,
+  DialogContentText,
+  DialogTitle,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Stack,
+  TextField,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import  SendIcon from "@mui/icons-material/Send";
+import SendIcon from "@mui/icons-material/Send";
 import CheckboxDropdown from "../CheckboxDropdown/CheckboxDropdown";
 import { Box } from "@mui/system";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import CustomDateTimePicker from "../CustomDateTimePicker/CustomDateTimePicker";
 
-const Modalpopup = ({ open, onClose }) => {
+export default function Modalpopup({ open, onClose, AdapterDayjs }) {
+  const history = useHistory();
 
-  const history = useHistory()
-
-const handleClick = () => {
-history.push('/user')
-}
-
+  const handleClick = () => {
+    history.push("/thankyou");
+  };
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <Dialog
-        open={open}
-        onClose={onClose}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle variant="h4">
+    <div style={{ textAlign: "center" }}>
+      <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+        <DialogTitle style={{ textAlign: "center", marginBottom:0, paddingBottom:0}} variant="h3" color="primary.dark">
           Request Application
-           <IconButton onClick={onClose} style={{ float: 'right' }}>
+          <IconButton onClick={onClose} style={{ float: "right" }}>
             <CloseIcon color="primary" />
-            
           </IconButton>
-           
         </DialogTitle>
-        
+
         <DialogContent>
-          <DialogContentText margin={2}>Please fill out your information to request a playtime</DialogContentText>
+          <DialogContentText margin={2}>
+            Please fill out your information to request a playtime
+          </DialogContentText>
           <Stack spacing={2} margin={2}>
-          
-            <TextField placeholder="Select date and time" type="datetime-local" />
-            <CheckboxDropdown/>
+            {/* DATETIMEPICKER */}
+            <CustomDateTimePicker />
+            {/* CHECKBOX DROPDOWN */}
+            <CheckboxDropdown />
+            {/* Term of agreement */}
             <FormControlLabel
               control={<Checkbox defaultChecked color="primary" />}
               label="Agree to terms & conditions"
             />
-            
           </Stack>
-           {/* SUBMIT BUTTON */}
-           <Box display="flex" justifyContent="center">
-           <IconButton onClick={()=> handleClick()} variant="outlined" color="primary"> 
+          {/* SUBMIT BUTTON */}
+          <Box display="flex" justifyContent="center">
+            <IconButton
+              onClick={() => handleClick()}
+              variant="outlined"
+              color="primary"
+            >
               <Fab
                 variant="extended"
                 size="medium"
@@ -56,7 +68,7 @@ history.push('/user')
                 Submit
               </Fab>
             </IconButton>
-            </Box>
+          </Box>
         </DialogContent>
         <DialogActions>
           {/* <Button color="success" variant="contained">Yes</Button> */}
@@ -66,5 +78,3 @@ history.push('/user')
     </div>
   );
 }
-
-export default Modalpopup;

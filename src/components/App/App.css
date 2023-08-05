@@ -15,16 +15,17 @@ img {
 }
 
 /* --------------------------------------------------------------------------------
-Container
+PAGES
 -------------------------------------------------------------------------------- */
 
-.container {
-  padding: 25 px;
-  margin: auto;
+.landing-page, .login-page , .register-page {
+margin-top: 5em;
   min-height: 80vh;
-  max-height: 80vh;
 }
 
+.grid {
+  height:75vh;
+}
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */
@@ -114,9 +115,4 @@ input {
   margin-bottom: 10px;
 }
 
-/* page */
-.login-page, .register-page, .landing-page {
-  padding: 25 px;
-  margin: auto;
-  min-height: 80vh;
-}
+

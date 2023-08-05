@@ -7,6 +7,7 @@ import { Box, Button } from "@mui/material";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import LoginForm from "../LoginForm/LoginForm";
 import { GetStartedButton } from "../GetStartedButton/GetStartedButton";
+import Footer from "../Footer/Footer";
 
 function LandingPage() {
   const history = useHistory();
@@ -16,7 +17,7 @@ function LandingPage() {
   // };
 
   return (
-    <div className="container">
+    <div className="landing-page">
       <div className="grid">
         <center>
           <GetStartedButton
@@ -37,6 +38,7 @@ function LandingPage() {
         <div className="grid-col grid-col_8"></div>
         <div className="grid-col grid-col_4"></div>
       </div>
+      <Footer />
     </div>
   );
 }
