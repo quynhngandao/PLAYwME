@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import {
   Box,
@@ -20,6 +20,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ExpandItem from "./ExpandItem";
+import { useEffect } from "react";
 
 const styledCard = {
   width: "100%",
@@ -34,60 +35,77 @@ const styledCard = {
 
 export default function RequestResult() {
   const user = useSelector((store) => store.user);
-  const request = useSelector((store) => store.request);
+  const requests = useSelector((store) => store.requests);
+  const dispatch = useDispatch()
+
+  console.log('requests', requests)
+
+  useEffect(() => {
+  dispatch({type:"FETCH_REQUESTS"})
+  }, [])
+  
 
   return (
-    <Card sx={styledCard}>
-      <Box
-        sx={{
-          width: "100%",
-          bgcolor: "background.paper",
-          color: "#305f82",
-        }}
-      >
-        <Box sx={{ my: 2, mx: 1 }}>
-          <Grid container border="1px" alignItems="center">
-            <Grid item xs>
-              <Typography gutterBottom variant="h4" component="div">
-                Request Information
-              </Typography>
-            </Grid>
-            <Grid item></Grid>
-          </Grid>
-          <Typography color="text.secondary" variant="body2">
-            07/01/2023 &#x2022; 9:00 AM
-          </Typography>
-        </Box>
-        <Divider variant="middle" />
-        <Box>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ width: 40, height: 40 }}>
-                <AccountCircleIcon
-                  sx={{ width: 40, height: 40, fill: "#305f82" }}
-                />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Jane Doe" secondary="test@gmail.com" />
-          </ListItem>
-        </Box>
-        <Divider variant="middle" />
-       
-  
-       
-          {/* EDIT BUTTON */}
-          <IconButton sx={{ mt: 1, mb: 1 }}>
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<EditNoteIcon />}
-            >
-              Edit
-            </Button>
-          </IconButton>      
-          {/* TOGGLE BUTTON */}
-         <ExpandItem />
-      </Box>   
-    </Card>
+    <>
+      {requests && (
+        <div className="requests">
+          {requests?.map((request) => (
+            <Card key={request.id} className="request" sx={styledCard}>
+              <Box
+                sx={{
+                  width: "100%",
+                  bgcolor: "background.paper",
+                  color: "#305f82",
+                }}
+              >
+                <Box sx={{ my: 2, mx: 1 }}>
+                  <Grid container border="1px" alignItems="center">
+                    <Grid item xs>
+                      <Typography gutterBottom variant="h4" component="div">
+                        Request Information
+                      </Typography>
+                    </Grid>
+                    <Grid item></Grid>
+                  </Grid>
+                  <Typography color="text.secondary" variant="body2">
+                   {request.user_info.playtime}
+                  </Typography>
+                </Box>
+                <Divider variant="middle" />
+                <Box>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar sx={{ width: 40, height: 40 }}>
+                        <AccountCircleIcon
+                          sx={{ width: 40, height: 40, fill: "#305f82" }}
+                        />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={request.user_info.first_name}
+                      secondary={request.user_info.email}
+                    />
+                  </ListItem>
+                </Box>
+                <Divider variant="middle" />
+
+                {/* EDIT BUTTON */}
+                <IconButton sx={{ mt: 1, mb: 1 }}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<EditNoteIcon />}
+                  >
+                    Edit
+                  </Button>
+                </IconButton>
+                {/* TOGGLE BUTTON */}
+                <ExpandItem request={request}/>
+              </Box>
+            </Card>
+          ))}
+        </div>
+      )}
+    </>
   );
 }

@@ -51,22 +51,22 @@ export default function AnimalItem({
   const handleFavorite = (e, clickedAnimal) => {
     e.preventDefault();
     console.log("button clicked")
+    console.log("Clicked Animal Data:", clickedAnimal)
 
     // conditional statement: if clickedAnimal=true
     // set newAnimal's properties => clickedAnimal's values
     // handleFavorite function => send clickedAnimal data
     if (
       clickedAnimal &&
-      clickedAnimal.name &&
-      clickedAnimal.age &&
-      clickedAnimal.breeds &&
-      clickedAnimal.url
+      clickedAnimal.id 
     ) {
       const newAnimal = {
         id: clickedAnimal.id,
         name: clickedAnimal.name,
         age: clickedAnimal.age,
         breeds: clickedAnimal.breeds.primary,
+        location: clickedAnimal.contact.address,
+        contact: clickedAnimal.contact.email,
         photos:
           clickedAnimal.photos && clickedAnimal.photos.length > 0
             ? clickedAnimal.photos[0].full
@@ -136,7 +136,7 @@ export default function AnimalItem({
                 <Typography sx={body}>
                   {animal.age} &#x2022; {animal.breeds?.primary}
                 </Typography>
-                {/* AGE */}
+                {/* LOCATION */}
                 <Typography sx={body}>
                   {animal.contact.address.city}, {animal.contact.address.state}
                 </Typography>

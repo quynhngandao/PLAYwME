@@ -24,10 +24,10 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     .query(sqlQuery, [userId])
     .then((result) => {
       res.send(result.rows);
-      console.log("GET request from database: ", result.rows);
+      console.log("GET request from '/favorite' database: ", result.rows);
     })
     .catch((error) => {
-      console.log("Error in GET from database: ", error);
+      console.log("Error in GET from '/favorite' database: ", error);
       res.sendStatus(500);
     });
 });
@@ -37,32 +37,50 @@ router.get("/", rejectUnauthenticated, (req, res) => {
  */
 router.post("/", rejectUnauthenticated, async (req, res) => {
   try {
-    // req.body and req.user
-    const { id: petfinderId, name, age, breeds, photos, url } = req.body;
+    // creates alias petfinderId for the value of the id property from req.body
+    // if req.body has a property called id, its value will be assigned to the variable petfinderId
+    const {
+      id: petfinderId,
+      name,
+      age,
+      breeds,
+      location,
+      contact,
+      photos,
+      url,
+    } = req.body;
     const userId = req.user.id;
 
-    // CHECK QUERY (Check if the "petfinder_id" exists in the "animal" table)
+    // IMPORTANT: Location is an object
+    // Convert the location object to JSON string
+    const locationJSON = JSON.stringify(location);
+
+    /***** ANIMAL CHECK QUERY (Check if the "petfinder_id" exists in the "animal" table) *****/
     let animalId;
     const checkExistingAnimalQuery = `SELECT "id" FROM "animal" WHERE "petfinder_id" = $1;`;
 
     /***** Execute CHECK QUERY *****/
-    const animalCheckResult = await pool.query(checkExistingAnimalQuery, [petfinderId]);
+    const animalCheckResult = await pool.query(checkExistingAnimalQuery, [
+      petfinderId,
+    ]);
 
     // if petfinder_id in result row does not exsit
     if (!animalCheckResult.rows.length) {
       // first INSERT QUERY (insert into animal table AND return the id)
       const insertAnimalQuery = `
-    INSERT INTO "animal" ("petfinder_id", "name", "age", "breeds", "photos", "url")
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING "id";
-  `;
+      INSERT INTO "animal" ("petfinder_id", "name", "age", "breeds", "location", "contact", "photos", "url")
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING "id"; 
+    `;
 
-      /***** Execute first INSERT QUERY *****/
+      /***** Execute ANIMAL INSERT QUERY *****/
       const insertAnimalResult = await pool.query(insertAnimalQuery, [
         petfinderId,
         name,
         age,
         breeds,
+        locationJSON,
+        contact,
         photos,
         url,
       ]);
@@ -73,21 +91,45 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       animalId = animalCheckResult.rows[0]?.id;
     }
 
-    // second INSERT QUERY (adding favorited animal into favorite_animal)
-    const insertFavoriteAnimalQuery = `
-  INSERT INTO "favorite_animal" ("user_id", "animal_id")
-  VALUES ($1, $2);
-`;
+    /*****  FAVORITE CHECK QUERY (Check if favorite animal exist in "favorite_animal" table) *****/
+    const checkExistingFavoriteQuery = `
+        SELECT "id" FROM "favorite_animal" 
+        WHERE "user_id" = $1 
+        AND "animal_id" = $2;
+      `;
 
-    /***** Execute second INSERT QUERY *****/
-    await pool.query(insertFavoriteAnimalQuery, [userId, animalId]);
+    /***** Execute FAVORITE ANIMAL CHECK QUERY *****/
+    const checkFavoriteResult = await pool.query(checkExistingFavoriteQuery, [
+      userId,
+      animalId,
+    ]);
 
-    console.log("Favorite animal POST to the database successfully");
+    // If the favorite animal already exists, don't insert again
+    if (checkFavoriteResult.rows.length > 0) {
+      console.log("Favorite animal already exists for the user");
+      // The return avoid headers errors
+      return res.sendStatus(409);
+    } else {
+      // If the favorite animal does not exist, insert it
+      const insertFavoriteAnimalQuery = `
+        INSERT INTO "favorite_animal" ("user_id", "animal_id")
+        VALUES ($1, $2) RETURNING "id";
+      `;
+
+      /***** Execute second INSERT QUERY *****/
+      await pool.query(insertFavoriteAnimalQuery, [userId, animalId]);
+    }
+    console.log(
+      "Favorite animal POST to the '/favorite' database successfully"
+    );
     res.sendStatus(201);
 
     // CATCH ERROR
   } catch (error) {
-    console.log("Error with favorite animal POST to database: ", error);
+    console.log(
+      "Error with favorite animal POST to '/favorite' database: ",
+      error
+    );
     res.sendStatus(500);
   }
 });

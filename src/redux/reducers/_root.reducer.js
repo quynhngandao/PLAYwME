@@ -4,7 +4,7 @@ import user from './user.reducer';
 import petfinder from './petfinder.reducer'
 import favorite from './favorite.reducer'
 import loading from './loading.reducer'
-import request from './request.reducer';
+import requests from './requests.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   petfinder, // petfinder reducer will store animals from petfinder api
   favorite, // favorite reducer will store favorite animals
   loading, // loading reducer will perform loading spinner for API 
-  request, // request reducer will store user's animal request 
+  requests, // requests reducer will store user's animal requests
 });
 
 export default rootReducer;

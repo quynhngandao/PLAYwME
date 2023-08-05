@@ -7,6 +7,7 @@ import {theme} from './theme/theme'
 import store from './redux/store';
 
 import App from './components/App/App';
+import index from './index.css'
 
 
 const root = ReactDOM.createRoot(document.getElementById('react-root'));

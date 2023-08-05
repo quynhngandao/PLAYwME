@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // Import styling
 import {
   Typography,
@@ -10,41 +10,43 @@ import {
   CardActions,
   IconButton,
   Button,
+  Tooltip,
+  Stack,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-
-import { useDispatch } from "react-redux";
+import EmailIcon from '@mui/icons-material/Email';
 
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
-import ExpandItem from "../RequestResultItem/ExpandItem";
 
 // custom styling
 const body = {
   color: "primary.dark",
-  fontSize: "15px",
+  fontSize: "16px",
   fontWeight: "bold",
   fontFamily: "fraunces",
-  verticalAlign: "middle",
 };
 const title = {
-  mt: "3px",
-  mb: "7px",
-  color: "primary.main",
-  fontSize: "1em",
+  color: "primary.dark",
+  fontSize: "20px", 
   fontFamily: "fraunces",
 };
 
 // FUNCTION
-export default function FavoriteAnimalItem({ styledCard, styledCardMedia }) {
+export default function FavoriteAnimalItem({
+  styledCard,
+  styledCardMedia,
+  mailTo,
+  label,
+}) {
   // useSelector to grab animal data from redux store
   const user = useSelector((store) => store.user);
   const favorite = useSelector((store) => store.favorite);
-   // useDispatch to send animal data to redux store
+  // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
 
-    // Open new tab when picture is clicked 
+  // Open new tab when picture is clicked
   const openInNewTab = (url) => {
     window.open(url);
   };
@@ -53,7 +55,7 @@ export default function FavoriteAnimalItem({ styledCard, styledCardMedia }) {
   return (
     <>
       <Typography variant="h3" color="primary.main" className="page-heading">
-      Review Your Animal Selection
+        Review Your Animal Selection
       </Typography>
       {favorite && (
         <div className="favorite-animals">
@@ -62,13 +64,17 @@ export default function FavoriteAnimalItem({ styledCard, styledCardMedia }) {
               {/* Image */}
               {animal.animal_details.photos &&
               animal.animal_details.photos.length > 0 ? (
-                <CardActionArea onClick={() => openInNewTab(animal.animal_details.url)}>
-                  <CardMedia
-                    sx={styledCardMedia}
-                    component="img"
-                    image={animal.animal_details.photos}
-                    alt={animal.animal_details.name}
-                  />
+                <CardActionArea
+                  onClick={() => openInNewTab(animal.animal_details.url)}
+                >
+                  <Tooltip Tooltip title="See more details" placement="top">
+                    <CardMedia
+                      sx={styledCardMedia}
+                      component="img"
+                      image={animal.animal_details.photos}
+                      alt={animal.animal_details.name}
+                    />
+                  </Tooltip>
                 </CardActionArea>
               ) : (
                 // NOT AVAILABLE IMAGE
@@ -84,20 +90,20 @@ export default function FavoriteAnimalItem({ styledCard, styledCardMedia }) {
                 </CardActionArea>
               )}
               <CardActionArea>
-                <CardActions>
+                <CardActions sx={{p:0}}>
+            
                   {/* EDIT BUTTON */}
-                  <IconButton>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      startIcon={<EditNoteIcon />}
-                    >
-                      Edit
-                    </Button>
-                   
-                  </IconButton>
-                  {/* DELETE BUTTON - should only show for logged in user */}
-                  {animal.user_id == user.id ? (
+                  <Tooltip Tooltip title="edit" placement="bottom">
+                    <IconButton>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                
+                      ><EditNoteIcon /></Button>
+                    </IconButton>
+                    {/* DELETE BUTTON */}
+                  </Tooltip>
+                  <Tooltip Tooltip title="delete" placement="bottom">
                     <IconButton
                       onClick={() => {
                         dispatch({
@@ -109,20 +115,37 @@ export default function FavoriteAnimalItem({ styledCard, styledCardMedia }) {
                       <Button
                         variant="outlined"
                         color="error"
-                        startIcon={<DeleteIcon />}
-                      >
-                        Delete
-                      </Button>
+        
+                      ><DeleteIcon /></Button>
                     </IconButton>
-                  ) : (
-                    <></>
-                  )}
+                  </Tooltip>
+
+                  {/* CONTACT */}
+                  <Tooltip Tooltip title="contact" placement="bottom">
+                    <IconButton
+                      onClick={() =>
+                        (window.location = `mailto:${animal.animal_details.contact}`)
+                      }
+                    >
+                      <Button width="50%"
+                        variant="outlined"
+                        color="primary"
+                       
+                      > <EmailIcon/></Button>
+                    </IconButton>
+                  </Tooltip>
+        
                 </CardActions>
               </CardActionArea>
               {/* DETAILS OF ANIMAL*/}
-              <CardContent>
+              <CardContent sx={{pt:0}}>
                 {/* NAME */}
                 <Typography sx={title}>{animal.animal_details.name}</Typography>
+                {/* LOCATION */}
+                <Typography sx={body}>
+                  {animal.animal_details.location.city}, 
+                  {animal.animal_details.location.state}
+                </Typography>
               </CardContent>
             </Card>
           ))}

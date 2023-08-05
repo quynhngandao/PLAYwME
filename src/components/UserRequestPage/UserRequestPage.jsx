@@ -29,6 +29,7 @@ const styledCardMedia = {
   width: "100%",
   height: 200,
   objectFit: "fill",
+  mb: 1
 };
 const textLink = {
   variant: "h6",
@@ -51,7 +52,7 @@ export default function AnimalsPage() {
   }, []);
 
   return (
-    <div>
+    <div className="request-page">
       {/* Conditional rendering based on loading status */}
       {loading ? (
         <LoadingSpinner />

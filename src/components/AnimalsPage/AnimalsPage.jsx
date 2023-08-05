@@ -61,7 +61,7 @@ export default function AnimalsPage() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="petfinder-page">
       {/* Conditional rendering based on loading status */}
       {loading ? (
         <LoadingSpinner />
