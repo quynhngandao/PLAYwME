@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
+import ExpandItem from "../RequestResultItem/ExpandItem";
 
 // custom styling
 const body = {
@@ -31,7 +32,7 @@ const title = {
   mt: "3px",
   mb: "7px",
   color: "primary.main",
-  fontSize: "1.5em",
+  fontSize: "1em",
   fontFamily: "fraunces",
 };
 
@@ -93,6 +94,7 @@ export default function FavoriteAnimalItem({ styledCard, styledCardMedia }) {
                     >
                       Edit
                     </Button>
+                   
                   </IconButton>
                   {/* DELETE BUTTON - should only show for logged in user */}
                   {animal.user_id == user.id ? (

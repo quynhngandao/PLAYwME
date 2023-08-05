@@ -56,7 +56,7 @@ export default function AnimalsPage() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <Box>
+        <Box sx={{ml:5}}>
           <header className="App-header">
             <Typography
               variant="h2"
@@ -74,7 +74,7 @@ export default function AnimalsPage() {
               textLink={textLink}
             />
           </Box>
-          <Stack direction="row">
+          <Stack sx={{direction:"row", mb:5}}>
 
             {/* REQUEST FORM */}
             <ContactForm />

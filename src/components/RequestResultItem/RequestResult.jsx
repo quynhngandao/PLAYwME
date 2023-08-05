@@ -25,6 +25,7 @@ const styledCard = {
   width: "100%",
   maxWidth: 350,
   minHeight: 300,
+  maxHeight: 600,
   borderRadius: 3,
   boxShadow: 5,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),

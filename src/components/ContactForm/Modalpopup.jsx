@@ -3,8 +3,17 @@ import CloseIcon from "@mui/icons-material/Close";
 import  SendIcon from "@mui/icons-material/Send";
 import CheckboxDropdown from "../CheckboxDropdown/CheckboxDropdown";
 import { Box } from "@mui/system";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Modalpopup = ({ open, onClose }) => {
+
+  const history = useHistory()
+
+const handleClick = () => {
+history.push('/user')
+}
+
+
   return (
     <div style={{ textAlign: 'center' }}>
       <Dialog
@@ -36,7 +45,7 @@ const Modalpopup = ({ open, onClose }) => {
           </Stack>
            {/* SUBMIT BUTTON */}
            <Box display="flex" justifyContent="center">
-           <IconButton variant="outlined" color="primary"> 
+           <IconButton onClick={()=> handleClick()} variant="outlined" color="primary"> 
               <Fab
                 variant="extended"
                 size="medium"

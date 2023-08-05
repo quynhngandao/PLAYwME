@@ -56,12 +56,7 @@ function ExpandItem(props) {
           timeout="auto"
           unmountOnExit
         >
-          <CardMedia
-            component="img"
-            height="90%"
-            width="100%"
-            image={"images/cheeto.jpeg"}
-          />
+         
           <Typography
             sx={{
               textTransform: "capitalize",
@@ -70,7 +65,7 @@ function ExpandItem(props) {
               color: "#0F66D0",
               fontWeight: "bold",
             }}
-          > Selected Animal
+          > Note:
           </Typography>
         </Collapse>
       </CardContent>
