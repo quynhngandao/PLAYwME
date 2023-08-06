@@ -4,7 +4,6 @@ import {
   Box,
   Card,
   IconButton,
-  Chip,
   Button,
   Stack,
   Divider,
@@ -19,8 +18,8 @@ import {
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import ExpandItem from "./ExpandItem";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const styledCard = {
   width: "100%",
@@ -32,22 +31,36 @@ const styledCard = {
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
 
-export default function RequestResult() {
+export default function RequestResult({ request }) {
   const user = useSelector((store) => store.user);
   const requests = useSelector((store) => store.requests);
-  const dispatch = useDispatch();
+  const favorite = useSelector((store) => store.favorite);
+  const editRequest = useSelector((store) => store.editRequest);
 
-  console.log("requests", requests);
-  useEffect(() => {
-    dispatch({ type: "FETCH_REQUESTS" });
-  }, []);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  // handleEdit
+  const handleEditClick = () => {
+    // Convert date_time first before sending to DB
+    const formattedDateTime = new Date(editRequest.date_time).toISOString();
+
+    dispatch({
+      type: "SUBMIT_EDIT_REQUEST",
+      payload: {
+        ...editRequest,
+        date_time: formattedDateTime,
+      },
+    });
+    history.push("/edit");
+  };
 
   return (
     <>
       {requests && (
         <Box className="requests" display="flex">
           <Stack spacing={5} direction="row">
-            {requests?.map((request) => (
+            {requests.map((request) => (
               <Card key={request.id} className="request" sx={styledCard}>
                 <Box
                   sx={{
@@ -69,7 +82,7 @@ export default function RequestResult() {
                       color="text.secondary"
                       variant="body2"
                     >
-                      {request.user_info.playtime}
+                      {request.user_info.date_time}
                     </Typography>
                   </Box>
                   <Divider variant="middle" />
@@ -91,7 +104,7 @@ export default function RequestResult() {
                   <Divider variant="middle" />
                   <Box>
                     {/* EDIT BUTTON */}
-                    <IconButton sx={{ m: 1 }}>
+                    <IconButton sx={{ m: 1 }} onClick={handleEditClick}>
                       <Button
                         variant="outlined"
                         color="primary"

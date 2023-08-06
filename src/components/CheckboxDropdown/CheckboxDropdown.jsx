@@ -6,7 +6,8 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const ITEM_HEIGHT = 60;
 const ITEM_PADDING_TOP = 8;
@@ -19,23 +20,17 @@ const MenuProps = {
   },
 };
 
-const animals = [
-  'Oliver Hansen',
-  'Van Henry',
-];
 
-export default function CheckboxDropdown() {
-    const favorite = useSelector(store=> store.favorite)
-  const [newAnimal, setNewAnimal] = React.useState([]);
+export default function CheckboxDropdown({ onAnimalSelection }) {
+  const favorite = useSelector(store => store.favorite);
+  const [newAnimal, setNewAnimal] = useState([]);
 
   const handleChange = (e) => {
     const {
       target: { value },
     } = e;
-    setNewAnimal(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setNewAnimal(typeof value === 'string' ? value.split(',') : value);
+    onAnimalSelection(typeof value === 'string' ? value.split(',') : value);
   };
 
   return (
@@ -52,10 +47,10 @@ export default function CheckboxDropdown() {
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {animals.map((animal) => (
-            <MenuItem key={animal} value={animal}>
-              <Checkbox checked={newAnimal.indexOf(animal) > -1} color="default"/>
-              <ListItemText primary={animal} />
+          {favorite.map((animal) => (
+            <MenuItem key={animal.animal_details.id} value={animal.animal_details.name}>
+              <Checkbox checked={newAnimal.indexOf(animal.animal_details.name) > -1} color="default" />
+              <ListItemText primary={animal.animal_details.name} />
             </MenuItem>
           ))}
         </Select>

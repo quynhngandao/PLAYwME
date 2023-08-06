@@ -1,4 +1,5 @@
 import React from "react";
+import dayjs from "dayjs";
 import {
   usePopupState,
   bindTrigger,
@@ -15,6 +16,13 @@ const PopoverContent = styled("div")({
 });
 
 function PopoverPopupState() {
+  const [date_time, setDate_time] = useState("");
+
+  const handleDateTimeChange = (formattedDateTime) => {
+    setDate_time(formattedDateTime);
+  };
+
+  // OPEN AND CLOSE MODAL
   const [open, setOpen] = useState(false);
 
   const popupState = usePopupState({
@@ -59,8 +67,14 @@ function PopoverPopupState() {
         }}
       >
         <PopoverContent>
-          <Modalpopup open={open} onClose={handleClose} />{" "}
-          {/* Pass the state and close function */}
+          <Modalpopup
+            open={open}
+            onClose={handleClose}
+            AdapterDayjs={dayjs}
+            date_time={date_time}
+            // Pass setDate_time to Modalpopup
+            setDate_time={setDate_time}
+          />
         </PopoverContent>
       </Popover>
     </Box>

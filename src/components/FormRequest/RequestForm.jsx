@@ -3,7 +3,7 @@ import React from 'react'
 import PopoverPopupState from './PopoverPopupState'
 import { Typography } from '@mui/material'
 
-function ContactForm() {
+export default function RequestForm() {
   return (
     <Box className='contact-form'>
  <Typography variant="h3" color="primary.main" className="page-heading">
@@ -14,4 +14,3 @@ function ContactForm() {
   )
 }
 
-export default ContactForm

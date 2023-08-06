@@ -18,12 +18,15 @@ function* fetchRequests() {
 
 function* addRequest(action) {
   try {
+    console.log('ACTION.PAYLOAD', action.payload);
+    // Send the payload with the correct date_time format
     yield axios.post("/request", action.payload);
     yield put({ type: "FETCH_REQUESTS" });
   } catch (error) {
     console.log("Error with user's request of POST request from redux", error);
   }
 }
+
 
 function* deleteRequest(action) {
   try {
@@ -34,14 +37,19 @@ function* deleteRequest(action) {
   }
 }
 
-// function* editRequest(action)
-
+function* editRequest(action) {
+  try {
+    yield axios.put( `/request/${action.payload.id}`, action.payload)
+    yield put({type: "FETCH_REQUESTS"})
+  } catch (error) {
+    console.log("Error with user's request of PUT request from redux:", error)
+  }
+}
 
 function* requestSaga() {
   yield takeEvery("FETCH_REQUESTS", fetchRequests);
   yield takeLatest("ADD_REQUEST", addRequest);
-  yield takeLatest("DELETE_REQUEST", deleteRequest);
-//   yield takeLatest("EDIT_REQUEST", editRequest);
+  yield takeLatest("SUBMIT_EDIT_REQUEST", editRequest);
 }
 
 export default requestSaga;

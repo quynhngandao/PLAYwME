@@ -15,7 +15,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 // Style
 import "../App/App.css";
-import ContactForm from "../ContactForm/ContactForm";
+import RequestForm from  '../FormRequest/RequestForm'
 // Custom sx props
 const styledCard = {
   width: "100%",
@@ -41,7 +41,7 @@ const styledFab = {
   size: "medium",
 };
 
-export default function AnimalsPage() {
+export default function RequestPage() {
   const petfinder = useSelector((store) => store.petfinder);
   const favorite = useSelector((store) => store.favorite);
   const loading = useSelector((store) => store.loading);
@@ -78,7 +78,7 @@ export default function AnimalsPage() {
           <Stack sx={{direction:"row", mb:5}}>
 
             {/* REQUEST FORM */}
-            <ContactForm />
+            <RequestForm />
            
           </Stack>
         </Box>

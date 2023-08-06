@@ -20,8 +20,9 @@ import AnimalsPage from "../AnimalsPage/AnimalsPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import UserRequestPage from "../UserRequestPage/UserRequestPage";
+import RequestPage from "../RequestPage/RequestPage";
 import ThankYouPage from "../ThankYouPage/ThankYouPage";
+import EditRequest from "../EditRequest/EditRequest";
 
 function App() {
   const dispatch = useDispatch();
@@ -66,7 +67,7 @@ function App() {
             exact
             path="/review"
           >
-            <UserRequestPage />
+            <RequestPage />
             </ProtectedRoute>
 
           <ProtectedRoute
@@ -78,12 +79,20 @@ function App() {
           </ProtectedRoute>
       
           <ProtectedRoute
-            //  logged in shows shows UserRequestPage else shows LoginPage
+            //  logged in shows shows ThankYouPage else shows LoginPage
             exact
             path="/thankyou"
           >
             <ThankYouPage />
             </ProtectedRoute>
+            <ProtectedRoute
+            // logged in shows Edit Route 
+            exact
+            path="/edit"
+          >
+            <EditRequest />
+          </ProtectedRoute>
+
 
           <Route exact path="/login">
             {user.id ? (
