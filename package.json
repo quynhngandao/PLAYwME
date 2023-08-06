@@ -12,7 +12,7 @@
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
     "@mui/styled-engine-sc": "^5.12.0",
-    "@mui/x-date-pickers": "^6.10.2",
+    "@mui/x-date-pickers": "^6.11.0",
     "@petfinder/petfinder-js": "^1.0.6",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",

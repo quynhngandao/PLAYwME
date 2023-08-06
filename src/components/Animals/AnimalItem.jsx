@@ -7,6 +7,7 @@ import {
   CardMedia,
   Fab,
   Button,
+  Tooltip
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -43,7 +44,6 @@ export default function AnimalItem({
   // useSelector to grab animal data from redux store
   const petfinder = useSelector((store) => store.petfinder);
   const user = useSelector((store) => store.user);
-
   // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
 
@@ -51,22 +51,22 @@ export default function AnimalItem({
   const handleFavorite = (e, clickedAnimal) => {
     e.preventDefault();
     console.log("button clicked")
+    console.log("Clicked Animal Data:", clickedAnimal)
 
     // conditional statement: if clickedAnimal=true
     // set newAnimal's properties => clickedAnimal's values
     // handleFavorite function => send clickedAnimal data
     if (
       clickedAnimal &&
-      clickedAnimal.name &&
-      clickedAnimal.age &&
-      clickedAnimal.breeds &&
-      clickedAnimal.url
+      clickedAnimal.id 
     ) {
       const newAnimal = {
         id: clickedAnimal.id,
         name: clickedAnimal.name,
         age: clickedAnimal.age,
         breeds: clickedAnimal.breeds.primary,
+        location: clickedAnimal.contact.address,
+        contact: clickedAnimal.contact.email,
         photos:
           clickedAnimal.photos && clickedAnimal.photos.length > 0
             ? clickedAnimal.photos[0].full
@@ -80,6 +80,11 @@ export default function AnimalItem({
     }
   };
 
+  // Open new tab when picture is clicked 
+  const openInNewTab = (url) => {
+    window.open(url);
+  };
+
   return (
     <>
       {petfinder && (
@@ -88,21 +93,20 @@ export default function AnimalItem({
             <Card key={animal.id} className="card" sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
-                <CardActionArea>
-                  <a href={animal.url}>
+                 <CardActionArea onClick={() => openInNewTab(animal.url)}>
+                  <Tooltip title="Click For More Details" placement="top">
                     <CardMedia
                       sx={styledCardMedia}
                       component="img"
                       image={animal.photos[0].full}
                       alt={animal.name}
-                    />
-                  </a>
-                </CardActionArea>
+                    /></Tooltip>
+                </CardActionArea> 
               ) : (
                 // NOT AVAILABLE IMAGE
-
                 <CardActionArea>
                   <a href={animal.url}>
+                    
                     <CardMedia
                       sx={styledCardMediaNoImage}
                       component="img"
@@ -110,15 +114,18 @@ export default function AnimalItem({
                       alt="not available"
                     />
                   </a>
-                </CardActionArea>
-              )}
+                </CardActionArea> 
+              )} 
+             
 
               {/* Favorite Button */}
               <IconButton
                 sx={styledHeartButton}
                 onClick={(e) => handleFavorite(e, animal)}
               >
+                 <Tooltip title="Add to Favorite" placement="left-start">
                 <FavoriteBorderIcon sx={styledHeartIcon} />
+                </Tooltip>
               </IconButton>
 
               {/* DETAILS */}
@@ -129,7 +136,7 @@ export default function AnimalItem({
                 <Typography sx={body}>
                   {animal.age} &#x2022; {animal.breeds?.primary}
                 </Typography>
-                {/* AGE */}
+                {/* LOCATION */}
                 <Typography sx={body}>
                   {animal.contact.address.city}, {animal.contact.address.state}
                 </Typography>

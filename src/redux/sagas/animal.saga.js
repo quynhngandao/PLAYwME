@@ -4,6 +4,8 @@ import { put, takeEvery, takeLatest } from "redux-saga/effects";
 // Fetch from API
 function* getAnimalsInMN(action) {
   try {
+    // Loading spinner while page loads
+    yield put({ type: "SET_LOADING" });
     // Make the API call
     const response = yield axios.get("/api/animal", {
       params: {
@@ -13,22 +15,29 @@ function* getAnimalsInMN(action) {
     yield put({ type: "SET_ANIMAL", payload: response.data });
   } catch (error) {
     console.log("Error with animals GET request from redux: ", error);
+  } finally {
+    yield put({ type: "UNSET_LOADING" });
   }
 }
 
 // Fetch from Favorite
 function* fetchAnimals() {
   try {
+    // Loading spinner while page loads
+    yield put({ type: "SET_LOADING" });
+
     const response = yield axios.get("/favorite");
     yield put({ type: "SET_FAVORITE", payload: response.data });
   } catch (error) {
     console.log("Error with animals GET request from redux: ", error);
+  } finally {
+    yield put({ type: "UNSET_LOADING" });
   }
 }
 
 function* addAnimal(action) {
   try {
-    const animalToAdd = yield axios.post("/favorite", action.payload);
+    yield axios.post("/favorite", action.payload);
     yield put({ type: "FETCH_ANIMALS" });
   } catch (error) {
     console.log("Error with animal POST request from redux", error);
@@ -46,7 +55,7 @@ function* deleteAnimal(action) {
 
 function* animalSaga() {
   yield takeEvery("FETCH_API", getAnimalsInMN);
-  yield takeLatest("FETCH_ANIMALS", fetchAnimals);
+  yield takeEvery("FETCH_ANIMALS", fetchAnimals);
   yield takeLatest("ADD_ANIMAL", addAnimal);
   yield takeLatest("DELETE_ANIMAL", deleteAnimal);
 }
