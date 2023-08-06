@@ -41,15 +41,13 @@ export default function RequestResult({ request }) {
   const history = useHistory();
 
   // handleEdit
-  const handleEditClick = () => {
-    // Convert date_time first before sending to DB
-    const formattedDateTime = new Date(editRequest.date_time).toISOString();
+  const handleEditClick = () => { 
 
     dispatch({
       type: "SUBMIT_EDIT_REQUEST",
       payload: {
         ...editRequest,
-        date_time: formattedDateTime,
+        date_time: date_time,
       },
     });
     history.push("/edit");

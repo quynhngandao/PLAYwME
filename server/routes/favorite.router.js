@@ -5,42 +5,45 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-/**
- * GET favorited animals for the user who favorited the animal to display
- */
-router.get("/", rejectUnauthenticated, (req, res) => {
-  // Get the user_id from the logged in user
-  const userId = req.user.id;
+/**************************************************
+ * GET logged-in user's favorite animals to display
+ *************************************************/
+router.get("/", rejectUnauthenticated, async (req, res) => {
+  try {
+    const user_id = req.user.id; // Get the user_id from the logged in user
 
-  // ROW_TO_JSON turns row in animal table into object
-  let sqlQuery = `SELECT "username", "user"."id" AS "user_id", ROW_TO_JSON("animal") AS "animal_details"
-  FROM "user" 
-  JOIN "favorite_animal" ON "favorite_animal"."user_id" = "user"."id"
-  JOIN "animal" ON "animal"."id" = "favorite_animal"."animal_id"
-  WHERE "user"."id" = $1
-  GROUP BY "username",  "user"."id", "animal"."id";`;
+    // GET REQUEST QUERY (Request user's favanimal animals) ROW_TO_JSON turns row into object
+    let sqlQuery = `
+      SELECT "username", "user"."id" AS "user_id", ROW_TO_JSON("animal") AS "animal_details"
+      FROM "user" 
+      JOIN "favorite_animal" ON "favorite_animal"."user_id" = "user"."id"
+      JOIN "animal" ON "animal"."id" = "favorite_animal"."animal_id"
+      WHERE "user"."id" = $1
+      GROUP BY "username",  "user"."id", "animal"."id";`;
 
-  pool
-    .query(sqlQuery, [userId])
-    .then((result) => {
-      res.send(result.rows);
-      console.log("GET request from '/favorite' database: ");
-    })
-    .catch((error) => {
-      console.log("Error in GET from '/favorite' database: ", error);
-      res.sendStatus(500);
-    });
+    /***** Execute GET QUERY *****/
+    const result = await pool.query(sqlQuery, [user_id]);
+
+    /***** SUCCESS *****/
+    res.send(result.rows);
+    console.log("GET request from '/favorite' database successful: ");
+
+    /***** ERROR *****/
+  } catch (error) {
+    console.log("Error in GET from '/favorite' database: ", error);
+    res.sendStatus(500);
+  }
 });
 
-/**
- * POST an animal for the logged in user in database
- */
+/***************************************
+ * POST logged-in user's favorite animal
+ **************************************/
 router.post("/", rejectUnauthenticated, async (req, res) => {
   try {
     // creates alias petfinderId for the value of the id property from req.body
     // if req.body has a property called id, its value will be assigned to the variable petfinderId
     const {
-      id: petfinderId,
+      id: petfinder_id,
       name,
       age,
       breeds,
@@ -49,33 +52,33 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       photos,
       url,
     } = req.body;
-    const userId = req.user.id;
+    const user_id = req.user.id; // Get the user_id from the logged in user
 
-    // IMPORTANT: Location is an object
+    /***** IMPORTANT *****/
     // Convert the location object to JSON string
     const locationJSON = JSON.stringify(location);
 
-    /***** ANIMAL CHECK QUERY (Check if the "petfinder_id" exists in the "animal" table) *****/
-    let animalId;
+    // ANIMAL CHECK QUERY (Check if the "petfinder_id" exists in the "animal" table) *****/
+    let animal_id;
     const checkExistingAnimalQuery = `SELECT "id" FROM "animal" WHERE "petfinder_id" = $1;`;
 
     /***** Execute CHECK QUERY *****/
     const animalCheckResult = await pool.query(checkExistingAnimalQuery, [
-      petfinderId,
+      petfinder_id,
     ]);
 
-    // if petfinder_id in result row does not exsit
+    // Condition that checks if petfinder_id in result row does not exsit
     if (!animalCheckResult.rows.length) {
-      // first INSERT QUERY (insert into animal table AND return the id)
+      // First, INSERT QUERY (insert into animal table AND return the id)
       const insertAnimalQuery = `
-      INSERT INTO "animal" ("petfinder_id", "name", "age", "breeds", "location", "contact", "photos", "url")
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-      RETURNING "id"; 
+        INSERT INTO "animal" ("petfinder_id", "name", "age", "breeds", "location", "contact", "photos", "url")
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING "id"; 
     `;
 
-      /***** Execute ANIMAL INSERT QUERY *****/
+      /***** Execute INSERT ANIMAL QUERY *****/
       const insertAnimalResult = await pool.query(insertAnimalQuery, [
-        petfinderId,
+        petfinder_id,
         name,
         age,
         breeds,
@@ -85,30 +88,29 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
         url,
       ]);
       // set newly inserted animal as animalId
-      animalId = insertAnimalResult.rows[0]?.id;
+      animal_id = insertAnimalResult.rows[0]?.id;
     } else {
       // set existing animal as animalId
-      animalId = animalCheckResult.rows[0]?.id;
+      animal_id = animalCheckResult.rows[0]?.id;
     }
 
-    /*****  FAVORITE CHECK QUERY (Check if favorite animal exist in "favorite_animal" table) *****/
+    // FAVORITE ANIMAL CHECK QUERY (Check if favorite animal exist in "favorite_animal" table)
     const checkExistingFavoriteQuery = `
-        SELECT "id" FROM "favorite_animal" 
-        WHERE "user_id" = $1 
-        AND "animal_id" = $2;
-      `;
+      SELECT "id" FROM "favorite_animal" 
+      WHERE "user_id" = $1 
+      AND "animal_id" = $2;
+    `;
 
     /***** Execute FAVORITE ANIMAL CHECK QUERY *****/
     const checkFavoriteResult = await pool.query(checkExistingFavoriteQuery, [
-      userId,
-      animalId,
+      user_id,
+      animal_id,
     ]);
 
     // If the favorite animal already exists, don't insert again
     if (checkFavoriteResult.rows.length > 0) {
       console.log("Favorite animal already exists for the user");
-      // The return avoid headers errors
-      return res.sendStatus(409);
+      return res.sendStatus(409); // The "return" avoid headers errors
     } else {
       // If the favorite animal does not exist, insert it
       const insertFavoriteAnimalQuery = `
@@ -117,64 +119,67 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       `;
 
       /***** Execute second INSERT QUERY *****/
-      await pool.query(insertFavoriteAnimalQuery, [userId, animalId]);
+      const result = await pool.query(insertFavoriteAnimalQuery, [
+        user_id,
+        animal_id,
+      ]);
     }
-    console.log(
-      "Favorite animal POST to the '/favorite' database successfully"
-    );
+    /***** SUCCESS *****/
+    console.log("POST animal in '/favorite' to database successful");
     res.sendStatus(201);
 
-    // CATCH ERROR
+    /***** CATCH ERROR *****/
   } catch (error) {
-    console.log(
-      "Error with favorite animal POST to '/favorite' database: ",
-      error
-    );
+    console.log("POST animal in '/favorite' to database error: ", error);
     res.sendStatus(500);
   }
 });
 
-/**
- * Delete an animal if it's something the logged in user added
- */
+/****************************************
+ * DELETE logged-in user's favorite animal
+ ****************************************/
 router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   try {
-    // req.params and req.user
+    // req.params
     let animalToDelete = req.params.id;
-    let userId = req.user.id;
-
-    console.log(animalToDelete, "animal to delete id");
+    let user_id = req.user.id; // Get the user_id from the logged in user
 
     // CHECK QUERY (checked if selected animal belongs to the logged-in user)
-    let checkAnimalQuery = `SELECT FROM "favorite_animal" WHERE "animal_id" = $1 AND "user_id" = $2;`;
+    let checkAnimalQuery = `
+      SELECT FROM "favorite_animal" 
+      WHERE "animal_id" = $1 AND "user_id" = $2;`;
 
     /***** Execute CHECK QUERY *****/
     const checkAnimalQueryResult = await pool.query(checkAnimalQuery, [
       animalToDelete,
-      userId,
+      user_id,
     ]);
 
-    //  If rowCount is equal to 0, nothing was return from QUERY CHECK
-    // => selected animal does not belong to the logged-in user
-    /* (!checkAnimalQueryResult.rows.length) this can work but below is better */
+    // Condition that checks if selected animal belong to logged-in user
     if (checkAnimalQueryResult.rowCount === 0) {
-      console.log(
-        "User does not have permission to delete the favorite animal"
-      );
+      /* (!checkAnimalQueryResult.rows.length) this can work but rowCount is better */
+      console.log("User does not have permission to delete ");
       res.sendStatus(403); // Forbidden status code
     } else {
       // DELETE QUERY (delete only if the animal belongs to the logged-in user)
-      let deleteAnimalQuery = `DELETE FROM "favorite_animal" WHERE "animal_id" = $1 AND "user_id" = $2;`;
+      let deleteAnimalQuery = `
+        DELETE FROM "favorite_animal" 
+        WHERE "animal_id" = $1 AND "user_id" = $2;`;
 
       /***** Execute DELETE QUERY *****/
-      await pool.query(deleteAnimalQuery, [animalToDelete, userId]);
-      console.log("DELETE animal from database: ");
+      const result = await pool.query(deleteAnimalQuery, [
+        animalToDelete,
+        user_id,
+      ]);
+
+      /***** SUCCESS *****/
+      console.log("DELETE animal in '/favorite' from database successful");
       res.sendStatus(200);
     }
 
-    // CATCH ERROR
+    /***** CATCH ERROR *****/
   } catch (error) {
-    console.log("Error to DELETE animal from database: ", error);
+    console.log("DELETE animal in '/favorite' from database: ", error);
     res.sendStatus(500);
   }
 });

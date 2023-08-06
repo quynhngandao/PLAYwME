@@ -3,8 +3,7 @@ import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 
 // Disables the hours outside of 9 AM to 6 PM.
@@ -29,7 +28,11 @@ const isWeekend = (date) => {
 const lastMonday = dayjs().startOf("week");
 const nextSunday = dayjs().endOf("week").startOf("day");
 
-export default function CustomDateTimePicker({onDateTimeChange, date_time, setDate_time}) {
+export default function CustomDateTimePicker({
+  onDateTimeChange,
+  date_time,
+  setDate_time,
+}) {
   const requests = useSelector((store) => store.requests);
   const [selectedDateTime, setSelectedDateTime] = useState(date_time);
 
@@ -38,7 +41,7 @@ export default function CustomDateTimePicker({onDateTimeChange, date_time, setDa
     const formattedDateTime = value.format("YYYY-MM-DDTHH:mm:ss");
     setSelectedDateTime(value);
     onDateTimeChange(formattedDateTime); // prop to pass to request form
-    console.log('IN customdatepicker dateTime', formattedDateTime)
+    console.log("IN customdatepicker dateTime", formattedDateTime);
 
     // Update the date_time state in the parent component
     setDate_time(formattedDateTime);

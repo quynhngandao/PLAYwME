@@ -8,7 +8,9 @@ const client = new petfinder.Client({
   secret: process.env.PETFINDER_SECRET,
 });
 
-// GET REQUEST FOR PEETFINDER API
+/*******************
+ * GET PETFINDER API 
+ ******************/
 router.get("/", rejectUnauthenticated, (req, res) => {
   const limit = 30;
   const location = req.query.location || "MN";

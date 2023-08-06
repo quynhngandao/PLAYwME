@@ -1,8 +1,11 @@
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+/* MUI */
 import {
   Fab,
   FormControlLabel,
   IconButton,
-  Button,
   Checkbox,
   DialogContentText,
   DialogTitle,
@@ -10,16 +13,13 @@ import {
   DialogActions,
   DialogContent,
   Stack,
-  TextField,
+  Box
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+/* COMPONENT */
 import CheckboxDropdown from "../CheckboxDropdown/CheckboxDropdown";
-import { Box } from "@mui/system";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import CustomDateTimePicker from "../CustomDateTimePicker/CustomDateTimePicker";
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
 
 export default function Modalpopup({
   open,
@@ -28,18 +28,24 @@ export default function Modalpopup({
   date_time,
   setDate_time,
 }) {
+  // useState
+  const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const [selectedAnimals, setSelectedAnimals] = useState([]);
+  // useSelector
   const requests = useSelector((store) => store.requests);
-  const favorite = useSelector(store => store.favorite)
+  const favorite = useSelector((store) => store.favorite);
+  // useHistory
   const history = useHistory();
+  // useDispatch
   const dispatch = useDispatch();
 
-  // Go to thankyou page and dispatch user's request to DB
-  const handleSubmit = () => {
-    // Get the animal_id from selectedAnimals state
+  // Go to thankyou page and send user's request info to store
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Get the animal_id from selectedAnimal's state
     const animal_id = selectedAnimals.map((animal) => animal.id);
 
-    
-    // selected time and animals as payload
+    // dispatch selected time and animals as payload
     dispatch({
       type: "ADD_REQUEST",
       payload: {
@@ -50,25 +56,37 @@ export default function Modalpopup({
     history.push("/thankyou");
   };
 
-  const [selectedDateTime, setSelectedDateTime] = useState(null);
-  const [selectedAnimals, setSelectedAnimals] = useState([]);
-
-  // Function to handle the selected date and time change
+  // handleDateTimeChange: handle the selected date and time change
   const handleDateTimeChange = (dateTime) => {
     setSelectedDateTime(dateTime);
-    console.log("in modal pop up DATETIME IS", dateTime);
   };
 
+  // handleAnimalsSelection: handle the selected animals
   const handleAnimalSelection = (selected) => {
-    setSelectedAnimals(selected);
-    console.log("in modal pop up ANIMAL IS", selected);
-    // Map the selected animal names to objects with the same structure as in the favorite array
-  const selectedAnimalsObjects = selected.map((animalName) => {
-    const animal = favorite.find((item) => item.animal_details.name === animalName);
-    return { id: animal.animal_details.id, name: animalName };
-  })
+    // selected = array of animal names that user selected
+    // Map the selected animal names to objects with the same structure as in the favorite array (from favorite reducer)
+    const selectedAnimalsObjects = selected.map((selectedAnimalName) => {
+      // find method searches for item in favorite array (item.animal_details.name === selectedAnimalName)
+      const animal = favorite.find(
+        // animal_details from favorite reducer contains animal infos (i.e id, name)
+        (item) => item.animal_details.name === selectedAnimalName
+      );
+      // Creates new object with id from animal_details.id and name from selectedAnimalName
+      return animal
+        ? { id: animal.animal_details.id, name: selectedAnimalName }
+        : null;
+    });
+
+    // Filter and remove null values from the mapped array
+    const filteredSelectedAnimalsObjects = selectedAnimalsObjects.filter(
+      (animal) => animal !== null
+    );
+
+    // Update the state with array of animal objects (id, name)
+    setSelectedAnimals(filteredSelectedAnimalsObjects);
   };
 
+  /* DISPLAY */
   return (
     <div style={{ textAlign: "center" }}>
       <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -88,7 +106,7 @@ export default function Modalpopup({
             Please fill out your information to request a playtime
           </DialogContentText>
           <Stack spacing={2} margin={2}>
-            {/* DATETIMEPICKER */}
+            {/* CUSTOMDATETIMEPICKER */}
             <CustomDateTimePicker
               onDateTimeChange={handleDateTimeChange}
               date_time={date_time}
@@ -97,7 +115,7 @@ export default function Modalpopup({
               setDate_time={setDate_time}
             />
 
-            {/* CHECKBOX DROPDOWN */}
+            {/* CHECKBOXDROPDOWN */}
             <CheckboxDropdown onAnimalSelection={handleAnimalSelection} />
             {/* Term of agreement */}
             <FormControlLabel
@@ -125,8 +143,6 @@ export default function Modalpopup({
           </Box>
         </DialogContent>
         <DialogActions>
-          {/* <Button color="success" variant="contained">Yes</Button> */}
-          {/* <Button onClick={onClose} color="error" variant="contained">Close</Button> */}
         </DialogActions>
       </Dialog>
     </div>

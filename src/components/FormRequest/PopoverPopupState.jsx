@@ -1,34 +1,24 @@
-import React from "react";
-import dayjs from "dayjs";
-import {
-  usePopupState,
-  bindTrigger,
-  bindPopover,
-} from "material-ui-popup-state/hooks";
-import { styled } from "@mui/material/styles";
-import Modalpopup from "./Modalpopup";
 import { useState } from "react";
-import { IconButton, Fab, Popover, Button, Box } from "@mui/material";
+/* MUI */
+import dayjs from "dayjs";
+import { styled } from "@mui/material/styles";
+import { IconButton, Fab, Popover, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+/* COMPONENT */
+import Modalpopup from "./Modalpopup";
+/* HOOK */
+import { usePopupState, bindPopover } from "material-ui-popup-state/hooks";
 
+/* STYLE */
 const PopoverContent = styled("div")({
   margin: (theme) => theme.spacing(2),
 });
 
-function PopoverPopupState() {
+export default function PopoverPopupState() {
+  // useState for date_time
   const [date_time, setDate_time] = useState("");
-
-  const handleDateTimeChange = (formattedDateTime) => {
-    setDate_time(formattedDateTime);
-  };
-
-  // OPEN AND CLOSE MODAL
+  // useState for open and close for modal
   const [open, setOpen] = useState(false);
-
-  const popupState = usePopupState({
-    variant: "popover",
-    popupId: "demoPopover",
-  });
 
   // handleOpen Modal
   const handleOpen = () => {
@@ -41,8 +31,20 @@ function PopoverPopupState() {
     popupState.close(); // Close the popover when the dialog is closed
   };
 
+  // Custom Hook
+  const popupState = usePopupState({
+    variant: "popover",
+    popupId: "demoPopover",
+  });
+
+  // handleDateTimeChange to handle change for date_time
+  const handleDateTimeChange = (formattedDateTime) => {
+    setDate_time(formattedDateTime);
+  };
+
+  /* DISPLAY */
   return (
-    <Box className="popover" marginLeft="20px">
+    <Box className="popover" marginLeft="10px">
       {/* SUBMIT BUTTON */}
       <IconButton
         margin="20px"
@@ -67,6 +69,7 @@ function PopoverPopupState() {
         }}
       >
         <PopoverContent>
+          {/* MODALPOPUP */}
           <Modalpopup
             open={open}
             onClose={handleClose}
@@ -80,5 +83,3 @@ function PopoverPopupState() {
     </Box>
   );
 }
-
-export default PopoverPopupState;
