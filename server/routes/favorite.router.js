@@ -24,7 +24,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     .query(sqlQuery, [userId])
     .then((result) => {
       res.send(result.rows);
-      console.log("GET request from '/favorite' database: ",=);
+      console.log("GET request from '/favorite' database: ");
     })
     .catch((error) => {
       console.log("Error in GET from '/favorite' database: ", error);
