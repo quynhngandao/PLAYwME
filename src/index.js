@@ -7,17 +7,17 @@ import {theme} from './theme/theme'
 import store from './redux/store';
 
 import App from './components/App/App';
-import index from './index.css'
+import './index.css'
 
 
 const root = ReactDOM.createRoot(document.getElementById('react-root'));
 root.render(
-  <React.StrictMode>
+
     <Provider store={store}> 
     <ThemeProvider theme={theme}>
       <App />
       </ThemeProvider>
     </Provider>
 
-  </React.StrictMode>
+
 );
