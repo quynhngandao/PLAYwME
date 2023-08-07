@@ -21,6 +21,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "material-ui-popup-state": "^5.0.9",
+    "moment": "^2.29.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.5.1",

@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const moment = require("moment"); // date/time parsing
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
@@ -78,7 +79,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     if (!date_time || !animal_ids || animal_ids.length === 0) {
       return res
         .status(400)
-        .json({ error: "date_time and at least one animal_id are required." });
+        .json({ error: "date_time and at least one animal_id are required" });
     }
 
     // INSERT REQUEST QUERY (insert into "request" table and return id to get "request_id")
@@ -119,38 +120,60 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
 /******************************
  * PUT logged-in user's request
  *****************************/
-router.put("/:id", async (req, res) => {
-  try {
-    // Update a single request
-    // req.params
-    const requestToUpdate = req.params.id;
-    // req.body
-    const first_name = req.body.first_name;
-    const email = req.body.email;
-    const date_time = req.body.date_time;
-    const dateObject = new Date(req.body.date_time);
-    const formattedDateTime = dateObject.toISOString();
-    /***** IMPORTANT date time format *****/
-
-    // INSERT EDIT QUERY (update first_name and email in "user", update date_time in "request")
-    const userEditQuery = `UPDATE "user" SET first_name = $1, email = $2 WHERE id = $3`;
-    const date_timeEditQuery = `UPDATE "request" SET date_time = $1 WHERE id = $2`;
-
-    /***** Execute EDIT QUERY *****/
-    const result = await Promise.all([
-      pool.query(userEditQuery, [first_name, email, requestToUpdate]),
-      pool.query(date_timeEditQuery, [formattedDateTime, requestToUpdate]),
-    ]);
-
-    /***** SUCCESS *****/
-    onsole.log("PUT request in '/request' to database successful");
-    res.sendStatus(200);
-
-    /***** CATCH ERROR *****/
-  } catch (error) {
-    console.log(`PUT request in '/request'to database error: `, error);
-    res.sendStatus(500);
-  }
-});
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+   try {
+     // Update a single request
+     const requestToUpdate = req.params.id;
+     const { first_name, last_name, email, date_time, animal_id } = req.body;
+     const user_id = req.user.id; // Get the user_id from the logged in user
+ 
+     /***** IMPORTANT date time format *****/
+     const dateObject = moment(date_time);
+ 
+     // Convert to UTC and reformat
+     const utcDateTime = dateObject.utc().format("YYYY-MM-DDTHH:mm:ss");
+     console.log("Formatted DateTime:", utcDateTime);
+ 
+     // UPDATE "user" table
+     const userEditQuery = `
+       UPDATE "user" 
+       SET "first_name" = $1, "last_name" = $2, "email" = $3
+       FROM "request" 
+       INNER JOIN "animal_request" ON "animal_request"."request_id" = "request"."id"
+       WHERE "request"."id" = $4 AND "user"."id" = "request"."user_id";
+     `;
+ 
+     // UPDATE "request" table
+     const date_timeEditQuery = `
+       UPDATE "request"
+       SET "date_time" = $1
+       WHERE "id" = $2;
+     `;
+ 
+     /***** Execute EDIT QUERIES *****/
+     await pool.query(userEditQuery, [first_name, last_name, email, user_id]);
+     await pool.query(date_timeEditQuery, [utcDateTime, requestToUpdate]);
+ 
+     // INSERT INTO "animal_request" table
+     const insertAnimalRequestQuery = `
+       INSERT INTO "animal_request" ("request_id", "animal_id")
+       VALUES ($1, $2);
+     `;
+ 
+     await pool.query(insertAnimalRequestQuery, [requestToUpdate, animal_id]);
+ 
+     /***** SUCCESS *****/
+     console.log("PUT request in '/request' to database successful");
+     res.sendStatus(200);
+   } catch (error) {
+     console.log(`PUT request in '/request' to database error: `, error);
+     res.status(500).json({ error: "An error occurred while updating the request." });
+   }
+ });
+ 
+ 
+ module.exports = router;
+ 
+ 
 
 module.exports = router;

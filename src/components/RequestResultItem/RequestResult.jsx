@@ -13,8 +13,6 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  CardMedia,
-  CardContent,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -23,7 +21,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const styledCard = {
   width: "100%",
-  maxWidth: 400,
+  minWidth: 300,
   maxHeight: 600,
   borderRadius: 3,
   boxShadow: 3,
@@ -41,13 +39,17 @@ export default function RequestResult({ request }) {
   const history = useHistory();
 
   // handleEdit
-  const handleEditClick = () => { 
-
+  const handleEditClick = (requestId) => {
+    console.log("Edit clicked for requestId:", requestId);
+    // Dispatch the action to set editRequest with the specific request data
     dispatch({
-      type: "SUBMIT_EDIT_REQUEST",
+      type: "SET_EDIT_REQUEST",
       payload: {
-        ...editRequest,
-        date_time: date_time,
+        id: requestId,
+        first_name: request.user_info.first_name,
+        last_name: request.user_info.last_name,
+        email: request.user_info.email,
+        date_time: request.user_info.date_time,
       },
     });
     history.push("/edit");
@@ -57,9 +59,13 @@ export default function RequestResult({ request }) {
     <>
       {requests && (
         <Box className="requests" display="flex">
-          <Stack spacing={5} direction="row">
+          <Stack spacing={6} direction="row">
             {requests.map((request) => (
-              <Card key={request.id} className="request" sx={styledCard}>
+              <Card
+                key={request.user_info.id}
+                className="request"
+                sx={styledCard}
+              >
                 <Box
                   sx={{
                     bgcolor: "background.paper",
@@ -94,7 +100,7 @@ export default function RequestResult({ request }) {
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
-                        primary={request.user_info.first_name}
+                        primary={`${request.user_info.first_name} ${request.user_info.last_name}`}
                         secondary={request.user_info.email}
                       />
                     </ListItem>
@@ -102,7 +108,11 @@ export default function RequestResult({ request }) {
                   <Divider variant="middle" />
                   <Box>
                     {/* EDIT BUTTON */}
-                    <IconButton sx={{ m: 1 }} onClick={handleEditClick}>
+                    <IconButton
+                      sx={{ m: 1 }}
+                      onClick={() => handleEditClick(request.user_info.id)}
+                      // Pass the userInfo object to handleEditClick
+                    >
                       <Button
                         variant="outlined"
                         color="primary"

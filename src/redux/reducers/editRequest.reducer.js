@@ -1,17 +1,22 @@
-const editRequestReducer = (state = {}, action) => {
-  if (action.type === "SET_EDIT_REQUEST") {
-    // Represents a request object
-    return action.payload;
-  }
-  if (action.type === "EDIT_ONCHANGE") {
-    return {
-      ...state,
 
-      [action.payload.property]: action.payload.value,
-    };
-  }
-  return state;
-};
+const editRequestReducer = (state = {}, action) => {
+  switch (action.type) {
+      case "SET_EDIT_REQUEST":
+       // object with properties
+        return action.payload;
+      case "EDIT_ONCHANGE":
+        // Update corresponding property with new value
+        return {
+          ...state,
+          [action.payload.property]: action.payload.value,
+        };
+      case "RESET_EDIT_REQUEST":
+        // Reset to initial state
+        return {};
+      default:
+        return state;
+    }
+  };
 
 // editRequestReducer will be on the redux state at:
 // state.editRequestReducer
