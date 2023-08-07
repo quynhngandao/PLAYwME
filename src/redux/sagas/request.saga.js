@@ -42,8 +42,8 @@ function* deleteRequest(action) {
 function* editRequest(action) {
   try {
     const animalIds = action.payload.animal_ids
-    console.log("action.payload.id in editRequest saga", action.payload.id);
-    console.log("Animal IDs:", animalIds);
+    console.log("action.payload.id in saga", action.payload.id);
+    console.log("animalIds in saga:", animalIds);
     // Perform multiple UPDATE queries for each animal ID
     for (const animalId of animalIds) {
       yield axios.put(`/request/${action.payload.id}`, {
@@ -51,6 +51,7 @@ function* editRequest(action) {
         animal_id: animalId, // Update one animal_id at a time
       });
     }
+    console.log("animalId in sage", animalId)
     yield put({ type: "FETCH_REQUESTS" });
   } catch (error) {
     console.log("Error with user's request of PUT request from redux:", error);

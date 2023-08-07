@@ -67,7 +67,7 @@ export default function EditRequest() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("editRequest before submitting:", editRequest);
+    console.log("editRequest before submitting in editRequest client:", editRequest);
 
     dispatch({
       type: "SUBMIT_EDIT_REQUEST",

@@ -127,9 +127,6 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     const { first_name, last_name, email, date_time, animal_id } = req.body;
     const user_id = req.user.id; // Get the user_id from the logged in user
 
-
-    
-
     /***** IMPORTANT date time format *****/
     const dateObject = moment(date_time);
 

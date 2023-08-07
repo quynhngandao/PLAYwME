@@ -51,13 +51,13 @@ export default function RequestResult({ request }) {
     const request = requests.find(
       (req) => req.user_info.request_id === requestId
     );
-    console.log("Selected Request object:", request);
+    console.log("Selected Request object in requestresult:", request);
 
     // Check if there are any animals in the animals_info array
     if (request && request.animals_info) {
       // Loop through the animals_info array and handle each animal
       const animal_id = request.animals_info.map((animal) => animal.animal.id);
-      console.log("Animal IDs:", animal_id);
+      console.log("Animal IDs in RequestResult client side:", animal_id);
 
       // Dispatch the action to set editRequest with the specific request data
       dispatch({
