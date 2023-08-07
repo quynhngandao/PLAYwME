@@ -181,4 +181,94 @@ console.log("User ID:", user_id);
   }
 });
 
+
+
+// router.put("/:id", rejectUnauthenticated, async (req, res) => {
+//   const connection = await pool.connect();
+
+//   try {
+//     // Update a single request
+//     const requestToUpdate = req.params.id;
+//     const { first_name, last_name, email, date_time, animal_id } = req.body; // animal_id here is an array of id 
+//     const user_id = req.user.id; // Get the user_id from the logged in user
+
+//     /***** IMPORTANT date time format *****/
+//     const dateObject = moment(date_time);
+//     // Convert to UTC and reformat
+//     const utcDateTime = dateObject.utc().format("YYYY-MM-DDTHH:mm:ss");
+//     console.log("Formatted DateTime:", utcDateTime);
+//     // LOGGING for testing
+//     console.log("User ID:", user_id);
+//     console.log("Request ID to update:", requestToUpdate);
+//     console.log("First Name:", first_name);
+//     console.log("Last Name:", last_name);
+//     console.log("Email:", email);
+//     console.log("UTC Date Time:", utcDateTime);
+//     console.log("Animal ID:", animal_id);
+
+//     /***** BEGIN *****/
+//     await connection.query("BEGIN");
+
+//     // UPDATE "user" table
+//     const userEditQuery = `
+//        UPDATE "user" 
+//        SET "first_name" = $1, "last_name" = $2, "email" = $3
+//        FROM "request" 
+//        INNER JOIN "animal_request" ON "animal_request"."request_id" = "request"."id"
+//        WHERE "request"."id" = $4 AND "user"."id" = "request"."user_id";
+//      `;
+//     // UPDATE "request" table
+//     const date_timeEditQuery = `
+//        UPDATE "request"
+//        SET "date_time" = $1
+//        WHERE "id" = $2;
+//      `;
+
+//     /***** Execute UPDATE QUERIES *****/
+//     const userResult = await connection.query(userEditQuery, [
+//       first_name,
+//       last_name,
+//       email,
+//       user_id,
+//     ]);
+//     const requestResult = await connection.query(date_timeEditQuery, [utcDateTime, requestToUpdate]);
+
+//     console.log('requestResult', requestResult)
+//     // FOR ANIMAL ARRAY 
+//     for (animal of animal_id) {
+//       // UPDATE "animal_request" table
+//       const updateAnimalRequestQuery = `
+//    INSERT INTO "animal_request" ("request_id", "animal_id")
+//    VALUES ($1, $2);
+//  `;
+//       /***** Execute ANIMAL UPDATE QUERY *****/
+//       const animalRequestResult = await connection.query(
+//         updateAnimalRequestQuery,
+//         [requestToUpdate, animal]
+//       );
+//       console.log('animalREquestresult', animalRequestResult)
+//     }
+//     /***** COMMIT *****/
+//     await connection.query("COMMIT");
+//     /***** SUCCESS *****/
+//     console.log("PUT request in '/request' to database successful");
+//     res.sendStatus(200);
+//     /***** ERROR *****/
+//   } catch (error) {
+//     /***** ROLLBACK *****/
+//     await connection.query("ROLLBACK");
+//     console.log(
+//       `Transaction Error for PUT in '/request' - Rolling back transfer `
+//     );
+//     res
+//       .status(500)
+//       .json({ error: "An error occurred while updating the request" });
+//     /***** FINALLY *****/
+//   } finally {
+//     connection.release();
+//   }
+// });
+
+
+
 module.exports = router;

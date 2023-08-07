@@ -67,19 +67,18 @@ export default function EditRequest() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("editRequest before submitting in editRequest client:", editRequest);
+    console.log("editRequest before submitting in editrequest", editRequest);
 
     dispatch({
       type: "SUBMIT_EDIT_REQUEST",
       payload: editRequest,
     });
-    // go to user page
-    history.push("/user");
  // Reset the editRequest state after submitting
  dispatch({
   type: "RESET_EDIT_REQUEST",
 });
-
+ // go to user page
+    history.push("/user");
   };
 
   // cancelEdit: undo request and go back home
