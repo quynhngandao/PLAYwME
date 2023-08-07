@@ -66,7 +66,7 @@ export default function RequestResult({ request }) {
           first_name: first_name || "",
           last_name: last_name || "",
           email: email || "",
-       
+       animal_id: animal_ids
         },
       });
   
