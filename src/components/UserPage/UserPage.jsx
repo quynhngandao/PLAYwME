@@ -42,7 +42,7 @@ function UserPage() {
           </Box> 
 
           {/* DISPLAY REQUEST RESULT */}
-          <RequestResult/>
+          <RequestResult  />
       </Box>
     </div>
   );

@@ -10,7 +10,7 @@ import SearchBar from "../SearchBar/SearchBar";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
-  height: 150,
+  height: 170,
   objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
@@ -18,14 +18,14 @@ const styledCardMediaNoImage = {
 const styledCard = {
   width: "100%",
   height: 300,
-  borderRadius: 5,
+  borderRadius: 4,
   boxShadow: 3,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
 const styledCardMedia = {
   width: "100%",
-  height: 150,
+  height: 170,
   objectFit: "fill",
 };
 const styledFab = {
