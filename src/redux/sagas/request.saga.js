@@ -38,7 +38,7 @@ function* deleteRequest(action) {
 }
 
 function* editRequest(action) {
-  try {
+  try {console.log(action.payload, "action.payload HEREREEE", action.payload.id, "id")
     yield axios.put( `/request/${action.payload.id}`, action.payload)
     yield put({type: "FETCH_REQUESTS"})
   } catch (error) {

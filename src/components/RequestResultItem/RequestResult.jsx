@@ -13,8 +13,6 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  CardMedia,
-  CardContent,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -23,12 +21,15 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const styledCard = {
   width: "100%",
-  maxWidth: 400,
-  maxHeight: 600,
+  minWidth: 300,
+  maxWidth: 300,
   borderRadius: 3,
   boxShadow: 3,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
+  ml: 1,
+  mr: 5,
+  mb: 5,
 };
 
 export default function RequestResult({ request }) {
@@ -41,83 +42,123 @@ export default function RequestResult({ request }) {
   const history = useHistory();
 
   // handleEdit
-  const handleEditClick = () => { 
-
+  const handleEditClick = (requestId) => {
+    console.log("Edit clicked for requestId:", requestId);
+    // Dispatch the action to set editRequest with the specific request data
     dispatch({
-      type: "SUBMIT_EDIT_REQUEST",
+      type: "SET_EDIT_REQUEST",
       payload: {
-        ...editRequest,
-        date_time: date_time,
-      },
+        id: requestId
+      }
     });
     history.push("/edit");
   };
 
   return (
-    <>
+    <Box alignContent="center">
       {requests && (
-        <Box className="requests" display="flex">
-          <Stack spacing={5} direction="row">
-            {requests.map((request) => (
-              <Card key={request.id} className="request" sx={styledCard}>
-                <Box
-                  sx={{
-                    bgcolor: "background.paper",
-                    color: "#305f82",
-                  }}
-                >
-                  <Box sx={{ my: 2, mx: 1 }}>
-                    <Grid container border="1px" alignItems="center">
-                      <Grid item xs>
-                        <Typography sx={{ m: 1 }} variant="h4" component="div">
-                          Request Information
-                        </Typography>
-                      </Grid>
-                      <Grid item></Grid>
+        <Box
+          className="request-result"
+          sx={{
+            display: "flex",
+            direction: "row",
+            alignItems: "center",
+            flexWrap: "wrap",
+            alignContent: "center",
+          }}
+        >
+          {requests.map((request, index) => (
+            <Card
+              key={request.user_info.request_id}
+              className="request"
+              sx={[styledCard]}
+              style={{
+                backgroundColor:
+                  index % 3 === 0
+                    ? "#2196f3"
+                    : index % 3 === 1
+                    ? "#4caf50"
+                    : "#ff9800",
+              }}
+            >
+              <Box
+                sx={{
+                  bgcolor: "background.paper",
+                  color: "#305f82",
+                }}
+              >
+                <Box sx={{ my: 2, mx: 1 }}>
+                  <Grid container border="1px" alignItems="center">
+                    <Grid item xs>
+                      <Typography sx={{ m: 1 }} variant="h4" component="div">
+                        Request Information
+                      </Typography>
                     </Grid>
-                    <Typography
-                      sx={{ m: 1 }}
-                      color="text.secondary"
-                      variant="body2"
-                    >
-                      {request.user_info.date_time}
-                    </Typography>
-                  </Box>
-                  <Divider variant="middle" />
-                  <Box>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar sx={{ maxWidth: 35, maxHeight: 35 }}>
-                          <AccountCircleIcon
-                            sx={{ width: 40, height: 40, fill: "#305f82" }}
-                          />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={request.user_info.first_name}
-                        secondary={request.user_info.email}
-                      />
-                    </ListItem>
-                  </Box>
-                  <Divider variant="middle" />
-                  <Box>
-                    {/* EDIT BUTTON */}
-                    <IconButton sx={{ m: 1 }} onClick={handleEditClick}>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<EditNoteIcon />}
-                      >
-                        Edit
-                      </Button>
-                    </IconButton>
-                  </Box>
+                    <Grid item></Grid>
+                  </Grid>
+                  <Typography
+                    sx={{ m: 1 }}
+                    color="text.secondary"
+                    variant="body2"
+                  >
+                    {request.user_info.date_time}
+                  </Typography>
                 </Box>
-              </Card>
-            ))}
-          </Stack>
+                <Divider variant="middle" />
+                <Box>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar sx={{ maxWidth: 35, maxHeight: 35 }}>
+                        <AccountCircleIcon
+                          sx={{ width: 40, height: 40, fill: "#305f82" }}
+                        />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`${request.user_info.first_name} ${request.user_info.last_name}`}
+                      secondary={request.user_info.email}
+                    />
+                  </ListItem>
+                </Box>
+                <Divider variant="middle" />
+                {/* Animals Info */}
+                {request.animals_info.map((animal) => (
+                  <div key={animal.id}>
+                    <Stack spacing={1} direction="row">
+                      <Typography
+                        marginLeft="10px"
+                        fontWeight="bold"
+                        variant="h5"
+                      >
+                        Animal Name:{" "}
+                      </Typography>
+                      <Typography variant="h5">{animal.animal.name}</Typography>
+                    </Stack>{" "}
+                  </div>
+                ))}
+                <Box>
+                  {/* EDIT BUTTON */}
+                  <IconButton
+                    sx={{ m: 1 }}
+                    onClick={() =>
+                      handleEditClick(request.user_info.request_id)
+                    }
+                    // Pass the userInfo object to handleEditClick
+                  >
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      startIcon={<EditNoteIcon />}
+                    >
+                      Edit
+                    </Button>
+                  </IconButton>
+                </Box>
+              </Box>
+            </Card>
+          ))}
         </Box>
       )}
-    </>
+    </Box>
   );
 }
