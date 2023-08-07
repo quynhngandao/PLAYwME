@@ -42,16 +42,44 @@ export default function RequestResult({ request }) {
   const history = useHistory();
 
   // handleEdit
-  const handleEditClick = (requestId) => {
+  const handleEditClick = (requestId, animal_ids) => {
     console.log("Edit clicked for requestId:", requestId);
-    // Dispatch the action to set editRequest with the specific request data
-    dispatch({
-      type: "SET_EDIT_REQUEST",
-      payload: {
-        id: requestId
-      }
-    });
-    history.push("/edit");
+
+    console.log("Requests object:", requests);
+
+    // Find the specific request object with the given requestId
+    const request = requests.find(
+      (req) => req.user_info.request_id === requestId
+    );
+    console.log("Selected Request object:", request);
+
+    // Check if there are any animals in the animals_info array
+    if (request && request.animals_info) {
+      // Loop through the animals_info array and handle each animal
+      const animal_id = request.animals_info.map((animal) => animal.animal.id);
+      console.log("Animal IDs:", animal_id);
+
+      // Dispatch the action to set editRequest with the specific request data
+      dispatch({
+        type: "SET_EDIT_REQUEST",
+        payload: {
+          id: requestId,
+          animal_id: animal_ids,
+        },
+      });
+      // Navigate to the edit page for each animal
+      history.push("/edit");
+    } else {
+      // If there are no animals, handle the request without an animal_id
+      dispatch({
+        type: "SET_EDIT_REQUEST",
+        payload: {
+          id: requestId,
+          animal_id: null, // Set animal_id to null or handle accordingly
+        },
+      });
+      history.push("/edit");
+    }
   };
 
   return (
@@ -141,7 +169,10 @@ export default function RequestResult({ request }) {
                   <IconButton
                     sx={{ m: 1 }}
                     onClick={() =>
-                      handleEditClick(request.user_info.request_id)
+                      handleEditClick(
+                        request.user_info.request_id,
+                        request.animals_info.map((animal) => animal.animal.id)
+                      )
                     }
                     // Pass the userInfo object to handleEditClick
                   >
