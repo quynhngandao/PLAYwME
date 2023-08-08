@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
+import dayjs from "dayjs";
 import {
   Box,
   Card,
@@ -18,11 +19,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { Dayjs } from "dayjs";
 
 const styledCard = {
   width: "100%",
   maxWidth: 300,
-  minHeight: 300,
+  minHeight: 330,
   borderRadius: 3,
   boxShadow: 3,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
@@ -35,8 +37,6 @@ const styledCard = {
 export default function RequestResult({ request }) {
   const user = useSelector((store) => store.user);
   const requests = useSelector((store) => store.requests);
-  const favorite = useSelector((store) => store.favorite);
-  const editRequest = useSelector((store) => store.editRequest);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -44,7 +44,6 @@ export default function RequestResult({ request }) {
   // handleEdit
   const handleEditClick = (requestId) => {
     console.log("Edit clicked for requestId:", requestId);
-
     console.log("Requests object:", requests);
 
     // Find the specific request object with the given requestId
@@ -54,7 +53,7 @@ export default function RequestResult({ request }) {
     console.log("Selected Request object in requestresult:", request);
 
     if (request && request.user_info) {
-      const { email, last_name, first_name} = request.user_info;
+      const { email, last_name, first_name } = request.user_info;
 
       // Dispatch the action to set editRequest with the specific request data
       dispatch({
@@ -78,6 +77,7 @@ export default function RequestResult({ request }) {
   return (
     <Box alignContent="center">
       {requests && (
+
         <Box
           className="request-result"
           sx={{
@@ -94,33 +94,26 @@ export default function RequestResult({ request }) {
               className="request"
               sx={[styledCard]}
               style={{
-                backgroundColor:
-                  index % 3 === 0
-                    ? "#e1f5fe"
-                    : index % 3 === 1
-                    ? "#e1f5fe"
-                    : "#e1f5fe",
+                
+                backgroundColor: index % 2 ? "#f5f8ff" : "#eef3ff",
               }}
             >
+            
+               
               <Box
                 sx={{
                   bgcolor: "background.paper",
                   color: "#305f82",
                 }}
                 style={{
-                  backgroundColor:
-                    index % 3 === 0
-                      ? "#e1f5fe"
-                      : index % 3 === 1
-                      ? "#e1f5fe"
-                      : "#e1f5fe",
+                  backgroundColor: index % 2 ? "#f5f8ff" : "#eef3ff",
                 }}
               >
                 <Box sx={{ my: 2, mx: 1 }}>
                   <Grid container border="1px" alignItems="center">
                     <Grid item xs>
                       <Typography sx={{ m: 1 }} variant="h4" component="div">
-                        Request Information
+                        Request Information: #{request.user_info.request_id}
                       </Typography>
                     </Grid>
                     <Grid item></Grid>
@@ -130,7 +123,7 @@ export default function RequestResult({ request }) {
                     color="text.secondary"
                     variant="body2"
                   >
-                    {request.user_info.date_time}
+              {dayjs(request.user_info.date_time).format("MMMM D, YYYY h:mm A")}
                   </Typography>
                 </Box>
                 <Divider variant="middle" />
@@ -170,10 +163,7 @@ export default function RequestResult({ request }) {
                   <IconButton
                     sx={{ m: 1 }}
                     onClick={() =>
-                      handleEditClick(
-                        request.user_info.request_id,
-                      
-                      )
+                      handleEditClick(request.user_info.request_id)
                     }
                     // Pass the userInfo object to handleEditClick
                   >

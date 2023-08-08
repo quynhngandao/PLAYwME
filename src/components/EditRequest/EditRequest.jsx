@@ -18,7 +18,7 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
 import CancelScheduleSend from "@mui/icons-material/CancelScheduleSend";
-import CustomDateTimePicker from "../CustomDateTimePicker/CustomDateTimePicker";
+import EditCustomDateTimePicker from "../CustomDateTimePicker/EditCustomDateTimePicker";
 /* STYLE */
 const styledCard = {
   width: "100%",
@@ -38,6 +38,7 @@ export default function EditRequest() {
   const history = useHistory();
   // useDispatch
   const dispatch = useDispatch();
+
 
   // handleChange: capture edit input
   const handleChange = (e, propertyToChange) => {
@@ -62,8 +63,7 @@ export default function EditRequest() {
     });
   };
 
-
-  // handleSubmit: submit request and go back to user page 
+  // handleSubmit: submit request and go back to user page
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -73,21 +73,21 @@ export default function EditRequest() {
       type: "SUBMIT_EDIT_REQUEST",
       payload: editRequest,
     });
- // Reset the editRequest state after submitting
- dispatch({
-  type: "RESET_EDIT_REQUEST",
-});
- // go to user page
+    // Reset the editRequest state after submitting
+    dispatch({
+      type: "RESET_EDIT_REQUEST",
+    });
+    // go to user page
     history.push("/user");
   };
 
   // cancelEdit: undo request and go back home
   const cancelEdit = () => {
     // Reset the editRequest state after submitting
-  dispatch({
-    type: "RESET_EDIT_REQUEST",
-  });
-// go to user page
+    dispatch({
+      type: "RESET_EDIT_REQUEST",
+    });
+    // go to user page
     history.push("/user");
   };
 
@@ -102,81 +102,82 @@ export default function EditRequest() {
       sx={{ minHeight: "80vh" }}
     >
       <Card className="request-card" sx={styledCard}>
-        
-          <Box sx={{ bgcolor: "background.paper", color: "#305f82" }}>
-            <Box sx={{ my: 2, mx: 1 }}>
-              <Grid container border="1px" alignItems="center">
-                <Grid item xs>
-                  <Typography sx={{ m: 1 }} variant="h4" component="div">
-                    Edit Your Information
-                  </Typography>
-                </Grid>
-                <Grid item></Grid>
+        <Box sx={{ bgcolor: "background.paper", color: "#305f82" }}>
+          <Box sx={{ my: 2, mx: 1 }}>
+            <Grid container border="1px" alignItems="center">
+              <Grid item xs>
+                <Typography sx={{ m: 1 }} variant="h4" component="div">
+                  Edit Your Information
+                </Typography>
               </Grid>
-            </Box>
-            <Divider variant="middle" />
-            <Box>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar sx={{ maxWidth: 35, maxHeight: 35 }}>
-                    <AccountCircleIcon
-                      sx={{ width: 40, height: 40, fill: "#305f82" }}
-                    />
-                  </Avatar>
-                </ListItemAvatar>
-                <Stack spacing={2}>
-                  {/* CUSTOMDATETIMEPICKER */}
-                  <CustomDateTimePicker
-                    onDateTimeChange={handleDateTimeChange} // Pass the function to update user_info.date_time
-                    date_time={editRequest.date_time} // Pass the current user_info.date_time value
-                    setDate_time={(formattedDateTime) =>
-                      handleChange({ target: { value: formattedDateTime } }, "date_time")
-                    }
-                  />
-
-                  <TextField
-                    value={editRequest.first_name}
-                    placeholder="First name"
-                    onChange={(e) => handleChange(e, "first_name")}
-                  />
-                  <TextField
-                    value={editRequest.last_name}
-                    placeholder="Last name"
-                    onChange={(e) => handleChange(e, "last_name")}
-                  />
-                  <TextField
-                    value={editRequest.email}
-                    placeholder="Email"
-                    onChange={(e) => handleChange(e, "email")}
-                  />
-                </Stack>
-              </ListItem>
-            </Box>
-            <Divider variant="middle" />
-            <Box>
-              {/* SUBMIT BUTTON */}
-              <IconButton onClick={handleSubmit} sx={{ m: 1 }}>
-                <Button 
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<SendIcon />}
-                >
-                  Submit
-                </Button>
-              </IconButton>
-              {/* CANCEL BUTTON */}
-              <IconButton onClick={cancelEdit} sx={{ m: 1 }}>
-                <Button 
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<CancelScheduleSend />}
-                >
-                  Cancel
-                </Button>
-              </IconButton>
-            </Box>
+              <Grid item></Grid>
+            </Grid>
           </Box>
-        
+          <Divider variant="middle" />
+          <Box>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar sx={{ maxWidth: 35, maxHeight: 35 }}>
+                  <AccountCircleIcon
+                    sx={{ width: 40, height: 40, fill: "#305f82" }}
+                  />
+                </Avatar>
+              </ListItemAvatar>
+              <Stack spacing={2}>
+                {/* CUSTOMDATETIMEPICKER */}
+                <EditCustomDateTimePicker
+        handleDateTimeChange={handleDateTimeChange} 
+                  date_time={editRequest.date_time}
+                  setDate_time={(formattedDateTime) =>
+                    handleChange(
+                      { target: { value: formattedDateTime } },
+                      "date_time"
+                    )
+                  }
+                />
+
+                <TextField
+                  value={editRequest.first_name}
+                  placeholder="First name"
+                  onChange={(e) => handleChange(e, "first_name")}
+                />
+                <TextField
+                  value={editRequest.last_name}
+                  placeholder="Last name"
+                  onChange={(e) => handleChange(e, "last_name")}
+                />
+                <TextField
+                  value={editRequest.email}
+                  placeholder="Email"
+                  onChange={(e) => handleChange(e, "email")}
+                />
+              </Stack>
+            </ListItem>
+          </Box>
+          <Divider variant="middle" />
+          <Box>
+            {/* SUBMIT BUTTON */}
+            <IconButton onClick={handleSubmit} sx={{ m: 1 }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<SendIcon />}
+              >
+                Submit
+              </Button>
+            </IconButton>
+            {/* CANCEL BUTTON */}
+            <IconButton onClick={cancelEdit} sx={{ m: 1 }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<CancelScheduleSend />}
+              >
+                Cancel
+              </Button>
+            </IconButton>
+          </Box>
+        </Box>
       </Card>
     </Grid>
   );

@@ -13,7 +13,7 @@ import {
   DialogActions,
   DialogContent,
   Stack,
-  Box
+  Box,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
@@ -21,15 +21,9 @@ import SendIcon from "@mui/icons-material/Send";
 import CheckboxDropdown from "../CheckboxDropdown/CheckboxDropdown";
 import CustomDateTimePicker from "../CustomDateTimePicker/CustomDateTimePicker";
 
-export default function Modalpopup({
-  open,
-  onClose,
-  AdapterDayjs,
-  date_time,
-  setDate_time,
-}) {
+export default function Modalpopup({ open, onClose }) {
   // useState
-  const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const [dateTime, setDateTime] = useState(null);
   const [selectedAnimals, setSelectedAnimals] = useState([]);
   // useSelector
   const requests = useSelector((store) => store.requests);
@@ -49,7 +43,7 @@ export default function Modalpopup({
     dispatch({
       type: "ADD_REQUEST",
       payload: {
-        date_time: date_time,
+        date_time: dateTime,
         animal_id: animal_id,
       },
     });
@@ -58,7 +52,7 @@ export default function Modalpopup({
 
   // handleDateTimeChange: handle the selected date and time change
   const handleDateTimeChange = (dateTime) => {
-    setSelectedDateTime(dateTime);
+    setDateTime(dateTime);
   };
 
   // handleAnimalsSelection: handle the selected animals
@@ -107,13 +101,7 @@ export default function Modalpopup({
           </DialogContentText>
           <Stack spacing={2} margin={2}>
             {/* CUSTOMDATETIMEPICKER */}
-            <CustomDateTimePicker
-              onDateTimeChange={handleDateTimeChange}
-              date_time={date_time}
-              // Pass date_time to CustomDateTimePicker
-              // Pass setDate_time to CustomDateTimePicker
-              setDate_time={setDate_time}
-            />
+            <CustomDateTimePicker handleDateTimeChange={handleDateTimeChange} />
 
             {/* CHECKBOXDROPDOWN */}
             <CheckboxDropdown onAnimalSelection={handleAnimalSelection} />
@@ -142,8 +130,7 @@ export default function Modalpopup({
             </IconButton>
           </Box>
         </DialogContent>
-        <DialogActions>
-        </DialogActions>
+        <DialogActions></DialogActions>
       </Dialog>
     </div>
   );

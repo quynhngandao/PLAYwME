@@ -28,16 +28,13 @@ const isWeekend = (date) => {
 const lastMonday = dayjs().startOf("week");
 const nextSunday = dayjs().endOf("week").startOf("day");
 
-/***** THIS IS BEING USED BY MODAL POPOVER COMPONENT ******/
-export default function CustomDateTimePicker(props) {
+/***** THIS IS BEING USED BY EDIT REQUEST COMPONENT ******/
+export default function EditCustomDateTimePicker(props) {
   const requests = useSelector((store) => store.requests);
   const [selectedDateTime, setSelectedDateTime] = useState();
 
   const handleDateTimeChange = (dateTime) => {
-   
-    const formattedDateTime = dateTime.format("MMMM D, YYYY h:mm A");
-    console.log("IN customdatepicker dateTime", formattedDateTime);
-    props.handleDateTimeChange(formattedDateTime);
+    props.handleDateTimeChange(dateTime);
   };
 
   // Dispatch user's date request to redux store
