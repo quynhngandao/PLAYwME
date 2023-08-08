@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {useSelector, useDispatch} from 'react-redux';
 import RequestResult from '../RequestResultItem/RequestResult';
 import { Box, Button } from '@mui/material';
@@ -7,11 +8,10 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { useEffect } from 'react';
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
   const user = useSelector((store) => store.user);
   const history = useHistory()
-
   const dispatch = useDispatch();
+
  // DISPLAY ALL REQUEST
  useEffect(() => {
   dispatch({ type: "FETCH_REQUESTS" });
@@ -42,7 +42,7 @@ function UserPage() {
           </Box> 
 
           {/* DISPLAY REQUEST RESULT */}
-          <RequestResult  />
+          <RequestResult   />
       </Box>
     </div>
   );

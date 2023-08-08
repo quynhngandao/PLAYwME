@@ -16,7 +16,7 @@ const PopoverContent = styled("div")({
 
 export default function PopoverPopupState() {
   // useState for date_time
-  const [date_time, setDate_time] = useState("");
+  // const [date_time, setDate_time] = useState("");
   // useState for open and close for modal
   const [open, setOpen] = useState(false);
 
@@ -37,10 +37,10 @@ export default function PopoverPopupState() {
     popupId: "demoPopover",
   });
 
-  // handleDateTimeChange to handle change for date_time
-  const handleDateTimeChange = (formattedDateTime) => {
-    setDate_time(formattedDateTime);
-  };
+  // // handleDateTimeChange to handle change for date_time
+  // const handleDateTimeChange = (formattedDateTime) => {
+  //   setDate_time(formattedDateTime);
+  // };
 
   /* DISPLAY */
   return (
@@ -73,10 +73,10 @@ export default function PopoverPopupState() {
           <Modalpopup
             open={open}
             onClose={handleClose}
-            AdapterDayjs={dayjs}
-            date_time={date_time}
+          
+            // date_time={date_time}
             // Pass setDate_time to Modalpopup
-            setDate_time={setDate_time}
+            // setDate_time={setDate_time}
           />
         </PopoverContent>
       </Popover>
