@@ -93,119 +93,124 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
 /******************************
  * PUT logged-in user's request
  *****************************/
-router.put("/:id", rejectUnauthenticated, async (req, res) => {
-  try {
-    // Update a single request
-    const requestToUpdate = req.params.id;
-    const { first_name, last_name, email, date_time } = req.body;
-    const user_id = req.user.id; // Get the user_id from the logged in user
-
-    /***** IMPORTANT date time format *****/
-    const dateObject = moment(date_time);
-
-    // Reformat date and time using moment
-    const formattedDateTime = dateObject.format("MMMM D, YYYY h:mm A");
-    console.log("Formatted DateTime:", formattedDateTime);
-
-    console.group("User ID:", user_id);
-    console.log("Request ID to update:", requestToUpdate);
-    console.log("First Name:", first_name);
-    console.log("Last Name:", last_name);
-    console.log("Email:", email);
-    console.groupEnd("");
-
-    // UPDATE "user" table
-    const userEditQuery = `
-       UPDATE "user"
-       SET "first_name" = $1, "last_name" = $2, "email" = $3
-       WHERE "user"."id" = $4;
-     `;
-
-    // UPDATE "request" table
-    const date_timeEditQuery = `
-       UPDATE "request"
-       SET "date_time" = $1
-       WHERE "id" = $2;
-     `;
-
-    /***** Execute EDIT QUERIES *****/
-    await pool.query(userEditQuery, [first_name, last_name, email, user_id]);
-    await pool.query(date_timeEditQuery, [formattedDateTime, requestToUpdate]);
-
-    /***** SUCCESS *****/
-    console.log("PUT request in '/request' to database successful");
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(`PUT request in '/request' to database error: `, error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the request." });
-  }
-});
-
-/* SQL TRANSACTION */
 // router.put("/:id", rejectUnauthenticated, async (req, res) => {
-//   const connection = await pool.connect();
 //   try {
 //     // Update a single request
 //     const requestToUpdate = req.params.id;
 //     const { first_name, last_name, email, date_time } = req.body;
-//     const user_id = req.user.id;
+//     const user_id = req.user.id; // Get the user_id from the logged in user
 
-//  /***** IMPORTANT date time format *****/
-// const dateObject = moment(date_time);
+//     /***** IMPORTANT date time format *****/
+//     const dateObject = moment(date_time);
 
-// // Reformat date and time using moment
-// const formattedDateTime = dateObject.format("MMMM D, YYYY h:mm A");
-// console.log("Formatted DateTime:", formattedDateTime);
+//     // Reformat date and time using moment
+//     const formattedDateTime = dateObject.format("MMMM D, YYYY h:mm A");
+//     console.log("Formatted DateTime:", formattedDateTime);
 
-// console.group("User ID:", user_id);
-// console.log("Request ID to update:", requestToUpdate);
-// console.log("First Name:", first_name);
-// console.log("Last Name:", last_name);
-// console.log("Email:", email);
-// console.groupEnd("");
+//     console.group("User ID:", user_id);
+//     console.log("Request ID to update:", requestToUpdate);
+//     console.log("First Name:", first_name);
+//     console.log("Last Name:", last_name);
+//     console.log("Email:", email);
+//     console.groupEnd("");
 
-//     await connection.query("BEGIN"); // Start the SQL transaction
+//     // UPDATE "user" table
+//     const userEditQuery = `
+//        UPDATE "user"
+//        SET "first_name" = $1, "last_name" = $2, "email" = $3
+//        WHERE "user"."id" = $4;
+//      `;
+
+//     // UPDATE "request" table
+//     const date_timeEditQuery = `
+//        UPDATE "request"
+//        SET "date_time" = $1
+//        WHERE "id" = $2;
+//      `;
 
 //     /***** Execute EDIT QUERIES *****/
-//     // INSERT INTO "user" table
-//     const userUpdateQuery = `
-//   UPDATE "user"
-//   SET "first_name" = $1, "last_name" = $2, "email" = $3
-//   FROM "request"
-//   WHERE "user"."id" = $4;
-// `;
-//     const userUpdateResult = [first_name, last_name, email, user_id];
-//     // INSERT INTO "request" table
-//     const requestUpdateQuery = `
-//   UPDATE "request"
-//   SET "date_time" = $1
-//   WHERE "id" = $2;
-// `;
-//     const requestUpdateResult = [utcDateTime, requestToUpdate];
-
-//     await connection.query(
-//       userUpdateQuery,
-//       userUpdateResult,
-//       requestUpdateQuery,
-//       requestUpdateResult
-//     );
-
-//     await connection.query("COMMIT"); // Commit the transaction
+//     await pool.query(userEditQuery, [first_name, last_name, email, user_id]);
+//     await pool.query(date_timeEditQuery, [formattedDateTime, requestToUpdate]);
 
 //     /***** SUCCESS *****/
 //     console.log("PUT request in '/request' to database successful");
 //     res.sendStatus(200);
 //   } catch (error) {
-//     await connection.query("ROLLBACK"); // Rollback the transaction in case of an error
 //     console.log(`PUT request in '/request' to database error: `, error);
 //     res
 //       .status(500)
 //       .json({ error: "An error occurred while updating the request." });
-//   } finally {
-//     connection.release(); // Release the connection back to the pool
 //   }
 // });
+
+/* SQL TRANSACTION */
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+  const connection = await pool.connect();
+  try {
+    // Update a single request
+    const requestToUpdate = req.params.id;
+    const { first_name, last_name, email, date_time } = req.body;
+    const user_id = req.user.id;
+
+ /***** IMPORTANT date time format *****/
+const dateObject = moment(date_time);
+
+// Reformat date and time using moment
+const formattedDateTime = dateObject.format("MMMM D, YYYY h:mm A");
+console.log("Formatted DateTime:", formattedDateTime);
+
+console.group("User ID:", user_id);
+console.log("Request ID to update:", requestToUpdate);
+console.log("First Name:", first_name);
+console.log("Last Name:", last_name);
+console.log("Email:", email);
+console.groupEnd("");
+
+    await connection.query("BEGIN"); // Start the SQL transaction
+
+    /***** Execute EDIT QUERIES *****/
+    // INSERT INTO "user" table
+    const userUpdateQuery = `
+  UPDATE "user"
+  SET "first_name" = $1, "last_name" = $2, "email" = $3
+  FROM "request"
+  WHERE "user"."id" = $4;
+`;
+    const userUpdateResult = [first_name, last_name, email, user_id];
+    // INSERT INTO "request" table
+    const requestUpdateQuery = `
+  UPDATE "request"
+  SET "date_time" = $1
+  WHERE "id" = $2;
+`;
+    const requestUpdateResult = [formattedDateTime, requestToUpdate];
+
+    await connection.query(
+      userUpdateQuery,
+      userUpdateResult,
+      
+    );
+    await connection.query(
+   
+  
+      requestUpdateQuery,
+      requestUpdateResult
+    );
+
+    await connection.query("COMMIT"); // Commit the transaction
+
+    /***** SUCCESS *****/
+    console.log("PUT request in '/request' to database successful");
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query("ROLLBACK"); // Rollback the transaction in case of an error
+    console.log(`PUT request in '/request' to database error: `, error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the request." });
+  } finally {
+    connection.release(); // Release the connection back to the pool
+  }
+});
 
 module.exports = router;

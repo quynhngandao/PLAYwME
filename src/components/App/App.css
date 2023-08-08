@@ -2,6 +2,7 @@ html,
 body,
 #react-root {
   height: 100%;
+
 }
 
 body {
@@ -18,9 +19,14 @@ img {
 PAGES
 -------------------------------------------------------------------------------- */
 
-.landing-page, .login-page , .register-page {
+.landing-page {
 margin-top: 5em;
   min-height: 80vh;
+
+}
+
+.login-page , .register-page {
+
 }
 
 .grid {

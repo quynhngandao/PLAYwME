@@ -3,9 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 0 0 ;
-  background-color: #000000;
+  background-color:#474143;
   overflow: hidden;
 }
 
@@ -15,16 +14,18 @@
 
 .nav-title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 900;
   color: #f2f2f2;
   padding-left: 10px;
   margin: 0;
+  margin-left: 15px;
+  font-family:  'varela round';
 }
 
 .navLink {
   display: inline-block;
   color: #f2f2f2;
-  background-color: #000000;
+  background-color: #3d3f42;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;

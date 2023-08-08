@@ -1,7 +1,20 @@
+import {
+  Container,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  Stack,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function RegisterForm() {
+export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -26,78 +39,131 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+    <Container component="main" maxWidth="lg">
       {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
+        <Typography variant="h5" className="alert" role="alert">
           {errors.registrationMessage}
-        </h3>
+        </Typography>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-        </div>
-        <div>
-        <label htmlFor="first-name">
-          First Name:
-          <input
-            type="text"
-            name="name"
-            value={firstName}
-            required
-            onChange={(event) => setFirstName(event.target.value)}
-          />
-        </label>
-        </div>
-        <div>
-        <label htmlFor="last-name">
-          Last Name:
-          <input
-            type="text"
-            name="name"
-            value={lastName}
-            required
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </label>
-     </div>
-     <div>
-        <label htmlFor="email">
-         Email:
-          <input
-            type="text"
-            name="email"
-            value={email}
-            required
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-     </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
-    </form>
+      <Box
+        sx={{
+          marginTop: 6,
+        }}
+      >
+        <Grid container justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <Box
+              sx={{
+                my: 6,
+                mx: 4,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography component="h1" variant="h4">
+                Create Account
+              </Typography>
+              <Box
+                component="form"
+                noValidate
+                onSubmit={registerUser}
+                sx={{ mt: 1 }}
+              >
+                <Stack spacing={2} direction="row" alignItems="baseline">
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="username"
+                    type="username"
+                    name="username"
+                    autoFocus
+                    onChange={(event) => setUsername(event.target.value)}
+                    value={username}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                </Stack>
+                <Stack spacing={2} direction="row" alignItems="baseline">
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="name"
+                    label="First Name"
+                    type="text"
+                    id="first-name"
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="name"
+                    label="Last Name"
+                    type="text"
+                    id="last-name"
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+                  />
+                </Stack>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="email"
+                  label="Email"
+                  type="text"
+                  id="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  name="submit"
+                  value="Register"
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign Up
+                </Button>
+                <Grid container justifyContent="center">
+                  <Grid item>
+                    <Link href="#/login" variant="body2">
+                      {"Already have an account? Login"}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 }
-
-export default RegisterForm;

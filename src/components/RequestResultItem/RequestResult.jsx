@@ -95,7 +95,7 @@ export default function RequestResult({ request }) {
               sx={[styledCard]}
               style={{
                 
-                backgroundColor: index % 2 ? "#f5f8ff" : "#eef3ff",
+                backgroundColor: index % 2 ? "#e0ecd9" : "#fbf7f9",
               }}
             >
             
@@ -106,7 +106,7 @@ export default function RequestResult({ request }) {
                   color: "#305f82",
                 }}
                 style={{
-                  backgroundColor: index % 2 ? "#f5f8ff" : "#eef3ff",
+                  backgroundColor: index % 2 ? "#e0ecd9" : "#fbf7f9",
                 }}
               >
                 <Box sx={{ my: 2, mx: 1 }}>
