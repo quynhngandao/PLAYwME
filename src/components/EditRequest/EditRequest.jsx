@@ -127,12 +127,13 @@ export default function EditRequest() {
                 <Stack spacing={2}>
                   {/* CUSTOMDATETIMEPICKER */}
                   <CustomDateTimePicker
-                    onDateTimeChange={handleDateTimeChange} // Pass the function to update date_time
-                    date_time={editRequest.date_time} // Pass the current date_time value
+                    onDateTimeChange={handleDateTimeChange} // Pass the function to update user_info.date_time
+                    date_time={editRequest.date_time} // Pass the current user_info.date_time value
                     setDate_time={(formattedDateTime) =>
                       handleChange({ target: { value: formattedDateTime } }, "date_time")
                     }
                   />
+
                   <TextField
                     value={editRequest.first_name}
                     placeholder="First name"

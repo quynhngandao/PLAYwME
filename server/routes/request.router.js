@@ -120,103 +120,38 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
 /******************************
  * PUT logged-in user's request
  *****************************/
-router.put("/:id", rejectUnauthenticated, async (req, res) => {
-  try {
-    // Update a single request
-    const requestToUpdate = req.params.id;
-    const { first_name, last_name, email, date_time, animal_id } = req.body;
-    const user_id = req.user.id; // Get the user_id from the logged in user
-
-    /***** IMPORTANT date time format *****/
-    const dateObject = moment(date_time);
-
-    // Convert to UTC and reformat
-    const utcDateTime = dateObject.utc().format("YYYY-MM-DDTHH:mm:ss");
-    console.log("Formatted DateTime:", utcDateTime);
-
-console.log("User ID:", user_id);
-    console.log("Request ID to update:", requestToUpdate);
-    console.log("First Name:", first_name);
-    console.log("Last Name:", last_name);
-    console.log("Email:", email);
-    console.log("UTC Date Time:", utcDateTime);
-    console.log("Animal ID:", animal_id);
-    
-    // UPDATE "user" table
-    const userEditQuery = `
-       UPDATE "user" 
-       SET "first_name" = $1, "last_name" = $2, "email" = $3
-       FROM "request" 
-       INNER JOIN "animal_request" ON "animal_request"."request_id" = "request"."id"
-       WHERE "request"."id" = $4 AND "user"."id" = "request"."user_id";
-     `;
-
-    // UPDATE "request" table
-    const date_timeEditQuery = `
-       UPDATE "request"
-       SET "date_time" = $1
-       WHERE "id" = $2;
-     `;
-
-    /***** Execute EDIT QUERIES *****/
-    await pool.query(userEditQuery, [first_name, last_name, email, user_id]);
-    await pool.query(date_timeEditQuery, [utcDateTime, requestToUpdate]);
-
-    // INSERT INTO "animal_request" table
-    const insertAnimalRequestQuery = `
-       INSERT INTO "animal_request" ("request_id", "animal_id")
-       VALUES ($1, $2);
-     `;
-
-    await pool.query(insertAnimalRequestQuery, [requestToUpdate, animal_id]);
-
-    /***** SUCCESS *****/
-    console.log("PUT request in '/request' to database successful");
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(`PUT request in '/request' to database error: `, error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the request." });
-  }
-});
-
-
-
 // router.put("/:id", rejectUnauthenticated, async (req, res) => {
-//   const connection = await pool.connect();
-
 //   try {
 //     // Update a single request
 //     const requestToUpdate = req.params.id;
-//     const { first_name, last_name, email, date_time, animal_id } = req.body; // animal_id here is an array of id 
+//     const { first_name, last_name, email, date_time, animal_id } = req.body;
 //     const user_id = req.user.id; // Get the user_id from the logged in user
 
 //     /***** IMPORTANT date time format *****/
 //     const dateObject = moment(date_time);
+
 //     // Convert to UTC and reformat
 //     const utcDateTime = dateObject.utc().format("YYYY-MM-DDTHH:mm:ss");
 //     console.log("Formatted DateTime:", utcDateTime);
-//     // LOGGING for testing
-//     console.log("User ID:", user_id);
+
+// console.group("User ID:", user_id);
 //     console.log("Request ID to update:", requestToUpdate);
 //     console.log("First Name:", first_name);
 //     console.log("Last Name:", last_name);
 //     console.log("Email:", email);
 //     console.log("UTC Date Time:", utcDateTime);
 //     console.log("Animal ID:", animal_id);
-
-//     /***** BEGIN *****/
-//     await connection.query("BEGIN");
+//     console.groupEnd('')
 
 //     // UPDATE "user" table
 //     const userEditQuery = `
-//        UPDATE "user" 
+//        UPDATE "user"
 //        SET "first_name" = $1, "last_name" = $2, "email" = $3
-//        FROM "request" 
+//        FROM "request"
 //        INNER JOIN "animal_request" ON "animal_request"."request_id" = "request"."id"
 //        WHERE "request"."id" = $4 AND "user"."id" = "request"."user_id";
 //      `;
+
 //     // UPDATE "request" table
 //     const date_timeEditQuery = `
 //        UPDATE "request"
@@ -224,51 +159,92 @@ console.log("User ID:", user_id);
 //        WHERE "id" = $2;
 //      `;
 
-//     /***** Execute UPDATE QUERIES *****/
-//     const userResult = await connection.query(userEditQuery, [
-//       first_name,
-//       last_name,
-//       email,
-//       user_id,
-//     ]);
-//     const requestResult = await connection.query(date_timeEditQuery, [utcDateTime, requestToUpdate]);
+//     /***** Execute EDIT QUERIES *****/
+//     await pool.query(userEditQuery, [first_name, last_name, email, user_id]);
+//     await pool.query(date_timeEditQuery, [utcDateTime, requestToUpdate]);
 
-//     console.log('requestResult', requestResult)
-//     // FOR ANIMAL ARRAY 
-//     for (animal of animal_id) {
-//       // UPDATE "animal_request" table
-//       const updateAnimalRequestQuery = `
-//    INSERT INTO "animal_request" ("request_id", "animal_id")
-//    VALUES ($1, $2);
-//  `;
-//       /***** Execute ANIMAL UPDATE QUERY *****/
-//       const animalRequestResult = await connection.query(
-//         updateAnimalRequestQuery,
-//         [requestToUpdate, animal]
-//       );
-//       console.log('animalREquestresult', animalRequestResult)
-//     }
-//     /***** COMMIT *****/
-//     await connection.query("COMMIT");
+//     // INSERT INTO "animal_request" table
+//     const insertAnimalRequestQuery = `
+//        INSERT INTO "animal_request" ("request_id", "animal_id")
+//        VALUES ($1, $2);
+//      `;
+
+//     await pool.query(insertAnimalRequestQuery, [requestToUpdate, animal_id]);
+
 //     /***** SUCCESS *****/
 //     console.log("PUT request in '/request' to database successful");
 //     res.sendStatus(200);
-//     /***** ERROR *****/
 //   } catch (error) {
-//     /***** ROLLBACK *****/
-//     await connection.query("ROLLBACK");
-//     console.log(
-//       `Transaction Error for PUT in '/request' - Rolling back transfer `
-//     );
+//     console.log(`PUT request in '/request' to database error: `, error);
 //     res
 //       .status(500)
-//       .json({ error: "An error occurred while updating the request" });
-//     /***** FINALLY *****/
-//   } finally {
-//     connection.release();
+//       .json({ error: "An error occurred while updating the request." });
 //   }
 // });
 
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+  const connection = await pool.connect();
+  try {
+    // Update a single request
+    const requestToUpdate = req.params.id;
+    const { first_name, last_name, email, date_time } = req.body;
+    const user_id = req.user.id;
 
+    /***** IMPORTANT date time format *****/
+    const dateObject = moment(date_time);
+    // Convert to UTC and reformat
+    const utcDateTime = dateObject.utc().format("YYYY-MM-DDTHH:mm:ss");
+
+    console.group("Formatted DateTime:", utcDateTime);
+    console.log("User ID:", user_id);
+    console.log("Request ID to update:", requestToUpdate);
+    console.log("First Name:", first_name);
+    console.log("Last Name:", last_name);
+    console.log("Email:", email);
+    console.log("UTC Date Time:", utcDateTime);
+    console.groupEnd("");
+
+    await connection.query("BEGIN"); // Start the SQL transaction
+
+    /***** Execute EDIT QUERIES *****/
+    // INSERT INTO "user" table
+    const userUpdateQuery = `
+  UPDATE "user" 
+  SET "first_name" = $1, "last_name" = $2, "email" = $3
+  FROM "request" 
+  INNER JOIN "animal_request" ON "animal_request"."request_id" = "request"."id"
+  WHERE "request"."id" = $4 AND "user"."id" = "request"."user_id";
+`;
+    const userUpdateResult = [first_name, last_name, email, user_id];
+    // INSERT INTO "request" table
+    const requestUpdateQuery = `
+  UPDATE "request"
+  SET "date_time" = $1
+  WHERE "id" = $2;
+`;
+    const requestUpdateResult = [utcDateTime, requestToUpdate];
+
+    await connection.query(
+      userUpdateQuery,
+      userUpdateResult,
+      requestUpdateQuery,
+      requestUpdateResult
+    );
+
+    await connection.query("COMMIT"); // Commit the transaction
+
+    /***** SUCCESS *****/
+    console.log("PUT request in '/request' to database successful");
+    res.sendStatus(200);
+  } catch (error) {
+    await client.query("ROLLBACK"); // Rollback the transaction in case of an error
+    console.log(`PUT request in '/request' to database error: `, error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the request." });
+  } finally {
+    client.release(); // Release the connection back to the pool
+  }
+});
 
 module.exports = router;
