@@ -10,13 +10,15 @@ function* getAnimalsInMN(action) {
     const response = yield axios.get("/api/animal", {
       params: {
         location: "MN",
-
       },
     });
     yield put({ type: "SET_ANIMAL", payload: response.data });
-    yield put({ type: "SET_TOTAL_PAGES", payload: response.data.pagination.total_pages });
-    yield put({ type: "SET_CURRENT_PAGE", payload: response.data.pagination.current_page });
-    yield put({ type: "SET_COUNT_PER_PAGE", payload: response.data.pagination.count_per_page})
+    yield put({ type: "SET_TOTAL_PAGES", payload: response.data});
+    yield put({ type: "SET_CURRENT_PAGE", payload:  response.data});
+    yield put({ type: "SET_COUNT_PER_PAGE", payload: response.data})
+    yield put({type: "SET_PREVIOUS", payload: response.data})
+    yield put({type: "SET_NEXT",  payload: response.data})
+    yield put({type: "SET_LINK",  payload: response.data})
   } catch (error) {
     console.log("Error with animals GET request from redux: ", error);
   } finally {

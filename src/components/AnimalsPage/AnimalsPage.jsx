@@ -12,7 +12,7 @@ import SearchBar from "../SearchBar/SearchBar";
 const styledCardMediaNoImage = {
   width: "100%",
   height: 170,
-  objectFit: "fill",
+objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
@@ -56,22 +56,31 @@ export default function AnimalsPage() {
   const petfinder = useSelector((store) => store.petfinder);
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
-   const pagination = useSelector((state) => state.pagination);
-   const currentPage = useSelector((state) => state.pagination.currentPage);
-const  totalPages = useSelector((state) => state.pagination.totalPages);
+   const pagination = useSelector((store) => store.pagination);
+
   
-const [page, setCurrentPage] = useState()
+const [current, setCurrentPage] = useState()
+const [previous, setPreviousPage] = useState(current)
+const [next, setNextPage] = useState(current)
 
   // handlePageChange when you click onto the next page
-  // const handlePageChange = (event, newPage) => {
-  //   event.preventDefault();
-  //   setCurrentPage(newPage);
-  //   console.log(newPage,"newpage set currenttpage")
-  //   dispatch({ type: "SET_CURRENT_PAGE", payload: newPage });
-  // };
+  const handlePageChange = (event, current, next, previous) => {
+    event.preventDefault();
+    setCurrentPage(current);
+    setPreviousPage(previous)
+    setNextPage(next)
+   
+    console.log(current ,"newpage set currenttpage")
+    console.log(next ,"next set currenttpage")
+    console.log(previous ,"previous set currenttpage")
+    dispatch({ type: "SET_CURRENT_PAGE", payload: current})
+  dispatch({type:"SET_PREVIOUS", payload: previous})
+  dispatch({type:"SET_NEXT", payload: next})
+  dispatch({type:"SET_LINKS"})
+  };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_API"});
+    dispatch({ type: "FETCH_API" });
   }, [ ]);
 
   return (
@@ -96,11 +105,14 @@ const [page, setCurrentPage] = useState()
           </Grid>
           {/* PAGINATION */}
           <Grid item>
-          {/* <Pagination 
-           page={currentPage}
-           count={totalPages}
+   
+          <Pagination 
+           page={pagination.currentPage}
+           count={pagination.totalPages}
+           previous={pagination._links}
+           next={pagination._links}
            onChange={handlePageChange}
-          sx={{justifyContent:"end"}} variant="outlined" color="primary" /> */}
+          sx={{justifyContent:"end"}} variant="outlined" color="primary" />
           </Grid>
           {/* ANIMAL DISPLAY ITEM */}
           <Grid>
