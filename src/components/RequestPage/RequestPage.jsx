@@ -59,13 +59,11 @@ export default function RequestPage() {
       ) : (
         <Box sx={{ml:5}}>
           <header className="App-header">
-            <Typography
-              variant="h2"
-              color="primary.main"
-              className="page-title"
+            <h2
+              className="review-page-title"
             >
               Review Page
-            </Typography>
+            </h2>
           </header>
           <Box minHeight="350px">
             {/* ANIMAL DISPLAY */}

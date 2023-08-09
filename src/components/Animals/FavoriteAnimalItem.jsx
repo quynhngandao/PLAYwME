@@ -12,6 +12,7 @@ import {
   Button,
   Tooltip,
   Stack,
+  Box
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -54,9 +55,9 @@ export default function FavoriteAnimalItem({
   // RENDER
   return (
     <>
-      <Typography variant="h3" color="primary.main" className="page-heading">
+      <h3 className="animal-page-heading">
         Review Your Animal Selection
-      </Typography>
+      </h3>
       {favorite && (
         <div className="favorite-animals">
           {favorite.map((animal) => (
@@ -91,7 +92,15 @@ export default function FavoriteAnimalItem({
               )}
               <CardActionArea>
                 <CardActions sx={{p:0}}>
-            
+                <Box
+                  sx={{
+                    display: "flex",
+                    direction: "row",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
                   {/* EDIT BUTTON */}
                   <Tooltip Tooltip title="edit" placement="bottom">
                     <IconButton>
@@ -134,7 +143,8 @@ export default function FavoriteAnimalItem({
                       > <EmailIcon/></Button>
                     </IconButton>
                   </Tooltip>
-        
+                  
+        </Box>
                 </CardActions>
               </CardActionArea>
               {/* DETAILS OF ANIMAL*/}

@@ -6,6 +6,7 @@ import favorite from './favorite.reducer'
 import loading from './loading.reducer'
 import requests from './requests.reducer';
 import editRequest from './editRequest.reducer';
+import pagination from './pagination.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   loading, // loading reducer will perform loading spinner for API 
   requests, // requests reducer will store user's animal requests
   editRequest, // edit request reducer will store user's edit infos
+  pagination, // pagination reducer handles page display 
 });
 
 export default rootReducer;

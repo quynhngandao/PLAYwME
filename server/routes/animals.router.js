@@ -12,13 +12,12 @@ const client = new petfinder.Client({
  * GET PETFINDER API 
  ******************/
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const limit = 30;
   const location = req.query.location || "MN";
 
   client.animal
-    .search({ limit, location })
+    .search({ location })
     .then((response) => {
-      console.log("server response from animal api successful:");
+      console.log("server response from animal api successful:", response.data);
       res.send(response.data);
     })
     .catch((err) => {

@@ -5,7 +5,7 @@ import { useState } from "react";
 import {
   Fab,
   FormControlLabel,
-  IconButton,
+  Icon,
   Checkbox,
   DialogContentText,
   DialogTitle,
@@ -14,6 +14,7 @@ import {
   DialogContent,
   Stack,
   Box,
+  IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
@@ -90,9 +91,9 @@ export default function Modalpopup({ open, onClose }) {
           color="primary.dark"
         >
           Request Application
-          <IconButton onClick={onClose} style={{ float: "right" }}>
+          <Icon onClick={onClose} style={{ float: "right" }}>
             <CloseIcon color="primary" />
-          </IconButton>
+          </Icon>
         </DialogTitle>
 
         <DialogContent>
@@ -111,13 +112,9 @@ export default function Modalpopup({ open, onClose }) {
               label="Agree to terms & conditions"
             />
           </Stack>
-          {/* SUBMIT BUTTON */}
+          {/* SUBMIT  */}
           <Box display="flex" justifyContent="center">
-            <IconButton
-              onClick={handleSubmit}
-              variant="outlined"
-              color="primary"
-            >
+            <IconButton onClick={handleSubmit} variant="outlined" color="primary">
               <Fab
                 variant="extended"
                 size="medium"

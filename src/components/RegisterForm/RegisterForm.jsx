@@ -144,7 +144,7 @@ export default function RegisterForm() {
                 />
                 <Button
                   name="submit"
-                  value="Register"
+           
                   type="submit"
                   fullWidth
                   variant="contained"

@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 0 ;
-  background-color:#474143;
+  background-color:#1c364b;
   overflow: hidden;
 }
 
@@ -13,23 +13,26 @@
 }
 
 .nav-title {
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 900;
   color: #f2f2f2;
   padding-left: 10px;
-  margin: 0;
-  margin-left: 15px;
-  font-family:  'varela round';
+
+  margin-left: 25px;
+  font-family: 'varela round';
 }
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #3d3f42;
+  color: #f7f9fb;
+  background-color:#1c364b;
   text-align: center;
-  padding: 24px 10px;
+  padding: 20px 10px;
   text-decoration: none;
   font-size: 15px;
+  margin-right: 15px;
+  font-family: "varela round", "fraunces";
+  font-weight: 800;
 
   /* these last two make the logout button in
   the nav bar look like another link */
@@ -39,5 +42,5 @@
 }
 
 .navLink:hover {
-  background-color: #909b9b82;
+  background-color:#326186;
 }

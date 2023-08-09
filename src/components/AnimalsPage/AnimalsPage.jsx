@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
+import { Typography, Grid, Pagination } from "@mui/material";
 import React, { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnimalItem from "../Animals/AnimalItem";
 
@@ -55,10 +56,23 @@ export default function AnimalsPage() {
   const petfinder = useSelector((store) => store.petfinder);
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
+   const pagination = useSelector((state) => state.pagination);
+   const currentPage = useSelector((state) => state.pagination.currentPage);
+const  totalPages = useSelector((state) => state.pagination.totalPages);
+  
+const [page, setCurrentPage] = useState()
+
+  // handlePageChange when you click onto the next page
+  // const handlePageChange = (event, newPage) => {
+  //   event.preventDefault();
+  //   setCurrentPage(newPage);
+  //   console.log(newPage,"newpage set currenttpage")
+  //   dispatch({ type: "SET_CURRENT_PAGE", payload: newPage });
+  // };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_API" });
-  }, [dispatch]);
+    dispatch({ type: "FETCH_API"});
+  }, [ ]);
 
   return (
     <div className="petfinder-page">
@@ -67,22 +81,41 @@ export default function AnimalsPage() {
         <LoadingSpinner />
       ) : (
         <>
-          <header className="App-header">
-            <Typography variant="h2" color="primary.main" className="page-tile">
-              Available Animals
-            </Typography>
-          </header>
+          <Grid>
+            <header className="App-header">
+              <h2
+                className="animal-page-title"
+              >
+                Available Animals
+              </h2>
+            </header>
+          </Grid>
           {/* SEARCH BAR */}
-          <SearchBar />
-          <AnimalItem
-            styledFab={styledFab}
-            styledCardMedia={styledCardMedia}
-            styledCard={styledCard}
-            textLink={textLink}
-            styledCardMediaNoImage={styledCardMediaNoImage}
-            styledHeartIcon={styledHeartIcon}
-            styledHeartButton={styledHeartButton}
-          />
+          <Grid>
+            <SearchBar />
+          </Grid>
+          {/* PAGINATION */}
+          <Grid item>
+          {/* <Pagination 
+           page={currentPage}
+           count={totalPages}
+           onChange={handlePageChange}
+          sx={{justifyContent:"end"}} variant="outlined" color="primary" /> */}
+          </Grid>
+          {/* ANIMAL DISPLAY ITEM */}
+          <Grid>
+            
+            <AnimalItem
+          
+              styledFab={styledFab}
+              styledCardMedia={styledCardMedia}
+              styledCard={styledCard}
+              textLink={textLink}
+              styledCardMediaNoImage={styledCardMediaNoImage}
+              styledHeartIcon={styledHeartIcon}
+              styledHeartButton={styledHeartButton}
+            />
+          </Grid>
         </>
       )}
     </div>

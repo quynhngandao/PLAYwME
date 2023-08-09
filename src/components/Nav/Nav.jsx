@@ -38,7 +38,7 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/user">
-              <PersonOutlineIcon />
+              Profile
             </Link>
 
             <Link className="navLink" to="/petfinder">

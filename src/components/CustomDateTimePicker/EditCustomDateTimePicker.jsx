@@ -41,7 +41,7 @@ export default function EditCustomDateTimePicker(props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker"]}>
-        <DemoItem label="Select a time">
+        <DemoItem label="" >
           <DateTimePicker
             // Only Monday to Friday , null is for time selected by user
             defaultValue={[lastMonday, nextSunday, selectedDateTime]}

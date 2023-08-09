@@ -7,15 +7,19 @@ import {
   CardMedia,
   Fab,
   Button,
-  Tooltip
+  Tooltip,
+  Pagination
+ 
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
 // Import CSS
 import "./AnimalItem.css";
+import { CurrencyYenTwoTone } from "@mui/icons-material";
 
 const body = {
   color: "primary.dark",
@@ -28,8 +32,8 @@ const title = {
   mt: "3px",
   mb: "7px",
   color: "primary.main",
-  fontSize: "1.5em", 
-  fontFamily: "fraunces", 
+  fontSize: "1.5em",
+  fontFamily: "fraunces",
 };
 
 export default function AnimalItem({
@@ -40,26 +44,26 @@ export default function AnimalItem({
   styledCardMediaNoImage,
   styledHeartIcon,
   styledHeartButton,
+  currentPage,
+  totalPages,
+  handlePageChange,
 }) {
   // useSelector to grab animal data from redux store
   const petfinder = useSelector((store) => store.petfinder);
   const user = useSelector((store) => store.user);
-  // useDispatch to send animal data to redux store
+   // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
 
   // handleFavorite
   const handleFavorite = (e, clickedAnimal) => {
     e.preventDefault();
-    console.log("button clicked")
-    console.log("Clicked Animal Data:", clickedAnimal)
+    console.log("button clicked");
+    console.log("Clicked Animal Data:", clickedAnimal);
 
     // conditional statement: if clickedAnimal=true
     // set newAnimal's properties => clickedAnimal's values
     // handleFavorite function => send clickedAnimal data
-    if (
-      clickedAnimal &&
-      clickedAnimal.id 
-    ) {
+    if (clickedAnimal && clickedAnimal.id) {
       const newAnimal = {
         id: clickedAnimal.id,
         name: clickedAnimal.name,
@@ -80,10 +84,11 @@ export default function AnimalItem({
     }
   };
 
-  // Open new tab when picture is clicked 
+  // Open new tab when picture is clicked
   const openInNewTab = (url) => {
     window.open(url);
   };
+
 
   return (
     <>
@@ -93,20 +98,20 @@ export default function AnimalItem({
             <Card key={animal.id} className="card" sx={styledCard}>
               {/* Image */}
               {animal.photos && animal.photos.length > 0 ? (
-                 <CardActionArea onClick={() => openInNewTab(animal.url)}>
+                <CardActionArea onClick={() => openInNewTab(animal.url)}>
                   <Tooltip title="Click For More Details" placement="top">
                     <CardMedia
                       sx={styledCardMedia}
                       component="img"
                       image={animal.photos[0].full}
                       alt={animal.name}
-                    /></Tooltip>
-                </CardActionArea> 
+                    />
+                  </Tooltip>
+                </CardActionArea>
               ) : (
                 // NOT AVAILABLE IMAGE
                 <CardActionArea>
                   <a href={animal.url}>
-                    
                     <CardMedia
                       sx={styledCardMediaNoImage}
                       component="img"
@@ -114,17 +119,16 @@ export default function AnimalItem({
                       alt="not available"
                     />
                   </a>
-                </CardActionArea> 
-              )} 
-             
+                </CardActionArea>
+              )}
 
               {/* Favorite Button */}
               <IconButton
                 sx={styledHeartButton}
                 onClick={(e) => handleFavorite(e, animal)}
               >
-                 <Tooltip title="Add to Favorite" placement="left-start">
-                <FavoriteBorderIcon sx={styledHeartIcon} />
+                <Tooltip title="Add to Favorite" placement="left-start">
+                  <FavoriteBorderIcon sx={styledHeartIcon} />
                 </Tooltip>
               </IconButton>
 
