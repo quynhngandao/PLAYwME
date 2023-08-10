@@ -40,8 +40,6 @@ export default function RegisterForm() {
       },
     });
 
-     // Update isNewUser status and redirect to /petfinder
-     dispatch({ type: "SET_IS_NEW_USER", payload: true });
      history.push("/petfinder"); // Redirect to /petfinder
    };
 

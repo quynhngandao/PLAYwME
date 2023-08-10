@@ -9,7 +9,7 @@ function AboutPage() {
   return (
     <div className="container">
       <div>
-        <p>This about page is for anyone to read!</p>
+      <img src="https://img.freepik.com/free-vector/thank-you-placard-concept-illustration_114360-13436.jpg?w=2000"/>
       </div>
     </div>
   );
