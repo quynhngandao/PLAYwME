@@ -19,8 +19,8 @@ import RequestForm from  '../FormRequest/RequestForm'
 // Custom sx props
 const styledCard = {
   width: "100%",
-  maxWidth: 260,
-  height: 330,
+  maxWidth: 300,
+  height: 400,
   borderRadius: 5,
   boxShadow: 4,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),

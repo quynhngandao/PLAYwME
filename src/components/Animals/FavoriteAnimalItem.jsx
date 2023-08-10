@@ -14,6 +14,7 @@ import {
   Stack,
   Box,
   Grid,
+  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
@@ -21,6 +22,7 @@ import EmailIcon from "@mui/icons-material/Email";
 
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
+import { useState } from "react";
 
 // custom styling
 const body = {
@@ -45,13 +47,96 @@ export default function FavoriteAnimalItem({
   // useSelector to grab animal data from redux store
   const user = useSelector((store) => store.user);
   const favorite = useSelector((store) => store.favorite);
+  const editRequest = useSelector((store) => store.editRequest);
   // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
+  // useState
+  const [showCard, setShowCard] = useState(false);
 
   // Open new tab when picture is clicked
   const openInNewTab = (url) => {
     window.open(url);
   };
+
+  // handleSubmit: submit animal change
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(
+      "edit animals before submitting in favoriteanimalitem",
+      editRequest
+    );
+
+    dispatch({
+      type: "SUBMIT_EDIT_REQUEST",
+      payload: editRequest,
+    });
+    // Reset state after submitting
+    dispatch({
+      type: "RESET_EDIT_REQUEST",
+    });
+  };
+
+  // cancelEdit: undo edit
+  const cancelEdit = () => {
+    // Reset after submitting
+    dispatch({
+      type: "RESET_EDIT_REQUEST",
+    });
+  };
+
+  // handleChange
+  const handleChange = (e, propertyToChange) => {
+    dispatch({
+      type: "EDIT_ONCHANGE",
+      payload: {
+        property: propertyToChange,
+        value: e.target.value,
+      },
+    });
+  };
+
+  const handleEditClick = (animalid, clickedanimal) => {
+    console.log(editRequest.note, "edit note in favorite animal");
+
+    const animal = favorite.find(
+      (req) => req.animal.animal_details.id === animalid
+    );
+
+    if (animal && animal.animal_details) {
+      const { note } = clickedAnimal.animal_details;
+      console.log(note, "edit note in favorite animal");
+
+      dispatch({
+        type: "SET_EDIT_REQUEST",
+        payload: { id: animalid, note: note },
+      });
+    }
+    setShowCard(showCard);
+    history.push("/edit");
+  };
+
+  let description;
+
+  if (!showCard) {
+    description = (
+      <CardActionArea onClick={() => handleEditClick(animal.animal_details.id)}>
+        <TextField
+          label="Notes"
+          onChange={(e) => handleChange(e, "note")}
+          value={editRequest.note}
+          placeholder="Notes about animal"
+        />
+        <Button onClick={handleSubmit}>Save</Button>
+      </CardActionArea>
+    );
+  } else {
+    description = (
+      <CardActionArea
+        onClick={() => handleEditClick(animal.animal_details.id)}
+      ></CardActionArea>
+    );
+  }
 
   // RENDER
   return (
@@ -93,26 +178,23 @@ export default function FavoriteAnimalItem({
                 </CardActionArea>
               )}
               <CardActionArea>
-                <CardActions
-                
-                >
-                   <Box
-                  sx={{
-                    display: "flex",
-                    direction: "row",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                  }}
-                >
+                <CardActions>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      direction: "row",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                      justifyContent: "center",
+                    }}
+                  >
                     {/* EDIT BUTTON */}
                     <Tooltip Tooltip title="edit" placement="bottom">
-                      <IconButton   onClick={() => {
-                          dispatch({
-                            type: "EDIT_ANIMAL",
-                            payload: animal.animal_details.id,
-                          });
-                        }}>
+                      <IconButton
+                        onClick={() =>
+                          handleEditClick(animal.animal_details.id)
+                        }
+                      >
                         <Button variant="outlined" color="primary">
                           <EditNoteIcon />
                         </Button>
@@ -141,8 +223,7 @@ export default function FavoriteAnimalItem({
                           (window.location = `mailto:${animal.animal_details.contact}`)
                         }
                       >
-                        <Button width="50%" variant="outlined" color="primary">
-                          {" "}
+                        <Button variant="outlined" color="primary">
                           <EmailIcon />
                         </Button>
                       </IconButton>
@@ -150,7 +231,9 @@ export default function FavoriteAnimalItem({
                   </Box>
                 </CardActions>
               </CardActionArea>
+
               {/* DETAILS OF ANIMAL*/}
+              {description}
               <CardContent sx={{ pt: 0 }}>
                 {/* NAME */}
                 <Typography sx={title}>{animal.animal_details.name}</Typography>

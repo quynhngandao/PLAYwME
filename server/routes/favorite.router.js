@@ -184,4 +184,39 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   }
 });
 
+/******************************
+ * PUT logged-in user's animal
+ *****************************/
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+  try {
+    // Update a single request
+    const requestToUpdate = req.params.id;
+    const note = req.body.note;
+    const user_id = req.user.id; // Get the user_id from the logged in user
+
+   onsole.log("Request ID to update:", requestToUpdate);
+    console.log("note:", note);
+
+    // UPDATE "favorite_animal" table
+    const animalEditQuery = `
+       UPDATE "favorite_animal"
+       SET "note" = $1
+       WHERE "user"."id" = $2;
+     `;
+
+    /***** Execute EDIT QUERIES *****/
+    await pool.query(animalEditQuery, [user_id, note]);
+
+    /***** SUCCESS *****/
+    console.log("PUT request in '/favorite' to database successful");
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(`PUT request in '/favorite' to database error: `, error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the request." });
+  }
+});
+
+
 module.exports = router;

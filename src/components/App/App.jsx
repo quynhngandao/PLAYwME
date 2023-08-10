@@ -95,11 +95,8 @@ function App() {
           </ProtectedRoute>
 
           <Route exact path="/login">
-            {user.id && !user.isNewUser ? (
+            {user.id? (
               <Redirect to="/user" />
-            ) : user.id && user.isNewUser ? (
-              // redirect to the /user page
-              <Redirect to="/petfinder" />
             ) : (
               // Otherwise, show the login page
               <LoginPage />
@@ -107,13 +104,9 @@ function App() {
           </Route>
 
           <Route exact path="/registration">
-            {user.id && user.isNewUser ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
+            {user.id ? (
+              // redirect them to the /petfinder
               <Redirect to="/petfinder" />
-            ) : user.id && !user.isNewUser ? (
-              // Otherwise, show the registration page
-              <Redirect to="/user" />
             ) : (
              <RegisterPage />
             )}
