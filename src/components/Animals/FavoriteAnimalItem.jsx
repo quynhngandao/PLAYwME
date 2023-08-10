@@ -12,11 +12,12 @@ import {
   Button,
   Tooltip,
   Stack,
-  Box
+  Box,
+  Grid,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
@@ -30,7 +31,7 @@ const body = {
 };
 const title = {
   color: "primary.dark",
-  fontSize: "20px", 
+  fontSize: "20px",
   fontFamily: "fraunces",
 };
 
@@ -55,11 +56,12 @@ export default function FavoriteAnimalItem({
   // RENDER
   return (
     <>
-      <h3 className="animal-page-heading">
-        Review Your Animal Selection
-      </h3>
+      <h3 className="animal-page-heading">Review Your Animal Selection</h3>
       {favorite && (
-        <div className="favorite-animals">
+        <div
+          className="favorite-animals"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           {favorite.map((animal) => (
             <Card key={animal.animal_details.id} sx={styledCard}>
               {/* Image */}
@@ -91,8 +93,10 @@ export default function FavoriteAnimalItem({
                 </CardActionArea>
               )}
               <CardActionArea>
-                <CardActions sx={{p:0}}>
-                <Box
+                <CardActions
+                
+                >
+                   <Box
                   sx={{
                     display: "flex",
                     direction: "row",
@@ -101,59 +105,58 @@ export default function FavoriteAnimalItem({
                     justifyContent: "center",
                   }}
                 >
-                  {/* EDIT BUTTON */}
-                  <Tooltip Tooltip title="edit" placement="bottom">
-                    <IconButton>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                
-                      ><EditNoteIcon /></Button>
-                    </IconButton>
-                    {/* DELETE BUTTON */}
-                  </Tooltip>
-                  <Tooltip Tooltip title="delete" placement="bottom">
-                    <IconButton
-                      onClick={() => {
-                        dispatch({
-                          type: "DELETE_ANIMAL",
-                          payload: animal.animal_details.id,
-                        });
-                      }}
-                    >
-                      <Button
-                        variant="outlined"
-                        color="error"
-        
-                      ><DeleteIcon /></Button>
-                    </IconButton>
-                  </Tooltip>
+                    {/* EDIT BUTTON */}
+                    <Tooltip Tooltip title="edit" placement="bottom">
+                      <IconButton   onClick={() => {
+                          dispatch({
+                            type: "EDIT_ANIMAL",
+                            payload: animal.animal_details.id,
+                          });
+                        }}>
+                        <Button variant="outlined" color="primary">
+                          <EditNoteIcon />
+                        </Button>
+                      </IconButton>
+                      {/* DELETE BUTTON */}
+                    </Tooltip>
+                    <Tooltip Tooltip title="delete" placement="bottom">
+                      <IconButton
+                        onClick={() => {
+                          dispatch({
+                            type: "DELETE_ANIMAL",
+                            payload: animal.animal_details.id,
+                          });
+                        }}
+                      >
+                        <Button variant="outlined" color="error">
+                          <DeleteIcon />
+                        </Button>
+                      </IconButton>
+                    </Tooltip>
 
-                  {/* CONTACT */}
-                  <Tooltip Tooltip title="contact" placement="bottom">
-                    <IconButton
-                      onClick={() =>
-                        (window.location = `mailto:${animal.animal_details.contact}`)
-                      }
-                    >
-                      <Button width="50%"
-                        variant="outlined"
-                        color="primary"
-                       
-                      > <EmailIcon/></Button>
-                    </IconButton>
-                  </Tooltip>
-                  
-        </Box>
+                    {/* CONTACT */}
+                    <Tooltip Tooltip title="contact" placement="bottom">
+                      <IconButton
+                        onClick={() =>
+                          (window.location = `mailto:${animal.animal_details.contact}`)
+                        }
+                      >
+                        <Button width="50%" variant="outlined" color="primary">
+                          {" "}
+                          <EmailIcon />
+                        </Button>
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
                 </CardActions>
               </CardActionArea>
               {/* DETAILS OF ANIMAL*/}
-              <CardContent sx={{pt:0}}>
+              <CardContent sx={{ pt: 0 }}>
                 {/* NAME */}
                 <Typography sx={title}>{animal.animal_details.name}</Typography>
                 {/* LOCATION */}
                 <Typography sx={body}>
-                  {animal.animal_details.location.city}, 
+                  {animal.animal_details.location.city},
                   {animal.animal_details.location.state}
                 </Typography>
               </CardContent>

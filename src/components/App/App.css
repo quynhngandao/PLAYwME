@@ -25,9 +25,9 @@ PAGES
   font-size: 3em;
   font-weight: 800;
   font-family: 'Varela Round', sans-serif;
-  margin-top:20px;
+  margin-top:15px;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .request-heading, .animal-page-heading {
   color:#4b7ba0;
@@ -35,9 +35,11 @@ PAGES
   font-size: 2em;
   font-weight: 800;
   font-family: 'varela round', sans-serif;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   margin-left: 25px;
+  margin-top:10px;
   padding-top: 0 ;
+  text-align: center;
 }
 
 .grid {

@@ -209,7 +209,7 @@ export default function RequestResult({ request }) {
                       }}
                       startIcon={<EditNoteIcon />}
                     >
-                      Hold On
+                      Edit
                     </Button>
                   </IconButton>
 
@@ -233,7 +233,7 @@ export default function RequestResult({ request }) {
                       }}
                       startIcon={<DeleteOutlineRounded />}
                     >
-                      U Sure ?
+                     Delete
                     </Button>
                   </IconButton>
                 </Box>

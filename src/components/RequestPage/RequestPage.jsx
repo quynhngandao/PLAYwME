@@ -19,15 +19,16 @@ import RequestForm from  '../FormRequest/RequestForm'
 // Custom sx props
 const styledCard = {
   width: "100%",
-  height: 350,
+  maxWidth: 260,
+  height: 330,
   borderRadius: 5,
-  boxShadow: 5,
+  boxShadow: 4,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
 const styledCardMedia = {
   width: "100%",
-  height: 200,
+  height: 180,
   objectFit: "fill",
   mb: 1
 };
@@ -57,7 +58,7 @@ export default function RequestPage() {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <Box sx={{ml:5}}>
+        <Box sx={{mx:5}}>
           <header className="App-header">
             <h2
               className="review-page-title"
@@ -65,7 +66,7 @@ export default function RequestPage() {
               Review Page
             </h2>
           </header>
-          <Box minHeight="350px">
+          <Box container sx={{justifyContent: "center", alignContent: "center"}}>
             {/* ANIMAL DISPLAY */}
             <FavoriteAnimalItem
               styledCardMedia={styledCardMedia}
@@ -73,7 +74,7 @@ export default function RequestPage() {
               textLink={textLink}
             />
           </Box>
-          <Stack sx={{direction:"row", mb:5}}>
+          <Stack sx={{direction:"row"}}>
 
             {/* REQUEST FORM */}
             <RequestForm />

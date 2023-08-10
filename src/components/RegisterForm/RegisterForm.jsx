@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -22,6 +23,8 @@ export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory()
+  
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -36,7 +39,13 @@ export default function RegisterForm() {
         email: email,
       },
     });
-  }; // end registerUser
+
+     // Update isNewUser status and redirect to /petfinder
+     dispatch({ type: "SET_IS_NEW_USER", payload: true });
+     history.push("/petfinder"); // Redirect to /petfinder
+   };
+
+   // end registerUser
 
   return (
     <Container component="main" maxWidth="lg">
@@ -144,7 +153,6 @@ export default function RegisterForm() {
                 />
                 <Button
                   name="submit"
-           
                   type="submit"
                   fullWidth
                   variant="contained"

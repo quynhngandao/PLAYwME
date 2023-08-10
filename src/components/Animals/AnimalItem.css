@@ -14,12 +14,10 @@
 .favorite-animals {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 50px;
+  gap: 30px;
+  text-align: center;
+  padding: 10px;
   justify-items: center;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .card {
