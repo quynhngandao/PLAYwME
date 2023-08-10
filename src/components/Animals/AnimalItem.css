@@ -1,6 +1,4 @@
-.animals-list {
-  width: 100%;
-}
+
 
 .animals {
   display: grid;
@@ -11,20 +9,9 @@
   padding: 20px;
 }
 
-.favorite-animals {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 30px;
-  text-align: center;
-  padding: 10px;
-  justify-items: center;
-}
 
-.card {
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.161);
 
-}
+
 
 /* .display {
   display: grid;
@@ -34,6 +21,8 @@
   align-content: space-evenly;
   align-items: center;
 } */
+
+
 
 ul {
   list-style: none;

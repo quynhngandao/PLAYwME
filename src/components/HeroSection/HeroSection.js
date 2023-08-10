@@ -1,5 +1,5 @@
 import "../App/App.css";
-import { Button } from "../GetStartedButton/GetStartedButton";
+import { GetStartedButton } from "../GetStartedButton/GetStartedButton";
 import "./HeroSection.css";
 
 function HeroSection() {
@@ -16,7 +16,7 @@ function HeroSection() {
       <h1>Find Your New Best Friend</h1>
       <p>Browse animals from local shelters and rescues</p>
       <div className="hero-btns">
-        <Button      
+        <GetStartedButton      
           className="btn"
           buttonStyle="btn--primary"
           buttonSize="btn--large"
@@ -25,7 +25,7 @@ function HeroSection() {
           <span>
             GET STARTED <i className="fa-solid fa-paw" />
           </span>
-        </Button>
+        </GetStartedButton>
       </div>
     </div>
   );

@@ -8,9 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 // Import styling
 import Nav from "../Nav/Nav";
-import Footer from "../Footer/Footer";
 import "./App.css";
-import PetsIcon from "@mui/icons-material/Pets";
 // Import protected route
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 // Import pages

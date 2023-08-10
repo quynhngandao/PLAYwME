@@ -46,7 +46,16 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       id: petfinder_id,
       name,
       age,
+      attribute,
+      environment,
       breeds,
+      type,
+      size,
+      organization_id,
+      organization_animal_id,
+      status,
+      status_changed_at,
+      published_at,
       location,
       contact,
       photos,
@@ -71,8 +80,8 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     if (!animalCheckResult.rows.length) {
       // First, INSERT QUERY (insert into animal table AND return the id)
       const insertAnimalQuery = `
-        INSERT INTO "animal" ("petfinder_id", "name", "age", "breeds", "location", "contact", "photos", "url")
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        INSERT INTO "animal" ("petfinder_id", "name", "age", "attribute", "environment", "breeds", "type", "size", "organization_id", "organization_animal_id", "status", "status_changed_at", "published_at", "location", "contact", "photos", "url")
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
         RETURNING "id"; 
     `;
 
@@ -81,11 +90,20 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
         petfinder_id,
         name,
         age,
+        attribute,
+        environment,
         breeds,
-        locationJSON,
+        type,
+        size,
+        organization_id,
+        organization_animal_id,
+        status,
+        status_changed_at,
+        published_at,
+        location,
         contact,
         photos,
-        url,
+        url
       ]);
       // set newly inserted animal as animalId
       animal_id = insertAnimalResult.rows[0]?.id;
@@ -146,7 +164,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
 
     // CHECK QUERY (checked if selected animal belongs to the logged-in user)
     let checkAnimalQuery = `
-      SELECT FROM "favorite_animal" 
+      SELECT * FROM "favorite_animal" 
       WHERE "animal_id" = $1 AND "user_id" = $2;`;
 
     /***** Execute CHECK QUERY *****/
@@ -194,7 +212,7 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     const note = req.body.note;
     const user_id = req.user.id; // Get the user_id from the logged in user
 
-   onsole.log("Request ID to update:", requestToUpdate);
+    onsole.log("Request ID to update:", requestToUpdate);
     console.log("note:", note);
 
     // UPDATE "favorite_animal" table
@@ -217,6 +235,5 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
       .json({ error: "An error occurred while updating the request." });
   }
 });
-
 
 module.exports = router;

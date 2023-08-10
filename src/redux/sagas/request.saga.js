@@ -55,6 +55,7 @@ function* requestSaga() {
   yield takeEvery("FETCH_REQUESTS", fetchRequests);
   yield takeLatest("ADD_REQUEST", addRequest);
   yield takeLatest("SUBMIT_EDIT_REQUEST", editRequest);
+  yield takeLatest('DELETE_REQUEST', deleteRequest)
 }
 
 export default requestSaga;

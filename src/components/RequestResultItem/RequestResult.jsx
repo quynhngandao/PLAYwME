@@ -19,6 +19,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineRounded from "@mui/icons-material/DeleteOutlineRounded";
 import PetsIcon from "@mui/icons-material/Pets";
+import FilterVintageIcon from '@mui/icons-material/FilterVintage';
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { Dayjs } from "dayjs";
@@ -180,7 +181,8 @@ export default function RequestResult({ request }) {
                   </ListItem>
                 ))}
                 <Divider variant="middle" />
-                <Box
+                
+                  <Grid
                   sx={{
                     display: "flex",
                     direction: "row",
@@ -188,7 +190,8 @@ export default function RequestResult({ request }) {
                     flexWrap: "wrap",
                     justifyContent: "center",
                   }}
-                >
+                  >
+                  
                   {/* EDIT BUTTON */}
                   <IconButton
                     sx={{ m: 1 }}
@@ -205,22 +208,28 @@ export default function RequestResult({ request }) {
                         fontWeight: "900",
                         borderRadius: "10px",
                         padding: "10px",
-                        color:"primary",
+                        color: "primary",
                       }}
                       startIcon={<EditNoteIcon />}
                     >
-                      Edit
+                      Update
                     </Button>
                   </IconButton>
-
+                  <FilterVintageIcon
+                        sx={{ width: 30, height: 30, verticalAlign: "middle" }}
+                      />
                   {/* DELETE BUTTON */}
                   <IconButton
-                    sx={{ m: 1 }}
-                    onClick={() =>
-                      handleEditClick(request.user_info.request_id)
-                    }
+                    sx={{ mx: 1 }}
+                    onClick={() => {
+                      dispatch({
+                        type: "DELETE_REQUEST",
+                        payload: request.user_info.request_id,
+                      });
+                    }}
                     // Pass the userInfo object to handleEditClick
                   >
+                    
                     <Button
                       variant="outlined"
                       sx={{
@@ -229,14 +238,15 @@ export default function RequestResult({ request }) {
                         fontWeight: "900",
                         borderRadius: "10px",
                         padding: "10px",
-                        color:"primary"
+                        color: "primary",
                       }}
                       startIcon={<DeleteOutlineRounded />}
                     >
-                     Delete
+                      Delete
                     </Button>
                   </IconButton>
-                </Box>
+                  </Grid>
+
               </Box>
             </Card>
           ))}
@@ -245,3 +255,4 @@ export default function RequestResult({ request }) {
     </Box>
   );
 }
+

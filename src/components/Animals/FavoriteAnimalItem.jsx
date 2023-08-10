@@ -50,8 +50,6 @@ export default function FavoriteAnimalItem({
   const editRequest = useSelector((store) => store.editRequest);
   // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
-  // useState
-  const [showCard, setShowCard] = useState(false);
 
   // Open new tab when picture is clicked
   const openInNewTab = (url) => {
@@ -112,141 +110,130 @@ export default function FavoriteAnimalItem({
         payload: { id: animalid, note: note },
       });
     }
-    setShowCard(showCard);
     history.push("/edit");
   };
-
-  let description;
-
-  if (!showCard) {
-    description = (
-      <CardActionArea onClick={() => handleEditClick(animal.animal_details.id)}>
-        <TextField
-          label="Notes"
-          onChange={(e) => handleChange(e, "note")}
-          value={editRequest.note}
-          placeholder="Notes about animal"
-        />
-        <Button onClick={handleSubmit}>Save</Button>
-      </CardActionArea>
-    );
-  } else {
-    description = (
-      <CardActionArea
-        onClick={() => handleEditClick(animal.animal_details.id)}
-      ></CardActionArea>
-    );
-  }
 
   // RENDER
   return (
     <>
-      <h3 className="animal-page-heading">Review Your Animal Selection</h3>
-      {favorite && (
-        <div
-          className="favorite-animals"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          {favorite.map((animal) => (
-            <Card key={animal.animal_details.id} sx={styledCard}>
-              {/* Image */}
-              {animal.animal_details.photos &&
-              animal.animal_details.photos.length > 0 ? (
-                <CardActionArea
-                  onClick={() => openInNewTab(animal.animal_details.url)}
+      <Grid
+        sx={{
+          display: "flex",
+          overflowX: "auto",
+          gap: 4,
+          paddingLeft: 5,
+          paddingBottom: 3,
+          textAlign: "center",
+        }}
+      >
+        {favorite && (
+          <>
+            {favorite.map((animal) => (
+              <CardActionArea sx={{ width: 300, margin: 1 }}>
+                <Card
+                  key={animal.animal_details.id}
+                  sx={styledCard}
+                  style={{
+                    width: 300,
+                    height: 550,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1,
+                    padding: 2,
+                    paddingBottom: 3,
+                  }}
                 >
-                  <Tooltip Tooltip title="See more details" placement="top">
-                    <CardMedia
-                      sx={styledCardMedia}
-                      component="img"
-                      image={animal.animal_details.photos}
-                      alt={animal.animal_details.name}
-                    />
-                  </Tooltip>
-                </CardActionArea>
-              ) : (
-                // NOT AVAILABLE IMAGE
-                <CardActionArea>
-                  <a href={animal.animal_details.url}>
-                    <CardMedia
-                      sx={styledCardMedia}
-                      component="img"
-                      image={placeholderImage}
-                      alt="not available"
-                    />
-                  </a>
-                </CardActionArea>
-              )}
-              <CardActionArea>
-                <CardActions>
+                  {/* Image */}
+                  {animal.animal_details.photos &&
+                  animal.animal_details.photos.length > 0 ? (
+                    <CardActionArea
+                      onClick={() => openInNewTab(animal.animal_details.url)}
+                    >
+                      <Tooltip Tooltip title="See more details" placement="top">
+                        <CardMedia
+                          sx={styledCardMedia}
+                          component="img"
+                          image={animal.animal_details.photos}
+                          alt={animal.animal_details.name}
+                        />
+                      </Tooltip>
+                    </CardActionArea>
+                  ) : (
+                    // NOT AVAILABLE IMAGE
+                    <CardActionArea>
+                      <a href={animal.animal_details.url}>
+                        <CardMedia
+                          sx={styledCardMedia}
+                          component="img"
+                          image={placeholderImage}
+                          alt="not available"
+                        />
+                      </a>
+                    </CardActionArea>
+                  )}
+                  <CardContent>
+                    {/* NAME */}
+                    <Typography sx={title}>
+                      {animal.animal_details.name}
+                    </Typography>
+                    {/* LOCATION */}
+                    <Typography sx={body}>
+                      {animal.animal_details.location.city},{' '}
+                      {animal.animal_details.location.state}
+                    </Typography>
+                  </CardContent>
                   <Box
                     sx={{
                       display: "flex",
                       direction: "row",
-                      alignItems: "center",
+
                       flexWrap: "wrap",
                       justifyContent: "center",
+                      alignContent: "center",
                     }}
                   >
-                    {/* EDIT BUTTON */}
-                    <Tooltip Tooltip title="edit" placement="bottom">
-                      <IconButton
-                        onClick={() =>
-                          handleEditClick(animal.animal_details.id)
-                        }
-                      >
-                        <Button variant="outlined" color="primary">
-                          <EditNoteIcon />
-                        </Button>
-                      </IconButton>
-                      {/* DELETE BUTTON */}
-                    </Tooltip>
-                    <Tooltip Tooltip title="delete" placement="bottom">
-                      <IconButton
-                        onClick={() => {
-                          dispatch({
-                            type: "DELETE_ANIMAL",
-                            payload: animal.animal_details.id,
-                          });
-                        }}
-                      >
-                        <Button variant="outlined" color="error">
-                          <DeleteIcon />
-                        </Button>
-                      </IconButton>
-                    </Tooltip>
+                    <CardActionArea>
+                     
+                        {/* DELETE BUTTON */}
+                     
+                      <Tooltip Tooltip title="delete animal" placement="bottom">
+                        <IconButton
+                          onClick={() => {
+                            dispatch({
+                              type: "DELETE_ANIMAL",
+                              payload: animal.animal_details.id,
+                            });
+                          }}
+                        >
+                          <Button variant="outlined" color="error">
+                            
+                            <DeleteIcon />
+                            Delete
+                          </Button>
+                        </IconButton>
+                      </Tooltip>
 
-                    {/* CONTACT */}
-                    <Tooltip Tooltip title="contact" placement="bottom">
-                      <IconButton
-                        onClick={() =>
-                          (window.location = `mailto:${animal.animal_details.contact}`)
-                        }
-                      >
-                        <Button variant="outlined" color="primary">
-                          <EmailIcon />
-                        </Button>
-                      </IconButton>
-                    </Tooltip>
+                      {/* CONTACT */}
+                      <Tooltip Tooltip title="contact organization" placement="bottom">
+                        <IconButton
+                          onClick={() =>
+                            (window.location = `mailto:${animal.animal_details.contact}`)
+                          }
+                        >
+                          <Button variant="outlined" color="primary">
+                            <EmailIcon />
+                            Contact
+                          </Button>
+                        </IconButton>
+                      </Tooltip>
+                    </CardActionArea>
                   </Box>
-                </CardActions>
+                </Card>
               </CardActionArea>
-
-              {/* DETAILS OF ANIMAL*/}
-              {description}
-              <CardContent sx={{ pt: 0 }}>
-                {/* NAME */}
-                <Typography sx={title}>{animal.animal_details.name}</Typography>
-                {/* LOCATION */}
-                <Typography sx={body}>
-                  {animal.animal_details.location.city},
-                  {animal.animal_details.location.state}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+            ))}
+          </>
+        )}
+      </Grid>
     </>
   );
 }

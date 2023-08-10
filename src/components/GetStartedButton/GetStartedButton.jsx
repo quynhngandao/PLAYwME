@@ -5,7 +5,7 @@ const STYLES = ['btn--primary', 'btn--outline', 'btn--test'];
 
 const SIZES = ['btn--medium', 'btn--large'];
 
-export const Button = ({
+export const GetStartedButton = ({
   children,
   type,
   onClick,
