@@ -1,6 +1,6 @@
 import React from "react";
 import "./ThankYouPage.css";
-import { Box, Button, Grid } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const CustomComponent = () => {
@@ -8,6 +8,9 @@ const CustomComponent = () => {
 
   const handleClick = () => {
     history.push("/user");
+  };
+  const handleClickAnother = () => {
+    history.push("/review");
   };
 
   return (
@@ -24,12 +27,19 @@ const CustomComponent = () => {
           <div className="message">
             We Appreciate You! You Will Be Contacted Shortly!
           </div>
+      <Stack spacing={2} direction="row">
           <div className="button-container">
             <Button onClick={handleClick} className="button">
               Go Back Home
             </Button>
           </div>
+          <div className="button-container">
+            <Button onClick={handleClickAnother} className="button">
+              Make Another Request
+            </Button>
+          </div>  </Stack>
         </div>
+      
     </div>
   );
 };

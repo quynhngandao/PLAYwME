@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnimalItem from "../Animals/AnimalItem";
@@ -6,18 +6,19 @@ import AnimalItem from "../Animals/AnimalItem";
 /*****STYLE*****/
 import "../App/App.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import SearchBar from "../SearchBar/SearchBar";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
-  height: 170,
+  minheight: 150,
+  height: 200,
   objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
 const styledCard = {
   width: "100%",
-  height: 300,
+  minheight: 380,
+  maxHeight: 400,
   borderRadius: 4,
   boxShadow: 3,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
@@ -25,7 +26,8 @@ const styledCard = {
 };
 const styledCardMedia = {
   width: "100%",
-  height: 170,
+  minheight: 150,
+  height: 200,
   objectFit: "fill",
 };
 const styledFab = {
@@ -36,7 +38,6 @@ const styledFab = {
 };
 const styledHeartIcon = {
   marginRight: 1,
-  ariaLabel: "favorite",
   htmlColor: "#ff95a6",
   fontSize: "1.5em",
   color: "pink",
@@ -58,7 +59,7 @@ export default function AnimalsPage() {
 
   useEffect(() => {
     dispatch({ type: "FETCH_API" });
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="petfinder-page">
@@ -67,22 +68,23 @@ export default function AnimalsPage() {
         <LoadingSpinner />
       ) : (
         <>
-          <header className="App-header">
-            <Typography variant="h2" color="primary.main" className="page-tile">
-              Available Animals
-            </Typography>
-          </header>
-          {/* SEARCH BAR */}
-          <SearchBar />
-          <AnimalItem
-            styledFab={styledFab}
-            styledCardMedia={styledCardMedia}
-            styledCard={styledCard}
-            textLink={textLink}
-            styledCardMediaNoImage={styledCardMediaNoImage}
-            styledHeartIcon={styledHeartIcon}
-            styledHeartButton={styledHeartButton}
-          />
+          <Grid>
+            <header className="App-header">
+              <h2 className="animal-page-title">Available Animals</h2>
+            </header>
+          </Grid>
+          {/* ANIMAL DISPLAY ITEM */}
+          <Grid>
+            <AnimalItem
+              styledFab={styledFab}
+              styledCardMedia={styledCardMedia}
+              styledCard={styledCard}
+              textLink={textLink}
+              styledCardMediaNoImage={styledCardMediaNoImage}
+              styledHeartIcon={styledHeartIcon}
+              styledHeartButton={styledHeartButton}
+            />
+          </Grid>
         </>
       )}
     </div>

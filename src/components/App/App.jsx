@@ -6,11 +6,9 @@ import {
   Switch,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// Import styling 
+// Import styling
 import Nav from "../Nav/Nav";
-import Footer from "../Footer/Footer";
 import "./App.css";
-import PetsIcon from '@mui/icons-material/Pets';
 // Import protected route
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 // Import pages
@@ -54,6 +52,13 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+           <ProtectedRoute
+            // logged in shows AnimalsPage else shows LoginPage
+            exact
+            path="/petfinder"
+          >
+            <AnimalsPage />
+          </ProtectedRoute>
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
@@ -61,43 +66,34 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
-         
-           <ProtectedRoute
+
+          <ProtectedRoute
             //  logged in shows shows UserRequestPage else shows LoginPage
             exact
             path="/review"
           >
             <RequestPage />
-            </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows AnimalsPage else shows LoginPage
-            exact
-            path="/petfinder"
-          >
-            <AnimalsPage />
           </ProtectedRoute>
-      
+
+         
+
           <ProtectedRoute
             //  logged in shows shows ThankYouPage else shows LoginPage
             exact
             path="/thankyou"
           >
             <ThankYouPage />
-            </ProtectedRoute>
-            <ProtectedRoute
-            // logged in shows Edit Route 
+          </ProtectedRoute>
+          <ProtectedRoute
+            // logged in shows Edit Route
             exact
             path="/edit"
           >
             <EditRequest />
           </ProtectedRoute>
 
-
           <Route exact path="/login">
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect to the /user page
+            {user.id? (
               <Redirect to="/user" />
             ) : (
               // Otherwise, show the login page
@@ -107,12 +103,10 @@ function App() {
 
           <Route exact path="/registration">
             {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
+              // redirect them to the /petfinder
+              <Redirect to="/petfinder" />
             ) : (
-              // Otherwise, show the registration page
-              <RegisterPage />
+             <RegisterPage />
             )}
           </Route>
 
@@ -132,7 +126,6 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-      
       </div>
     </Router>
   );

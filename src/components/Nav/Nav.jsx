@@ -24,13 +24,13 @@ function Nav() {
         {!user.id && (
           // If there's no user, show login
           <>
-           <Link className="navLink" to="/home">
-           Home
-          </Link>  
-        {/* registration links */}
-          <Link className="navLink" to="/login">
-            Login / Register
-          </Link>  
+            <Link className="navLink" to="/home">
+              Home
+            </Link>
+            {/* registration links */}
+            <Link className="navLink" to="/login">
+              Login / Register
+            </Link>
           </>
         )}
 
@@ -38,7 +38,7 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/user">
-              <PersonOutlineIcon />
+              Profile
             </Link>
 
             <Link className="navLink" to="/petfinder">
@@ -48,12 +48,11 @@ function Nav() {
             <Link className="navLink" to="/review">
               Review
             </Link>
-
-{/* Logout Button */}
-            <LogOutButton className="navLink" />
+            {/* Logout Button */}
+            <LogOutButton className="navLink"/>
           </>
         )}
-{/* AboutPage viewable to everyone */}
+        {/* AboutPage viewable to everyone */}
         <Link className="navLink" to="/about">
           About
         </Link>

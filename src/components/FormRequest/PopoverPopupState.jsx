@@ -2,7 +2,7 @@ import { useState } from "react";
 /* MUI */
 import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
-import { IconButton, Fab, Popover, Box } from "@mui/material";
+import { IconButton, Fab, Popover, Box, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 /* COMPONENT */
 import Modalpopup from "./Modalpopup";
@@ -44,19 +44,21 @@ export default function PopoverPopupState() {
 
   /* DISPLAY */
   return (
-    <Box className="popover" marginLeft="10px">
+    <Box className="popover" justifyContent="center">
       {/* SUBMIT BUTTON */}
-      <IconButton
+       <Grid container justifyContent="center" alignItems="center"> <IconButton
         margin="20px"
         variant="contained"
         color="primary"
         onClick={handleOpen}
       >
-        <Fab variant="extended" size="medium" color="primary" ariaLabel="add">
+      
+        <Fab sx={{ width: "100%", justifyContent: "center" }}
+variant="extended" size="medium" color="primary">
           <AddIcon sx={{ mr: 1 }} />
           Request
         </Fab>
-      </IconButton>
+      </IconButton></Grid>
       <Popover
         {...bindPopover(popupState)}
         anchorOrigin={{

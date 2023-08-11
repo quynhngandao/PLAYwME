@@ -1,5 +1,5 @@
 import './GetStartedButton.css';
-
+import { Link } from 'react-router-dom';
 
 const STYLES = ['btn--primary', 'btn--outline', 'btn--test'];
 
@@ -20,15 +20,15 @@ export const GetStartedButton = ({
 
   return (
     
-    <div className='btn-mobile'>
-      <button 
-      variant="outlined"
+    <Link to="/registration" className='btn-mobile'>
+      <button      
+        value="register"
         className={`btn ${checkButtonStyle} ${checkButtonSize}`}
         onClick={onClick}
         type={type}
       >
         {children}
       </button>
-    </div>
+    </Link>
   );
 };

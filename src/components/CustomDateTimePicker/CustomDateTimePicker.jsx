@@ -36,7 +36,7 @@ export default function CustomDateTimePicker(props) {
   const handleDateTimeChange = (dateTime) => {
    
     const formattedDateTime = dateTime.format("MMMM D, YYYY h:mm A");
-    console.log("IN customdatepicker dateTime", formattedDateTime);
+    console.log("Selected Date:", formattedDateTime);
     props.handleDateTimeChange(formattedDateTime);
   };
 

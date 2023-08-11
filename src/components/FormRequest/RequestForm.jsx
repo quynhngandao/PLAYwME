@@ -5,10 +5,9 @@ import { Typography, Box } from "@mui/material";
 export default function RequestForm() {
   return (
     <Box className="request-form">
-      <Typography variant="h3" color="primary" className="page-heading">
-        Make a Schedule Request
-      </Typography>
-      <PopoverPopupState />
+      <PopoverPopupState />  
+      <h3 className="request-heading">
+      </h3>
     </Box>
   );
 }

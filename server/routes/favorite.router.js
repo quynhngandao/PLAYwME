@@ -46,7 +46,16 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       id: petfinder_id,
       name,
       age,
+      attribute,
+      environment,
       breeds,
+      type,
+      size,
+      organization_id,
+      organization_animal_id,
+      status,
+      status_changed_at,
+      published_at,
       location,
       contact,
       photos,
@@ -55,8 +64,10 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     const user_id = req.user.id; // Get the user_id from the logged in user
 
     /***** IMPORTANT *****/
-    // Convert the location object to JSON string
+    // Convert the object to JSON string
     const locationJSON = JSON.stringify(location);
+    const attributeJSON = JSON.stringify(attribute);
+    const environmentJSON = JSON.stringify(environment);
 
     // ANIMAL CHECK QUERY (Check if the "petfinder_id" exists in the "animal" table) *****/
     let animal_id;
@@ -71,8 +82,8 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     if (!animalCheckResult.rows.length) {
       // First, INSERT QUERY (insert into animal table AND return the id)
       const insertAnimalQuery = `
-        INSERT INTO "animal" ("petfinder_id", "name", "age", "breeds", "location", "contact", "photos", "url")
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        INSERT INTO "animal" ("petfinder_id", "name", "age", "attribute", "environment", "breeds", "type", "size", "organization_id", "organization_animal_id", "status", "status_changed_at", "published_at","location", "contact", "photos", "url")
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16,$17)
         RETURNING "id"; 
     `;
 
@@ -81,8 +92,17 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
         petfinder_id,
         name,
         age,
+        attribute,
+        environment,
         breeds,
-        locationJSON,
+        type,
+        size,
+        organization_id,
+        organization_animal_id,
+        status,
+        status_changed_at,
+        published_at,
+        location,
         contact,
         photos,
         url,
@@ -146,7 +166,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
 
     // CHECK QUERY (checked if selected animal belongs to the logged-in user)
     let checkAnimalQuery = `
-      SELECT FROM "favorite_animal" 
+      SELECT * FROM "favorite_animal" 
       WHERE "animal_id" = $1 AND "user_id" = $2;`;
 
     /***** Execute CHECK QUERY *****/
@@ -181,6 +201,37 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   } catch (error) {
     console.log("DELETE animal in '/favorite' from database: ", error);
     res.sendStatus(500);
+  }
+});
+
+/******************************
+ * PUT logged-in user's animal
+ *****************************/
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+  try {
+    // Update a single request
+    const requestToUpdate = req.params.id;
+    const note = req.body.note;
+    const user_id = req.user.id; // Get the user_id from the logged in user
+
+    // UPDATE "favorite_animal" table
+    const animalEditQuery = `
+       UPDATE "favorite_animal"
+       SET "note" = $1
+       WHERE "user"."id" = $2;
+     `;
+
+    /***** Execute EDIT QUERIES *****/
+    await pool.query(animalEditQuery, [user_id, note]);
+
+    /***** SUCCESS *****/
+    console.log("PUT request in '/favorite' to database successful");
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(`PUT request in '/favorite' to database error: `, error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the request." });
   }
 });
 
