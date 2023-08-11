@@ -106,14 +106,6 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
 
     // Reformat date and time using moment
     const formattedDateTime = dateObject.format("MMMM D, YYYY h:mm A");
-    console.log("Formatted DateTime:", formattedDateTime);
-
-    console.group("User ID:", user_id);
-    console.log("Request ID to update:", requestToUpdate);
-    console.log("First Name:", first_name);
-    console.log("Last Name:", last_name);
-    console.log("Email:", email);
-    console.groupEnd("");
 
     await connection.query("BEGIN"); // Start the SQL transaction
 

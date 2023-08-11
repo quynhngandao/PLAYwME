@@ -10,7 +10,7 @@ function* fetchAnimals() {
     const response = yield axios.get("/favorite");
     yield put({ type: "SET_FAVORITE", payload: response.data });
   } catch (error) {
-    console.log("Error with animals GET request from redux: ", error);
+    console.log("Error with GET animals in redux: ", error);
   } finally {
     yield put({ type: "UNSET_LOADING" });
   }
@@ -21,7 +21,7 @@ function* addAnimal(action) {
     yield axios.post("/favorite", action.payload);
     yield put({ type: "FETCH_ANIMALS" });
   } catch (error) {
-    console.log("Error with animal POST request from redux", error);
+    console.log("Error with POST animals in redux", error);
   }
 }
 
@@ -30,7 +30,7 @@ function* deleteAnimal(action) {
     yield axios.delete(`/favorite/${action.payload}`);
     yield put({ type: "FETCH_ANIMALS" });
   } catch (error) {
-    console.log("Error with animal DELETE request from redux:", error);
+    console.log("Error with DELETE animals in redux:", error);
   }
 }
 
@@ -42,7 +42,7 @@ function* editRequest(action) {
 
     yield put({ type: "FETCH_ANIMALS" });
   } catch (error) {
-    console.log("Error with user's request of PUT request from redux:", error);
+    console.log("Error with PUT request in redux:", error);
   }
 }
 

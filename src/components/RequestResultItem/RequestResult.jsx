@@ -41,14 +41,11 @@ export default function RequestResult({ request }) {
 
   // handleEdit
   const handleEditClick = (requestId) => {
-    console.log("Edit clicked for requestId:", requestId);
-    console.log("Requests object:", requests);
 
     // Find the specific request object with the given requestId
     const request = requests.find(
       (req) => req.user_info.request_id === requestId
     );
-    console.log("Selected Request object in requestresult:", request);
 
     if (request && request.user_info) {
       const { email, last_name, first_name } = request.user_info;

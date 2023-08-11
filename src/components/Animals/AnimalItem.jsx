@@ -56,8 +56,6 @@ export default function AnimalItem({
   // handleFavorite
   const handleFavorite = (e, clickedAnimal) => {
     e.preventDefault();
-    console.log("button clicked");
-    console.log("Clicked Animal Data:", clickedAnimal);
 
     // conditional statement: if clickedAnimal=true
     // set newAnimal's properties => clickedAnimal's values

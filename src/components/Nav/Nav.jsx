@@ -48,9 +48,8 @@ function Nav() {
             <Link className="navLink" to="/review">
               Review
             </Link>
-
             {/* Logout Button */}
-            <LogOutButton className="navLink" />
+            <LogOutButton className="navLink"/>
           </>
         )}
         {/* AboutPage viewable to everyone */}

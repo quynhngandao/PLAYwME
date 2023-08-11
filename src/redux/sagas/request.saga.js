@@ -10,7 +10,7 @@ function* fetchRequests() {
     const response = yield axios.get("/request");
     yield put({ type: "SET_REQUEST", payload: response.data });
   } catch (error) {
-    console.log("Error with user's request of GET request from redux: ", error);
+    console.log("Error with GET request in redux: ", error);
   } finally {
     yield put({ type: "UNSET_LOADING" });
   }
@@ -23,7 +23,7 @@ function* addRequest(action) {
     yield axios.post("/request", action.payload);
     yield put({ type: "FETCH_REQUESTS" });
   } catch (error) {
-    console.log("Error with user's request of POST request from redux", error);
+    console.log("Error with POST request in redux", error);
   }
 }
 
@@ -33,7 +33,7 @@ function* deleteRequest(action) {
     yield put({ type: "FETCH_REQUESTS" });
   } catch (error) {
     console.log(
-      "Error with user's request of DELETE request from redux:",
+      "Error with DELETE request in redux:",
       error
     );
   }

@@ -23,7 +23,7 @@ function UserPage() {
     <>
       <Grid className="user-page">
         <Box >
-          <h2 className="user-page-title" >Welcome, {user.username}</h2>
+          <h2 className="user-page-title">Welcome, {user.username}</h2>
         </Box>
         <Grid sx={{ my: 3 }}>
           <Box

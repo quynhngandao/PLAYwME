@@ -214,9 +214,6 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     const note = req.body.note;
     const user_id = req.user.id; // Get the user_id from the logged in user
 
-    onsole.log("Request ID to update:", requestToUpdate);
-    console.log("note:", note);
-
     // UPDATE "favorite_animal" table
     const animalEditQuery = `
        UPDATE "favorite_animal"
