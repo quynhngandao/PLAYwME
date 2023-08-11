@@ -135,8 +135,8 @@ export default function AnimalItem({
                     onClick={(e) => handleFavorite(e, animal)}
                   >
                     <FavoriteBorderIcon sx={styledHeartIcon} />
-                  </IconButton></Tooltip>
-
+                  </IconButton>
+                </Tooltip>
                 {/* DETAILS */}
                 <CardContent>
                   {/* NAME */}

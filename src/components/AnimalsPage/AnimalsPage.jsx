@@ -1,19 +1,17 @@
-import { Typography, Grid, Pagination } from "@mui/material";
+import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AnimalItem from "../Animals/AnimalItem";
 
 /*****STYLE*****/
 import "../App/App.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import SearchBar from "../SearchBar/SearchBar";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
-  minheight:150,
+  minheight: 150,
   height: 200,
-objectFit: "fill",
+  objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
@@ -28,7 +26,7 @@ const styledCard = {
 };
 const styledCardMedia = {
   width: "100%",
-  minheight:150,
+  minheight: 150,
   height: 200,
   objectFit: "fill",
 };
@@ -58,37 +56,10 @@ export default function AnimalsPage() {
   const petfinder = useSelector((store) => store.petfinder);
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
-   const pagination = useSelector((store) => store.pagination);
-
-  
-const [current, setCurrentPage] = useState()
-const [previous, setPreviousPage] = useState(current)
-const [next, setNextPage] = useState(current)
-
-const [paginationModel, setPaginationModel] = React.useState({
-  pageSize: 25,
-  page: 0,
-});
-
-  // handlePageChange when you click onto the next page
-  const handlePageChange = (event, current, next, previous) => {
-    event.preventDefault();
-    setCurrentPage(current);
-    setPreviousPage(previous)
-    setNextPage(next)
-   
-    console.log(current ,"newpage set currenttpage")
-    console.log(next ,"next set currenttpage")
-    console.log(previous ,"previous set currenttpage")
-    dispatch({ type: "SET_CURRENT_PAGE", payload: current})
-  dispatch({type:"SET_PREVIOUS", payload: previous})
-  dispatch({type:"SET_NEXT", payload: next})
-  dispatch({type:"SET_LINKS"})
-  };
 
   useEffect(() => {
     dispatch({ type: "FETCH_API" });
-  }, [ ]);
+  }, []);
 
   return (
     <div className="petfinder-page">
@@ -99,32 +70,11 @@ const [paginationModel, setPaginationModel] = React.useState({
         <>
           <Grid>
             <header className="App-header">
-              <h2
-                className="animal-page-title"
-              >
-                Available Animals
-              </h2>
+              <h2 className="animal-page-title">Available Animals</h2>
             </header>
-          </Grid>
-          {/* SEARCH BAR */}
-          <Grid>
-            <SearchBar />
-          </Grid>
-          {/* PAGINATION */}
-          <Grid item>
-          <Pagination 
-           page={pagination.currentPage}
-           count={pagination.totalPages}
-           previous={pagination._links}
-           next={pagination._links}
-           onChange={handlePageChange}
-           paginationModel={paginationModel}
-           onPaginationModelChange={setPaginationModel}
-          sx={{justifyContent:"end"}} variant="outlined" color="primary" />
           </Grid>
           {/* ANIMAL DISPLAY ITEM */}
           <Grid>
-            
             <AnimalItem
               styledFab={styledFab}
               styledCardMedia={styledCardMedia}

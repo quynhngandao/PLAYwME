@@ -1,6 +1,6 @@
 import React from "react";
 import "./ThankYouPage.css";
-import { Box, Button, Grid, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const CustomComponent = () => {

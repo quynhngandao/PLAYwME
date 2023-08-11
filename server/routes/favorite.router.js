@@ -105,7 +105,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
         location,
         contact,
         photos,
-        url
+        url,
       ]);
       // set newly inserted animal as animalId
       animal_id = insertAnimalResult.rows[0]?.id;

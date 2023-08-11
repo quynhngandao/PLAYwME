@@ -3,7 +3,6 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import RequestResult from "../RequestResultItem/RequestResult";
 import { Box, Button, Grid } from "@mui/material";
-import { GetStartedButton } from "../GetStartedButton/GetStartedButton";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 

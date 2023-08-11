@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // Import styling
 import {
@@ -11,10 +10,8 @@ import {
   IconButton,
   Button,
   Tooltip,
-  Stack,
   Box,
   Grid,
-  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EmailIcon from "@mui/icons-material/Email";
@@ -55,7 +52,6 @@ export default function FavoriteAnimalItem({
     window.open(url);
   };
 
-
   // RENDER
   return (
     <>
@@ -73,106 +69,110 @@ export default function FavoriteAnimalItem({
           <>
             {favorite.map((animal) => (
               <Tooltip Tooltip title="See more details" placement="top">
-              <CardActionArea sx={{ width: 300, margin: 1 }}>
-                <Card
-                  key={animal.animal_details.id}
-                  sx={styledCard}
-                  style={{
-                    width: 300,
-                    height: 550,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 1,
-                    padding: 2,
-                    paddingBottom: 3,
-                  }}
-                >
-                  {/* Image */}
-                  {animal.animal_details.photos &&
-                  animal.animal_details.photos.length > 0 ? (
-                    <CardActionArea
-                      onClick={() => openInNewTab(animal.animal_details.url)}
-                    >
-                     
+                <CardActionArea sx={{ width: 300, margin: 1 }}>
+                  <Card
+                    key={animal.animal_details.id}
+                    sx={styledCard}
+                    style={{
+                      width: 300,
+                      height: 550,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1,
+                      padding: 2,
+                      paddingBottom: 3,
+                    }}
+                  >
+                    {/* Image */}
+                    {animal.animal_details.photos &&
+                    animal.animal_details.photos.length > 0 ? (
+                      <CardActionArea
+                        onClick={() => openInNewTab(animal.animal_details.url)}
+                      >
                         <CardMedia
                           sx={styledCardMedia}
                           component="img"
                           image={animal.animal_details.photos}
                           alt={animal.animal_details.name}
                         />
-                  
-                    </CardActionArea>
-                  ) : (
-                    // NOT AVAILABLE IMAGE
-                    <CardActionArea>
-                      <a href={animal.animal_details.url}>
-                        <CardMedia
-                          sx={styledCardMedia}
-                          component="img"
-                          image={placeholderImage}
-                          alt="not available"
-                        />
-                      </a>
-                    </CardActionArea>
-                  )}
-                  <CardContent>
-                    {/* NAME */}
-                    <Typography sx={title}>
-                      {animal.animal_details.name}
-                    </Typography>
-                    {/* LOCATION */}
-                    <Typography sx={body}>
-                      {animal.animal_details.location.city},{' '}
-                      {animal.animal_details.location.state}
-                    </Typography>
-                  </CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      direction: "row",
+                      </CardActionArea>
+                    ) : (
+                      // NOT AVAILABLE IMAGE
+                      <CardActionArea>
+                        <a href={animal.animal_details.url}>
+                          <CardMedia
+                            sx={styledCardMedia}
+                            component="img"
+                            image={placeholderImage}
+                            alt="not available"
+                          />
+                        </a>
+                      </CardActionArea>
+                    )}
+                    <CardContent>
+                      {/* NAME */}
+                      <Typography sx={title}>
+                        {animal.animal_details.name}
+                      </Typography>
+                      {/* LOCATION */}
+                      <Typography sx={body}>
+                        {animal.animal_details.location.city},{" "}
+                        {animal.animal_details.location.state}
+                      </Typography>
+                    </CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        direction: "row",
 
-                      flexWrap: "wrap",
-                      justifyContent: "center",
-                      alignContent: "center",
-                    }}
-                  >
-                    <CardActionArea>
-                     
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        alignContent: "center",
+                      }}
+                    >
+                      <CardActionArea>
                         {/* DELETE BUTTON */}
-                     
-                      <Tooltip Tooltip title="delete animal" placement="bottom">
-                        <IconButton
-                          onClick={() => {
-                            dispatch({
-                              type: "DELETE_ANIMAL",
-                              payload: animal.animal_details.id,
-                            });
-                          }}
+
+                        <Tooltip
+                          Tooltip
+                          title="delete animal"
+                          placement="bottom"
                         >
-                          <Button variant="outlined" color="error">
-                            
-                            <DeleteIcon />
-                            Delete
-                          </Button>
-                        </IconButton>
-                      </Tooltip>
-                      {/* CONTACT */}
-                      <Tooltip Tooltip title="contact organization" placement="bottom">
-                        <IconButton
-                          onClick={() =>
-                            (window.location = `mailto:${animal.animal_details.contact}`)
-                          }
+                          <IconButton
+                            onClick={() => {
+                              dispatch({
+                                type: "DELETE_ANIMAL",
+                                payload: animal.animal_details.id,
+                              });
+                            }}
+                          >
+                            <Button variant="outlined" color="error">
+                              <DeleteIcon />
+                              Delete
+                            </Button>
+                          </IconButton>
+                        </Tooltip>
+                        {/* CONTACT */}
+                        <Tooltip
+                          Tooltip
+                          title="contact organization"
+                          placement="bottom"
                         >
-                          <Button variant="outlined" color="primary">
-                            <EmailIcon />
-                            Contact
-                          </Button>
-                        </IconButton>
-                      </Tooltip>
-                    </CardActionArea>
-                  </Box>
-                </Card>
-              </CardActionArea>
+                          <IconButton
+                            onClick={() =>
+                              (window.location = `mailto:${animal.animal_details.contact}`)
+                            }
+                          >
+                            <Button variant="outlined" color="primary">
+                              <EmailIcon />
+                              Contact
+                            </Button>
+                          </IconButton>
+                        </Tooltip>
+                      </CardActionArea>
+                    </Box>
+                  </Card>
+                </CardActionArea>
               </Tooltip>
             ))}
           </>

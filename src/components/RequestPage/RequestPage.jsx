@@ -3,14 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 /***** MUI *****/
 import {
   Box,
-  Typography,
-  IconButton,
-  Button,
-  Fab,
   Stack,
-  Divider,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 /***** COMPONENT *****/
 import RequestForm from "../FormRequest/RequestForm";
@@ -45,8 +39,6 @@ const styledFab = {
 /***** FUNCTION *****/
 export default function RequestPage() {
   // useSelector
-  const petfinder = useSelector((store) => store.petfinder);
-  const favorite = useSelector((store) => store.favorite);
   const loading = useSelector((store) => store.loading);
   // useDispatch
   const dispatch = useDispatch();

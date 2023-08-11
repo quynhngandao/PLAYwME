@@ -6,21 +6,18 @@ import {
   Card,
   IconButton,
   Button,
-  Stack,
   Divider,
   Typography,
   Grid,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineRounded from "@mui/icons-material/DeleteOutlineRounded";
 import PetsIcon from "@mui/icons-material/Pets";
-import FilterVintageIcon from '@mui/icons-material/FilterVintage';
-import { useEffect } from "react";
+import FilterVintageIcon from "@mui/icons-material/FilterVintage";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { Dayjs } from "dayjs";
 
@@ -32,7 +29,7 @@ const styledCard = {
   boxShadow: 2,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
-m:3
+  m: 3,
 };
 
 export default function RequestResult({ request }) {
@@ -152,7 +149,7 @@ export default function RequestResult({ request }) {
                     <ListItemAvatar>
                       <AccountCircleIcon
                         sx={{ width: 45, height: 45, verticalAlign: "middle" }}
-                      />  
+                      />
                       {/* <Avatar ><img src={"images/dog1.png"}/></Avatar> */}
                     </ListItemAvatar>
                     <ListItem sx={{ p: 0, ml: 1 }}>
@@ -168,7 +165,6 @@ export default function RequestResult({ request }) {
                 {request.animals_info.map((animal) => (
                   <ListItem sx={{ ml: 2 }}>
                     <ListItemAvatar>
-                    
                       <PetsIcon
                         sx={{ width: 30, height: 30, verticalAlign: "middle" }}
                       />
@@ -181,8 +177,8 @@ export default function RequestResult({ request }) {
                   </ListItem>
                 ))}
                 <Divider variant="middle" />
-                
-                  <Grid
+
+                <Grid
                   sx={{
                     display: "flex",
                     direction: "row",
@@ -190,8 +186,7 @@ export default function RequestResult({ request }) {
                     flexWrap: "wrap",
                     justifyContent: "center",
                   }}
-                  >
-                  
+                >
                   {/* EDIT BUTTON */}
                   <IconButton
                     sx={{ m: 1 }}
@@ -216,8 +211,8 @@ export default function RequestResult({ request }) {
                     </Button>
                   </IconButton>
                   <FilterVintageIcon
-                        sx={{ width: 30, height: 30, verticalAlign: "middle" }}
-                      />
+                    sx={{ width: 30, height: 30, verticalAlign: "middle" }}
+                  />
                   {/* DELETE BUTTON */}
                   <IconButton
                     sx={{ mx: 1 }}
@@ -229,7 +224,6 @@ export default function RequestResult({ request }) {
                     }}
                     // Pass the userInfo object to handleEditClick
                   >
-                    
                     <Button
                       variant="outlined"
                       sx={{
@@ -245,8 +239,7 @@ export default function RequestResult({ request }) {
                       Delete
                     </Button>
                   </IconButton>
-                  </Grid>
-
+                </Grid>
               </Box>
             </Card>
           ))}
@@ -255,4 +248,3 @@ export default function RequestResult({ request }) {
     </Box>
   );
 }
-

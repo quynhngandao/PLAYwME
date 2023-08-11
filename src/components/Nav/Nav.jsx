@@ -24,13 +24,13 @@ function Nav() {
         {!user.id && (
           // If there's no user, show login
           <>
-           <Link className="navLink" to="/home">
-           Home
-          </Link>  
-        {/* registration links */}
-          <Link className="navLink" to="/login">
-            Login / Register
-          </Link>  
+            <Link className="navLink" to="/home">
+              Home
+            </Link>
+            {/* registration links */}
+            <Link className="navLink" to="/login">
+              Login / Register
+            </Link>
           </>
         )}
 
@@ -49,11 +49,11 @@ function Nav() {
               Review
             </Link>
 
-{/* Logout Button */}
+            {/* Logout Button */}
             <LogOutButton className="navLink" />
           </>
         )}
-{/* AboutPage viewable to everyone */}
+        {/* AboutPage viewable to everyone */}
         <Link className="navLink" to="/about">
           About
         </Link>
