@@ -163,14 +163,11 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     let user_id = req.user.id; // Get the user_id from the logged in user
 
     // CHECK QUERY (checked if selected request belongs to the logged-in user)
-    let checkRequestQuery = `
+    const checkRequestQuery = `
       SELECT *
-      FROM "animal_request"
-      WHERE "request_id" IN (
-      SELECT "id"
       FROM "request"
-      WHERE "id" = $1 AND "user_id" = $2
-    );`;
+      WHERE "id" = $1 AND "user_id" = $2;
+    `;
 
     /***** Execute CHECK QUERY *****/
     const checkRequestQueryResult = await pool.query(checkRequestQuery, [
@@ -179,24 +176,27 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     ]);
 
     // Condition that checks if selected request belong to logged-in user
-    if (checkRequestQuery.rowCount === 0) {
+    if (checkRequestQueryResult.rowCount === 0) {
       console.log("User does not have permission to delete ");
       res.sendStatus(403); // Forbidden status code
     } else {
       // DELETE QUERY (delete only if the request belongs to the logged-in user)
-      let deleteRequestQuery = `
-        DELETE FROM "animal_request"
-        WHERE "request_id" IN (
-        SELECT "id"
-        FROM "request"
-        WHERE "id" = $1 AND "user_id" = $2
-      );`;
+      const deleteRequestQuery = `
+        DELETE FROM "request"
+        WHERE "id" = $1 AND "user_id" = $2;
+      `;
 
       /***** Execute DELETE QUERY *****/
-      const result = await pool.query(deleteRequestQuery, [
-        requestToDelete,
-        user_id,
-      ]);
+      await pool.query(deleteRequestQuery, [requestToDelete, user_id]);
+
+      // DELETE QUERY for related "animal_request" entries
+      const deleteAnimalRequestQuery = `
+        DELETE FROM "animal_request"
+        WHERE "request_id" = $1;
+      `;
+
+      /***** Execute SECOND DELETE QUERY *****/
+      await pool.query(deleteAnimalRequestQuery, [requestToDelete]);
 
       /***** SUCCESS *****/
       console.log("DELETE request in '/request' from database successful");

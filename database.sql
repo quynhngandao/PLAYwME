@@ -21,12 +21,21 @@ CREATE TABLE "animal" (
     "id" SERIAL PRIMARY KEY NOT NULL,
     "petfinder_id" INTEGER NOT NULL UNIQUE, -- avoid duplication petfinder_id 
     "name" VARCHAR(100) NOT NULL,
-    "age" VARCHAR(100) NOT NULL,
-    "breeds" VARCHAR(100) NOT NULL,
-    "location" JSONB , -- location is an object
+    "age" VARCHAR(100) ,
+    "attribute" JSONB, -- object
+    "environment" JSONB, -- object
+    "breeds" VARCHAR(1000), 
+    "type" VARCHAR(1000),
+    "size" VARCHAR(100),
+    "organization_id" VARCHAR(100),
+    "organization_animal_id" VARCHAR(100),
+    "status" VARCHAR(100), 
+    "status_changed_at" TIMESTAMPTZ,
+    "published_at" TIMESTAMPTZ, 
+    "location" JSONB , -- object
 	"contact" VARCHAR(1000),
     "photos" VARCHAR(10000),
-    "url" VARCHAR(10000) NOT NULL
+    "url" VARCHAR(10000) 
 );
 
 -- CREATE table to store the relationship between requests and animals (user's favorite animal)
@@ -41,12 +50,12 @@ CREATE TABLE "favorite_animal" (
 CREATE TABLE "request" (
 	"id" SERIAL PRIMARY KEY NOT NULL,
     "user_id" INTEGER NOT NULL REFERENCES "user" ("id")	,
-    "date_time" TIMESTAMP(0)  
-);
+    "date_time" TIMESTAMP(0)  );
 
 -- CREATE table to store the relationship between requests and animals
 CREATE TABLE "animal_request" (
     "id" SERIAL PRIMARY KEY NOT NULL,
-    "request_id" INTEGER NOT NULL REFERENCES "request" ("id"),
-    "animal_id" INTEGER NOT NULL REFERENCES "animal" ("id") 
+    "request_id" INTEGER NOT NULL REFERENCES "request" ("id")  ON DELETE CASCADE,
+    "animal_id" INTEGER NOT NULL REFERENCES "animal" ("id") ON DELETE CASCADE
 );
+

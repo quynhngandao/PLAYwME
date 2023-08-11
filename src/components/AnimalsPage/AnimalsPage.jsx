@@ -40,7 +40,6 @@ const styledFab = {
 };
 const styledHeartIcon = {
   marginRight: 1,
-  ariaLabel: "favorite",
   htmlColor: "#ff95a6",
   fontSize: "1.5em",
   color: "pink",
@@ -65,6 +64,11 @@ export default function AnimalsPage() {
 const [current, setCurrentPage] = useState()
 const [previous, setPreviousPage] = useState(current)
 const [next, setNextPage] = useState(current)
+
+const [paginationModel, setPaginationModel] = React.useState({
+  pageSize: 25,
+  page: 0,
+});
 
   // handlePageChange when you click onto the next page
   const handlePageChange = (event, current, next, previous) => {
@@ -108,20 +112,20 @@ const [next, setNextPage] = useState(current)
           </Grid>
           {/* PAGINATION */}
           <Grid item>
-   
           <Pagination 
            page={pagination.currentPage}
            count={pagination.totalPages}
            previous={pagination._links}
            next={pagination._links}
            onChange={handlePageChange}
+           paginationModel={paginationModel}
+           onPaginationModelChange={setPaginationModel}
           sx={{justifyContent:"end"}} variant="outlined" color="primary" />
           </Grid>
           {/* ANIMAL DISPLAY ITEM */}
           <Grid>
             
             <AnimalItem
-          
               styledFab={styledFab}
               styledCardMedia={styledCardMedia}
               styledCard={styledCard}

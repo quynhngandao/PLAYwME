@@ -8,8 +8,7 @@ import {
   Fab,
   Button,
   Tooltip,
-  Pagination
- 
+  Pagination,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -51,7 +50,7 @@ export default function AnimalItem({
   // useSelector to grab animal data from redux store
   const petfinder = useSelector((store) => store.petfinder);
   const user = useSelector((store) => store.user);
-   // useDispatch to send animal data to redux store
+  // useDispatch to send animal data to redux store
   const dispatch = useDispatch();
 
   // handleFavorite
@@ -68,7 +67,16 @@ export default function AnimalItem({
         id: clickedAnimal.id,
         name: clickedAnimal.name,
         age: clickedAnimal.age,
+        attribute: clickedAnimal.attribute,
+        environment: clickedAnimal.environment,
         breeds: clickedAnimal.breeds.primary,
+        type: clickedAnimal.type,
+        size: clickedAnimal.size,
+        organization_id: clickedAnimal.organization_id,
+        organization_animal_id: clickedAnimal.organization_animal_id,
+        status: clickedAnimal.status,
+        status_changed_at: clickedAnimal.status_changed_at,
+        published_at: clickedAnimal.published_at,
         location: clickedAnimal.contact.address,
         contact: clickedAnimal.contact.email,
         photos:
@@ -89,63 +97,62 @@ export default function AnimalItem({
     window.open(url);
   };
 
-
   return (
     <>
       {petfinder && (
         <div className="animals">
           {petfinder.map((animal) => (
-            <Card key={animal.id} className="card" sx={styledCard}>
-              {/* Image */}
-              {animal.photos && animal.photos.length > 0 ? (
-                <CardActionArea onClick={() => openInNewTab(animal.url)}>
-                  <Tooltip title="Click For More Details" placement="top">
+            <Tooltip title="Click For More Details" placement="top">
+              <Card key={animal.id} className="card" sx={styledCard}>
+                {/* Image */}
+                {animal.photos && animal.photos.length > 0 ? (
+                  <CardActionArea onClick={() => openInNewTab(animal.url)}>
                     <CardMedia
                       sx={styledCardMedia}
                       component="img"
                       image={animal.photos[0].full}
                       alt={animal.name}
                     />
-                  </Tooltip>
-                </CardActionArea>
-              ) : (
-                // NOT AVAILABLE IMAGE
-                <CardActionArea>
-                  <a href={animal.url}>
-                    <CardMedia
-                      sx={styledCardMediaNoImage}
-                      component="img"
-                      image={placeholderImage}
-                      alt="not available"
-                    />
-                  </a>
-                </CardActionArea>
-              )}
+                  </CardActionArea>
+                ) : (
+                  // NOT AVAILABLE IMAGE
+                  <CardActionArea>
+                    <a href={animal.url}>
+                      <CardMedia
+                        sx={styledCardMediaNoImage}
+                        component="img"
+                        image={placeholderImage}
+                        alt="not available"
+                      />
+                    </a>
+                  </CardActionArea>
+                )}
 
-              {/* Favorite Button */}
-              <IconButton
-                sx={styledHeartButton}
-                onClick={(e) => handleFavorite(e, animal)}
-              >
+                {/* Favorite Button */}
                 <Tooltip title="Add to Favorite" placement="left-start">
-                  <FavoriteBorderIcon sx={styledHeartIcon} />
-                </Tooltip>
-              </IconButton>
+                  <IconButton
+                    sx={styledHeartButton}
+                    onClick={(e) => handleFavorite(e, animal)}
+                  >
+                    <FavoriteBorderIcon sx={styledHeartIcon} />
+                  </IconButton></Tooltip>
 
-              {/* DETAILS */}
-              <CardContent>
-                {/* NAME */}
-                <Typography sx={title}>{animal.name}</Typography>
-                {/* AGE */}
-                <Typography sx={body}>
-                  {animal.age} &#x2022; {animal.breeds?.primary}
-                </Typography>
-                {/* LOCATION */}
-                <Typography sx={body}>
-                  {animal.contact.address.city}, {animal.contact.address.state}
-                </Typography>
-              </CardContent>
-            </Card>
+                {/* DETAILS */}
+                <CardContent>
+                  {/* NAME */}
+                  <Typography sx={title}>{animal.name}</Typography>
+                  {/* AGE */}
+                  <Typography sx={body}>
+                    {animal.age} &#x2022; {animal.breeds?.primary}
+                  </Typography>
+                  {/* LOCATION */}
+                  <Typography sx={body}>
+                    {animal.contact.address.city},{" "}
+                    {animal.contact.address.state}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Tooltip>
           ))}
         </div>
       )}

@@ -17,7 +17,6 @@ import {
   TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import EmailIcon from "@mui/icons-material/Email";
 
 // Import the placeholder image
@@ -56,62 +55,6 @@ export default function FavoriteAnimalItem({
     window.open(url);
   };
 
-  // handleSubmit: submit animal change
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(
-      "edit animals before submitting in favoriteanimalitem",
-      editRequest
-    );
-
-    dispatch({
-      type: "SUBMIT_EDIT_REQUEST",
-      payload: editRequest,
-    });
-    // Reset state after submitting
-    dispatch({
-      type: "RESET_EDIT_REQUEST",
-    });
-  };
-
-  // cancelEdit: undo edit
-  const cancelEdit = () => {
-    // Reset after submitting
-    dispatch({
-      type: "RESET_EDIT_REQUEST",
-    });
-  };
-
-  // handleChange
-  const handleChange = (e, propertyToChange) => {
-    dispatch({
-      type: "EDIT_ONCHANGE",
-      payload: {
-        property: propertyToChange,
-        value: e.target.value,
-      },
-    });
-  };
-
-  const handleEditClick = (animalid, clickedanimal) => {
-    console.log(editRequest.note, "edit note in favorite animal");
-
-    const animal = favorite.find(
-      (req) => req.animal.animal_details.id === animalid
-    );
-
-    if (animal && animal.animal_details) {
-      const { note } = clickedAnimal.animal_details;
-      console.log(note, "edit note in favorite animal");
-
-      dispatch({
-        type: "SET_EDIT_REQUEST",
-        payload: { id: animalid, note: note },
-      });
-    }
-    history.push("/edit");
-  };
 
   // RENDER
   return (
@@ -129,6 +72,7 @@ export default function FavoriteAnimalItem({
         {favorite && (
           <>
             {favorite.map((animal) => (
+              <Tooltip Tooltip title="See more details" placement="top">
               <CardActionArea sx={{ width: 300, margin: 1 }}>
                 <Card
                   key={animal.animal_details.id}
@@ -149,14 +93,14 @@ export default function FavoriteAnimalItem({
                     <CardActionArea
                       onClick={() => openInNewTab(animal.animal_details.url)}
                     >
-                      <Tooltip Tooltip title="See more details" placement="top">
+                     
                         <CardMedia
                           sx={styledCardMedia}
                           component="img"
                           image={animal.animal_details.photos}
                           alt={animal.animal_details.name}
                         />
-                      </Tooltip>
+                  
                     </CardActionArea>
                   ) : (
                     // NOT AVAILABLE IMAGE
@@ -212,7 +156,6 @@ export default function FavoriteAnimalItem({
                           </Button>
                         </IconButton>
                       </Tooltip>
-
                       {/* CONTACT */}
                       <Tooltip Tooltip title="contact organization" placement="bottom">
                         <IconButton
@@ -230,6 +173,7 @@ export default function FavoriteAnimalItem({
                   </Box>
                 </Card>
               </CardActionArea>
+              </Tooltip>
             ))}
           </>
         )}

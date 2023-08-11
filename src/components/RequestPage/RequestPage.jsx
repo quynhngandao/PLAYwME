@@ -39,7 +39,6 @@ const textLink = {
 };
 const styledFab = {
   margin: 0,
-  ariaLabel: "send",
   size: "medium",
 };
 
