@@ -125,7 +125,7 @@ export default function RequestResult({ request }) {
                         variant="h4"
                         component="div"
                       >
-                        Request #{request.user_info.request_id}
+                        Request 
                       </Typography>
                     </Grid>
                     <Grid item></Grid>

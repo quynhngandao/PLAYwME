@@ -19,7 +19,6 @@ function* fetchAnimals() {
 function* addAnimal(action) {
   try {
     yield axios.post("/favorite", action.payload);
-    yield put({ type: "FETCH_ANIMALS" });
   } catch (error) {
     console.log("Error with POST animals in redux", error);
   }

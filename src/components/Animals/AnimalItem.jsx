@@ -92,7 +92,7 @@ export default function AnimalItem({
 
   // Open new tab when picture is clicked
   const openInNewTab = (url) => {
-    window.open(url);
+    window.open(url, '_blank');
   };
 
   return (
@@ -114,15 +114,15 @@ export default function AnimalItem({
                   </CardActionArea>
                 ) : (
                   // NOT AVAILABLE IMAGE
-                  <CardActionArea>
-                    <a href={animal.url}>
+                  <CardActionArea onClick={() => openInNewTab(animal.url)}>
+                  
                       <CardMedia
                         sx={styledCardMediaNoImage}
                         component="img"
                         image={placeholderImage}
                         alt="not available"
                       />
-                    </a>
+                
                   </CardActionArea>
                 )}
 
