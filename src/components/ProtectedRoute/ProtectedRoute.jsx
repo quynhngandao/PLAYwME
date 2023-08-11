@@ -32,8 +32,8 @@ function ProtectedRoute({ component, children, ...props }) {
         // If the user is logged in, show the protected component
         <ProtectedComponent />
         :
-        <Redirect exact to="/home"/>
-        // Otherwise, redirect to the LandingPage
+        <LandingPage/> &&  <Redirect to="/home" />
+        // Otherwise, redirect to the LandingPage 
       }
     </Route>
 
