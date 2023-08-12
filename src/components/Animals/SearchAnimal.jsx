@@ -37,10 +37,7 @@ export default function AnimalItem({
   styledHeartButton,
 }) {
   // useSelector
-  const petfinder = useSelector((store) => store.petfinder.petfinder);
-  const searchResult = useSelector((store) => store.petfinder.searchResult);
-
-  console.log("petfinder in ANIMALITEM", petfinder);
+  const searchResult = useSelector((store) => store.petfinder.animalType);
   console.log("searchresult in ANIMALITEM", searchResult);
   const user = useSelector((store) => store.user);
   // useDispatch
@@ -106,9 +103,9 @@ export default function AnimalItem({
   /***** RENDER *****/
   return (
     <>
-      {petfinder.animals && ( // Check for both searchResult and petfinder
+      {searchResult && (
         <div className="animals">
-          {petfinder.animals.map(
+          {searchResult.map(
             (
               animal,
               index // Use searchResult or petfinder

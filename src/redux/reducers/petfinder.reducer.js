@@ -10,7 +10,7 @@ const petfinder = (state = [], action) => {
   }
 };
 
-const searchResult = (state = [], action) => {
+const searchResult = (state = {}, action) => {
   switch (action.type) {
     case "SET_DOG":
       console.log("Updating petfinder DOG state:", action.payload);

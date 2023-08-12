@@ -1,4 +1,3 @@
-
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useState } from "react";
@@ -6,6 +5,7 @@ import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Box, InputBase, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { actionChannel } from "redux-saga/effects";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -48,12 +48,24 @@ export default function SearchBar() {
 
   const [typeInput, setTypeInput] = useState("");
 
-  const handleSearch = (event, result) => {
+  const handleSearch = (event, typeInput) => {
     event.preventDefault();
-    dispatch({ type: "FETCH_API", payload: typeInput });
+
+    if (typeInput === "cat") {
+      dispatch({ type: "FETCH_ALL", payload: typeInput });
+    } else if (typeInput === "dog") {
+      dispatch({ type: "FETCH_ALL", payload: typeInput });
+    } else if (typeInput === "rabbit") {
+      dispatch({ type: "FETCH_ALL", payload: typeInput });
+    } else {
+      // If searchResults is empty, dispatch the action to fetch all
+      dispatch({ type: "FETCH_ALL" });
+    }
+
+  
   };
 
-/***** RENDER *****/
+  /***** RENDER *****/
   return (
     <Box sx={{ display: "flex", justifyContent: "center", margin: 4 }}>
       <Search>
@@ -70,9 +82,9 @@ export default function SearchBar() {
         variant="contained"
         color="primary"
         onClick={(event) => {
-            handleSearch(event);
-          }}
-        >
+          handleSearch(event, typeInput);
+        }}
+      >
         Search
       </Button>
     </Box>

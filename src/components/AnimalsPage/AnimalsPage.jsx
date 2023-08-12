@@ -57,9 +57,10 @@ const textLink = {
 export default function AnimalsPage() {
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
+  const searchResult = useSelector((store) => store.petfinder.animalType);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_API"});
+    dispatch({ type: "FETCH_ALL" });
   }, []);
 
   return (
@@ -79,15 +80,27 @@ export default function AnimalsPage() {
             <SearchBar />
           </Grid>
           <Grid>
-            <AnimalItem
-              styledFab={styledFab}
-              styledCardMedia={styledCardMedia}
-              styledCard={styledCard}
-              textLink={textLink}
-              styledCardMediaNoImage={styledCardMediaNoImage}
-              styledHeartIcon={styledHeartIcon}
-              styledHeartButton={styledHeartButton}
-            />
+            {searchResult ? (
+              <SearchAnimal
+                styledFab={styledFab}
+                styledCardMedia={styledCardMedia}
+                styledCard={styledCard}
+                textLink={textLink}
+                styledCardMediaNoImage={styledCardMediaNoImage}
+                styledHeartIcon={styledHeartIcon}
+                styledHeartButton={styledHeartButton}
+              />
+            ) : (
+              <AnimalItem
+                styledFab={styledFab}
+                styledCardMedia={styledCardMedia}
+                styledCard={styledCard}
+                textLink={textLink}
+                styledCardMediaNoImage={styledCardMediaNoImage}
+                styledHeartIcon={styledHeartIcon}
+                styledHeartButton={styledHeartButton}
+              />
+            )}
           </Grid>
         </>
       )}
