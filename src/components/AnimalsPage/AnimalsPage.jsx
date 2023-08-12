@@ -1,11 +1,13 @@
 import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { actionChannel } from "redux-saga/effects";
 import AnimalItem from "../Animals/AnimalItem";
 
 /*****STYLE*****/
 import "../App/App.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import SearchBar from "../SearchBar/SearchBar";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
@@ -53,12 +55,11 @@ const textLink = {
 /*****STYLE-END*****/
 
 export default function AnimalsPage() {
-  const petfinder = useSelector((store) => store.petfinder);
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_API" });
+    dispatch({ type: "FETCH_API"});
   }, []);
 
   return (
@@ -73,7 +74,10 @@ export default function AnimalsPage() {
               <h2 className="animal-page-title">Available Animals</h2>
             </header>
           </Grid>
-          {/* ANIMAL DISPLAY ITEM */}
+          <Grid>
+            {/* SearchBar */}
+            <SearchBar />
+          </Grid>
           <Grid>
             <AnimalItem
               styledFab={styledFab}

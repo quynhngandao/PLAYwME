@@ -1,3 +1,9 @@
+
+import { useSelector, useDispatch } from "react-redux";
+// Import the placeholder image
+import placeholderImage from "./notfoundcat.gif";
+import "./AnimalItem.css";
+/***** MUI *****/
 import {
   CardContent,
   Typography,
@@ -5,21 +11,10 @@ import {
   IconButton,
   Card,
   CardMedia,
-  Fab,
-  Button,
   Tooltip,
-  Pagination,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-// Import the placeholder image
-import placeholderImage from "./notfoundcat.gif";
-// Import CSS
-import "./AnimalItem.css";
-import { CurrencyYenTwoTone } from "@mui/icons-material";
-
+// STYLING
 const body = {
   color: "primary.dark",
   fontSize: "15px",
@@ -34,29 +29,26 @@ const title = {
   fontSize: "1.5em",
   fontFamily: "fraunces",
 };
-
+/***** FUNCTION *****/
 export default function AnimalItem({
-  animal,
   styledCard,
   styledCardMedia,
-  textLink,
   styledCardMediaNoImage,
   styledHeartIcon,
   styledHeartButton,
-  currentPage,
-  totalPages,
-  handlePageChange,
 }) {
-  // useSelector to grab animal data from redux store
-  const petfinder = useSelector((store) => store.petfinder);
-  const user = useSelector((store) => store.user);
-  // useDispatch to send animal data to redux store
-  const dispatch = useDispatch();
+  // useSelector 
+  const petfinder = useSelector((store) => store.petfinder.petfinder);
+  const searchResult = useSelector((store) => store.petfinder.searchResult); 
 
-  // handleFavorite
+  console.log('petfinder in ANIMALITEM', petfinder)
+  console.log('searchresult in ANIMALITEM', searchResult)
+  const user = useSelector((store) => store.user);
+  // useDispatch 
+  const dispatch = useDispatch();
+  // handleFavorite to post animal from API to database 
   const handleFavorite = (e, clickedAnimal) => {
     e.preventDefault();
-
     // conditional statement: if clickedAnimal=true
     // set newAnimal's properties => clickedAnimal's values
     // handleFavorite function => send clickedAnimal data
@@ -77,31 +69,47 @@ export default function AnimalItem({
         published_at: clickedAnimal.published_at,
         location: clickedAnimal.contact.address,
         contact: clickedAnimal.contact.email,
-        photos:
-          clickedAnimal.photos && clickedAnimal.photos.length > 0
-            ? clickedAnimal.photos[0].full
-            : "",
+        // Long conditional to check through all of the available photos
+        photos: (() => {
+          if (
+            clickedAnimal.photos &&
+            clickedAnimal.photos.length > 0 &&
+            clickedAnimal.photos[0].full
+          ) {
+            return clickedAnimal.photos[0].full;
+          } else if (
+            clickedAnimal.primary_photo_cropped &&
+            clickedAnimal.primary_photo_cropped.full
+          ) {
+            return clickedAnimal.primary_photo_cropped.full;
+          } else if (
+            clickedAnimal.photos &&
+            clickedAnimal.photos.length > 0 &&
+            clickedAnimal.photos[0].large
+          ) {
+            return clickedAnimal.photos[0].large;
+          }
+        })(),
         url: clickedAnimal.url,
       };
       // dispatch the saved data to redux store
       dispatch({ type: "ADD_ANIMAL", payload: newAnimal });
     } else {
-      console.error("Animal data is missing or incomplete.");
+      console.error("Animal data cannot be added to database due to being missing or incomplete.");
     }
   };
-
   // Open new tab when picture is clicked
   const openInNewTab = (url) => {
     window.open(url, '_blank');
   };
-
+/***** RENDER *****/
   return (
     <>
-      {petfinder && (
+       {(searchResult.animals || petfinder.animals) && ( // Check for both searchResult and petfinder
         <div className="animals">
-          {petfinder.map((animal) => (
+         {(searchResult.animals || petfinder.animals).map((animal, index) => ( // Use searchResult or petfinder
             <Tooltip title="Click For More Details" placement="top">
-              <Card key={animal.id} className="card" sx={styledCard}>
+              <Card key={index} className="card" sx={styledCard}>
                 {/* Image */}
                 {animal.photos && animal.photos.length > 0 ? (
                   <CardActionArea onClick={() => openInNewTab(animal.url)}>

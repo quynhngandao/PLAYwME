@@ -21,6 +21,14 @@ const CustomComponent = () => {
         <img
           className="image"
           src="images/thankyou.png"
+          style={{
+            maxWidth: "80%", 
+            height: "auto",
+            position: "absolute",
+            left: "70%",
+            transform: "translateX(-50%)",
+            top: "40px",
+          }}
         />
         <div className="text-container">
           <div className="title">Thank You</div>

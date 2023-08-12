@@ -1,11 +1,9 @@
-import React from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import RequestResult from "../RequestResultItem/RequestResult";
-import { Box, Button, Grid } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
-
+/***** MUI *****/
+import { Box, Button, Grid } from "@mui/material";
 function UserPage() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
@@ -20,7 +18,7 @@ function UserPage() {
     history.push("/petfinder");
   };
   return (
-    <>
+
       <Grid className="user-page">
         <Box >
           <h2 className="user-page-title">Welcome, {user.username}</h2>
@@ -54,7 +52,7 @@ function UserPage() {
           <RequestResult />
         </Grid>
       </Grid>
-    </>
+
   );
 }
 
