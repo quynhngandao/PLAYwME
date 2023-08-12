@@ -1,11 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { useState } from "react";
-/***** MUI *****/
-import { styled, alpha } from "@mui/material/styles";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Box, InputBase, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { actionChannel } from "redux-saga/effects";
+import { styled, alpha } from "@mui/material/styles";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -17,6 +15,7 @@ const Search = styled("div")(({ theme }) => ({
     width: "40em",
   },
 }));
+
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -26,11 +25,11 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -40,32 +39,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-/***** FUNCTION *****/
 export default function SearchBar() {
   const dispatch = useDispatch();
-
-  let searchResults = useSelector((store) => store.petfinder);
-
   const [typeInput, setTypeInput] = useState("");
 
-  const handleSearch = (event, typeInput) => {
+  const handleSearch = (typeInput, event) => {
     event.preventDefault();
 
-    if (typeInput === "cat") {
-      dispatch({ type: "FETCH_ALL", payload: typeInput });
-    } else if (typeInput === "dog") {
-      dispatch({ type: "FETCH_ALL", payload: typeInput });
-    } else if (typeInput === "rabbit") {
-      dispatch({ type: "FETCH_ALL", payload: typeInput });
-    } else {
-      // If searchResults is empty, dispatch the action to fetch all
+    if (typeInput === "dog" || typeInput === "cat" || typeInput === "rabbit") {
+      dispatch({ type: "FETCH_TYPE", payload: typeInput });
+    } else if (typeInput === "") {
       dispatch({ type: "FETCH_ALL" });
     }
-
-  
   };
 
-  /***** RENDER *****/
   return (
     <Box sx={{ display: "flex", justifyContent: "center", margin: 4 }}>
       <Search>
@@ -75,15 +62,14 @@ export default function SearchBar() {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search for..." }}
+          value={typeInput}
           onChange={(event) => setTypeInput(event.target.value)}
         />
       </Search>
       <Button
         variant="contained"
         color="primary"
-        onClick={(event) => {
-          handleSearch(event, typeInput);
-        }}
+        onClick={(event) => handleSearch(typeInput, event)}
       >
         Search
       </Button>

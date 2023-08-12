@@ -1,8 +1,9 @@
 import { Grid } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionChannel } from "redux-saga/effects";
 import AnimalItem from "../Animals/AnimalItem";
+import SearchAnimal from "../Animals/SearchAnimal";
 
 /*****STYLE*****/
 import "../App/App.css";
@@ -57,11 +58,13 @@ const textLink = {
 export default function AnimalsPage() {
   const loading = useSelector((store) => store.loading);
   const dispatch = useDispatch();
-  const searchResult = useSelector((store) => store.petfinder.animalType);
+  const searchResult = useSelector((store) => store.searchResult.animals);
+  const petfinder = useSelector((store) => store.petfinder.animals);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_ALL" });
-  }, []);
+    dispatch({ type: "FETCH_TYPE"});
+    // dispatch({ type: "FETCH_ALL" });
+  }, [ dispatch]);
 
   return (
     <div className="petfinder-page">
@@ -80,7 +83,7 @@ export default function AnimalsPage() {
             <SearchBar />
           </Grid>
           <Grid>
-            {searchResult ? (
+         
               <SearchAnimal
                 styledFab={styledFab}
                 styledCardMedia={styledCardMedia}
@@ -90,8 +93,8 @@ export default function AnimalsPage() {
                 styledHeartIcon={styledHeartIcon}
                 styledHeartButton={styledHeartButton}
               />
-            ) : (
-              <AnimalItem
+          
+               <AnimalItem
                 styledFab={styledFab}
                 styledCardMedia={styledCardMedia}
                 styledCard={styledCard}
@@ -100,7 +103,7 @@ export default function AnimalsPage() {
                 styledHeartIcon={styledHeartIcon}
                 styledHeartButton={styledHeartButton}
               />
-            )}
+  
           </Grid>
         </>
       )}
