@@ -1,6 +1,6 @@
 <div align="center" id="top"></div>
 
-[![LinkedIn][linkedin]][Linkedin]
+[![LinkedIn][linkedin]][Linkedin] [![Email][email]][Email] 
 
 <br />
 <div align="center">
@@ -52,15 +52,15 @@
 
 ### Built With
 
-[![JavaScript Logo][javascript.js]][Javascript]
-[![Node.js Logo][node.js]][Node]
-[![Express.js Logo][express.js]][Express]
-[![PostgreSQL Logo][postgresql]][PostgreSQL]
-[![React Logo][react.js]][React]
-[![Redux Logo][redux]][Redux]
-[![Redux Saga Logo][redux-saga]][Redux-Saga]
-[![Material-UI Logo][mui]][MUI]
-[![Petfinder API Logo][api]][API]
+[![JavaScript][javascript.js]][Javascript]
+[![Node.js][node.js]][Node]
+[![Express.js][express.js]][Express]
+[![PostgreSQL][postgresql]][PostgreSQL]
+[![React][react.js]][React]
+[![Redux][redux]][Redux]
+[![Redux-Saga][redux-saga]][Redux-Saga]
+[![Material-UI][mui]][MUI]
+[![Petfinder API][api]][API]
 
 ## Getting Started
 
@@ -89,7 +89,7 @@ Before you get started, make sure you have the following software installed on y
 
 ## Contact
 
-**Quynh Dao** - [![Email Logo][email]][Email]
+**Quynh Dao** - [![Email][email]][Email]
 
 [PLAYwME](https://github.com/quynhngandao/PLAYwME-solo-project)
 
@@ -123,7 +123,7 @@ Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped m
 [mui]: https://img.shields.io/badge/Material_UI-20232A?style=for-the-badge&logo=MUI&logoColor=007FFF
 [MUI]: https://mui.com/
 [Screenshot]: https://github.com/quynhngandao/PLAYwME-solo-project/blob/main/public/images/Screenshot.gif
-[email]: https://img.icons8.com/?size=2x&id=108806&format=png
+[email]: https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white
 [Email]: dj@weheartmusic.com
 [API]: https://restfulapi.net/
 [api]: https://upload.wikimedia.org/wikipedia/commons/b/b2/Petfinder_logo.png
