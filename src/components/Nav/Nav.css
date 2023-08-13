@@ -13,13 +13,12 @@
 }
 
 .nav-title {
-  font-size: 25px;
+  font-size: 2rem;
   font-weight: 900;
   color: #f2f2f2;
   padding-left: 10px;
-
   margin-left: 25px;
-  font-family: "varela round";
+  font-family: "fraunces";
 }
 
 .navLink {
