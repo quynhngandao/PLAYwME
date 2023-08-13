@@ -8,9 +8,7 @@
     <img src="logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">PLAY
-              <i className='fa-solid fa-paw' />
-              ME</h3>
+<h3 align="center"><img src="public/images/playwme.png"/></h3>
 
   <p align="center">
           A platform to bridge the gap between animal lovers who want
@@ -125,6 +123,5 @@ Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped m
 [Screenshot]: https://github.com/quynhngandao/PLAYwME-solo-project/blob/main/public/images/Screenshot.gif
 [email]: https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white
 [Email]: dj@weheartmusic.com
-[API]: https://restfulapi.net/
 [api]: https://img.shields.io/badge/petfinder-api?logo=petfinderapi&logoColor=purple&color=purple
-
+[API]: https://restfulapi.net/
