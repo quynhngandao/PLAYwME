@@ -1,15 +1,14 @@
 <div align="center" id="top"></div>
+<p>
+<a target="_blank" href="https://www.linkedin.com/in/daoquynh29"><img src="https://img.shields.io/badge/LinkedIn-20232A?style=for-the-badge&logo=linkedin"></img></a>
+<a target="_blank" href="mailto:nguy2884@umn.edu"><img src="https://img.shields.io/badge/Gmail-20232A?style=for-the-badge&logo=gmail&logoColor=white"></img></a>
+</p>
 
-[![LinkedIn][linkedin]][Linkedin] [![Email][email]][Email] 
-
-<br />
 <div align="center">
   <a href="https://github.com/quynhngandao/PLAYwME-solo-project">
    <h3 align="center"> <img alt="Logo" width="150" height="50" src="public/images/playwme.png"/></h3>
   </a>
-
-
-
+ <a href="#screenshot">View Demo</a>
   <p align="center">
           A platform to bridge the gap between animal lovers who want
           to contribute to bettering the well-being of shelter animals. PLAYwME
@@ -19,12 +18,11 @@
           increase their chances of finding loving homes.
     <br />
     <br />
-    <br />
-    <a href="#screenshot">View Demo</a>
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
+
+<!-- TABLE OF CONTENTS
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -44,11 +42,10 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
-</details>
+</details> -->
 
-## About The Project
-
-### Built With
+### **Built With**
+<br/>
 
 [![JavaScript][javascript.js]][Javascript]
 [![Node.js][node.js]][Node]
@@ -60,17 +57,14 @@
 [![Material-UI][mui]][MUI]
 [![Petfinder API][api]][API]
 
-## Getting Started
+### **Prerequisites**
 
-### Prerequisites
+* [Node.js](https://nodejs.org/en/)
+* [PostrgeSQL](https://www.postgresql.org/)
+* [Nodemon](https://nodemon.io/)
 
-Before you get started, make sure you have the following software installed on your computer:
 
-- [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
-- [Nodemon](https://nodemon.io/)
-
-## Installation
+### **Installation**
 
 1. Clone the repository to your local computer
 1. Start postgres if not running already by using `brew services start postgresql`
@@ -81,28 +75,33 @@ Before you get started, make sure you have the following software installed on y
 1. Run `npm run client`
 1. Navigate to `localhost:3000`
 
-### Screenshot
+### **Screenshot**
+<br/>
 
 ![Screenshot](public/images/Screenshot.gif)
 
-## Contact
+### **Contact**
 
-**Quynh Dao** - dj@weheartmusic.com
-
+* **Quynh Dao** - 
+<a target="_blank" href="mailto:nguy2884@umn.edu">Email</a>
+<br/> 
+* **Project** - 
 [PLAYwME](https://github.com/quynhngandao/PLAYwME-solo-project)
 
 <!-- ACKNOWLEDGMENTS -->
 
-## Acknowledgments
+### **Acknowledgments**
 
-Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. Thank you to my instructor Emma Stout for being an awesome instructor!
+* Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. 
+<br/> 
+* Thank you to my instructor Emma Stout for being an awesome instructor!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[linkedin]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin]: https://img.shields.io/badge/LinkedIn-20232A?style=for-the-badge&logo=linkedin&colorB=555
 [Linkedin]: https://www.linkedin.com/in/daoquynh29/
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React]: https://reactjs.org/
