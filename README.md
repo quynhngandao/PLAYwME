@@ -5,10 +5,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/quynhngandao/PLAYwME-solo-project">
-    <img src="logo.png" alt="Logo" width="80" height="80">
+    <img alt="Logo" width="80" height="80" src="public/images/playwme.png"/>
   </a>
 
-<h3 align="center"><img src="public/images/playwme.png"/></h3>
+<h3 align="center">PLAYwME</h3>
 
   <p align="center">
           A platform to bridge the gap between animal lovers who want
