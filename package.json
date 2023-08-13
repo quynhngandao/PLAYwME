@@ -15,6 +15,7 @@
     "@mui/x-date-pickers": "^6.11.0",
     "@petfinder/petfinder-js": "^1.0.6",
     "axios": "^0.21.1",
+    "badge-maker": "^3.3.1",
     "bcryptjs": "^2.4.3",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",

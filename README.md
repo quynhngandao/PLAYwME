@@ -22,7 +22,7 @@
     <br />
     <br />
     <br />
-    <a href="#Screenshot">View Demo</a>
+    <a href="#screenshot">View Demo</a>
   </p>
 </div>
 
@@ -85,11 +85,11 @@ Before you get started, make sure you have the following software installed on y
 
 ### Screenshot
 
-[!Screenshot](public/images/Screenshot.gif)
+![Screenshot](public/images/Screenshot.gif)
 
 ## Contact
 
-**Quynh Dao** - [![Email][email]][Email]
+**Quynh Dao** - dj@weheartmusic.com
 
 [PLAYwME](https://github.com/quynhngandao/PLAYwME-solo-project)
 
@@ -126,4 +126,5 @@ Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped m
 [email]: https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white
 [Email]: dj@weheartmusic.com
 [API]: https://restfulapi.net/
-[api]: https://upload.wikimedia.org/wikipedia/commons/b/b2/Petfinder_logo.png
+[api]: https://img.shields.io/badge/petfinder-api?logo=petfinderapi&logoColor=purple&color=purple
+
