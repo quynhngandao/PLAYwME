@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 ;
-  background-color:#1c364b;
+  margin: 0 0;
+  background-color: #1c364b;
   overflow: hidden;
 }
 
@@ -19,13 +19,13 @@
   padding-left: 10px;
 
   margin-left: 25px;
-  font-family: 'varela round';
+  font-family: "varela round";
 }
 
 .navLink {
   display: inline-block;
   color: #f7f9fb;
-  background-color:#1c364b;
+  background-color: #1c364b;
   text-align: center;
   padding: 20px 10px;
   text-decoration: none;
@@ -42,5 +42,5 @@
 }
 
 .navLink:hover {
-  background-color:#326186;
+  background-color: #326186;
 }

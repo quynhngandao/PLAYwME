@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+/***** MUI *****/
 import { Box, InputBase, Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
-
+/***** STYLE *****/
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -15,7 +16,6 @@ const Search = styled("div")(({ theme }) => ({
     width: "40em",
   },
 }));
-
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
@@ -25,7 +25,6 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -38,21 +37,31 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
+/***** STYLE-END *****/
+/***** FUNCTION *****/
 export default function SearchBar() {
+  // useDispatch
   const dispatch = useDispatch();
+  // useState
   const [typeInput, setTypeInput] = useState("");
 
   const handleSearch = (typeInput, event) => {
     event.preventDefault();
 
-    if (typeInput === "dog" || typeInput === "cat" || typeInput === "rabbit") {
+     // Empty the search result before fetching new data
+     dispatch({ type: "CLEAR_SEARCH_RESULT" });
+
+    // Conditional to fetch type or all depending on input
+    if (typeInput === "dog" || "cat" || "rabbit" || "bird") {
       dispatch({ type: "FETCH_TYPE", payload: typeInput });
     } else if (typeInput === "") {
       dispatch({ type: "FETCH_ALL" });
     }
-  };
 
+    setTypeInput("");
+   
+  };
+  /***** RENDER *****/
   return (
     <Box sx={{ display: "flex", justifyContent: "center", margin: 4 }}>
       <Search>
@@ -60,8 +69,8 @@ export default function SearchBar() {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search for..." }}
+          placeholder="Search for animals…"
+          inputProps={{ "ariaLabel": "search for animal..." }}
           value={typeInput}
           onChange={(event) => setTypeInput(event.target.value)}
         />

@@ -1,14 +1,12 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LogOutButton from "../LogOutButton/LogOutButton";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import PetsIcon from "@mui/icons-material/Pets";
 import "./Nav.css";
-import { useSelector } from "react-redux";
-
+/***** FUNCTION *****/
 function Nav() {
+  // useSelector
   const user = useSelector((store) => store.user);
-
+/***** RENDER *****/
   return (
     <div className="nav">
       <Link to="/home">

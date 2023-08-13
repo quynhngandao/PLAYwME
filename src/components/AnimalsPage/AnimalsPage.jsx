@@ -1,14 +1,13 @@
-import { Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionChannel } from "redux-saga/effects";
+/*****STYLE and IMPORT*****/
+import "../App/App.css";
 import AnimalItem from "../Animals/AnimalItem";
 import SearchAnimal from "../Animals/SearchAnimal";
-
-/*****STYLE*****/
-import "../App/App.css";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import SearchBar from "../SearchBar/SearchBar";
+import { Grid } from "@mui/material";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
@@ -54,17 +53,23 @@ const textLink = {
   color: (theme) => theme.palette.primary.dark,
 };
 /*****STYLE-END*****/
-
+/***** FUNCTION *****/
 export default function AnimalsPage() {
-  const loading = useSelector((store) => store.loading);
+  // useSelector 
+  const loading = useSelector((store) => store.loading) // loading spinner
+  const searchResult = useSelector((store) => store.searchResult); // animal type
+  const petfinder = useSelector((store) => store.petfinder.animals); // all animals
+  // useDispatch
   const dispatch = useDispatch();
-  const searchResult = useSelector((store) => store.searchResult.animals);
-  const petfinder = useSelector((store) => store.petfinder.animals);
-
   useEffect(() => {
-    dispatch({ type: "FETCH_TYPE"});
-    // dispatch({ type: "FETCH_ALL" });
-  }, [ dispatch]);
+    // Fetch based on the condition (FETCH_TYPE for SearchAnimal, FETCH_ALL for AnimalItem)
+    if (searchResult.length > 0) {
+      dispatch({ type: "FETCH_TYPE" });
+    } else {
+      dispatch({ type: "FETCH_ALL" });
+    }
+
+  }, [dispatch, searchResult]);
 
   return (
     <div className="petfinder-page">
@@ -83,7 +88,8 @@ export default function AnimalsPage() {
             <SearchBar />
           </Grid>
           <Grid>
-         
+            {/* Display this for dog, cat, bird, rabbit */}
+          {searchResult.animals?.length > 0 ? (
               <SearchAnimal
                 styledFab={styledFab}
                 styledCardMedia={styledCardMedia}
@@ -93,8 +99,8 @@ export default function AnimalsPage() {
                 styledHeartIcon={styledHeartIcon}
                 styledHeartButton={styledHeartButton}
               />
-          
-               <AnimalItem
+            ) : (
+              <AnimalItem
                 styledFab={styledFab}
                 styledCardMedia={styledCardMedia}
                 styledCard={styledCard}
@@ -103,7 +109,7 @@ export default function AnimalsPage() {
                 styledHeartIcon={styledHeartIcon}
                 styledHeartButton={styledHeartButton}
               />
-  
+            )}
           </Grid>
         </>
       )}

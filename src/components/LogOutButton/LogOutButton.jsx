@@ -1,11 +1,13 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-
+/***** FUNCTION ******/
 function LogOutButton(props) {
+  // useDispatch
   const dispatch = useDispatch();
+  // useHistory
   const history = useHistory();
 
+  // handleClick to log out and go to home page
   const handleClick = () => {
     dispatch({ type: "LOGOUT" })
     history.push("/home");

@@ -30,7 +30,7 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
-/* Routes */
+/****** ROUTES ******/
 app.use('/api/user', userRouter);
 // handle GET request to petfinder API
 app.use('/api/animal', petfinderRouter)

@@ -18,7 +18,6 @@ const shouldDisableTime = (value, view) => {
   }
   return false;
 };
-
 // Weekend
 const isWeekend = (date) => {
   const day = date.day();
@@ -27,17 +26,20 @@ const isWeekend = (date) => {
 // Range of allowed days
 const lastMonday = dayjs().startOf("week");
 const nextSunday = dayjs().endOf("week").startOf("day");
-
+/***** FUNCTION *****/
 /***** THIS IS BEING USED BY EDIT REQUEST COMPONENT ******/
 export default function EditCustomDateTimePicker(props) {
+  // useSelector
   const requests = useSelector((store) => store.requests);
+  // useState
   const [selectedDateTime, setSelectedDateTime] = useState();
-
+  
+  // handleDateTimeChange
   const handleDateTimeChange = (dateTime) => {
     props.handleDateTimeChange(dateTime);
   };
 
-  // Dispatch user's date request to redux store
+/***** RENDER *****/
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker"]}>

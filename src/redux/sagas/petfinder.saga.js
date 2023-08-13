@@ -1,7 +1,7 @@
 import axios from "axios";
 import { put, takeEvery } from "redux-saga/effects";
 
-// Fetch animals based on type (e.g., dog, cat, rabbit)
+// Fetch animals based on type
 function* getAnimalsByType(action) {
   try {
     // Loading spinner while page loads
@@ -9,35 +9,40 @@ function* getAnimalsByType(action) {
 
     if (!action.payload) {
       // Fetch all animals
-      const response = yield axios.get("/api/animal?limit=20&location=MN");
+      const response = yield axios.get("/api/animal");
       yield put({ type: "SET_ANIMAL", payload: response.data });
-      console.log("action.payload for SET_ALL", response.data);
     } else if (action.payload === "cat") {
-      // Fetch animals based on type
+      // Fetch cat
       const cat = yield axios.get(`/api/animal/cat?type=${action.payload}`);
       yield put({
-        type: "SET_RESULT",
+        type: "SET_SEARCH_RESULT",
         payload: cat.data,
       });
-      console.log("action.payload for SET_TYPE FOR CAT", cat.data);
     } else if (action.payload === "dog") {
-      // Fetch animals based on type
+      // Fetch dog
       const dog = yield axios.get(`/api/animal/dog?type=${action.payload}`);
       yield put({
-        type: "SET_RESULT",
+        type: "SET_SEARCH_RESULT",
         payload: dog.data,
       });
-      console.log("action.payload for SET_TYPE FOR DOG", dog.data);
     } else if (action.payload === "rabbit") {
-      // Fetch animals based on type
+      // Fetch rabbit
       const rabbit = yield axios.get(
         `/api/animal/rabbit?type=${action.payload}`
       );
       yield put({
-        type: "SET_RESULT",
+        type: "SET_SEARCH_RESULT",
         payload: rabbit.data,
       });
-      console.log("action.payload for SET_TYPE FOR RABBIT", rabbit.data);
+    } else if (action.payload === "bird") {
+      // Fetch bird
+      const bird = yield axios.get(
+        `/api/animal/bird?type=${action.payload}`
+      );
+      yield put({
+        type: "SET_SEARCH_RESULT",
+        payload: bird.data,
+      });
     }
   } catch (error) {
     console.log("Error with animals GET request from redux: ", error);
@@ -46,35 +51,9 @@ function* getAnimalsByType(action) {
   }
 }
 
-// function* getAnimalsByType(action) {
-//   try {
-//     // Loading spinner while page loads
-//     yield put({ type: "SET_LOADING" });
-
-//     let response;
-
-//     if (!action.payload) {
-//       // Fetch all animals
-//       response = yield axios.get("/api/animal?limit=20&location=MN");
-//     } else {
-//       // Fetch animals based on type
-//       response = yield axios.get(`/api/animal/${action.payload}?type=${action.payload}`);
-//     }
-
-//     yield put({ type: "SET_TYPE", payload: { type: action.payload, data: response.data } });
-//     console.log(`action.payload for ${action.payload.toUpperCase()}`, response.data);
-
-//   } catch (error) {
-//     console.log("Error with animals GET request from redux: ", error);
-//   } finally {
-//     yield put({ type: "UNSET_LOADING" });
-//   }
-// }
-
-
 function* petfinderSaga() {
-  yield takeEvery("FETCH_ALL", getAnimalsByType);
-  yield takeEvery("FETCH_TYPE", getAnimalsByType);
+  yield takeEvery("FETCH_ALL", getAnimalsByType); // fetch for all animals
+  yield takeEvery("FETCH_TYPE", getAnimalsByType); // fetch for animal type 
 }
 
 export default petfinderSaga;

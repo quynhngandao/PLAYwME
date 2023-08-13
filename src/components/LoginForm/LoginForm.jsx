@@ -1,16 +1,21 @@
-import { Container, Button, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-
+/***** MUI ******/
+import { Container, Button, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography } from "@mui/material";
+/***** FUNCTION *****/
 export default function LoginForm() {
+  // useState
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // useSelector
   const errors = useSelector((store) => store.errors);
+  // useDispatch
   const dispatch = useDispatch();
 
+  // handle login action 
   const login = (event) => {
     event.preventDefault();
-
+  
     if (username && password) {
       dispatch({
         type: "LOGIN",
@@ -23,7 +28,7 @@ export default function LoginForm() {
       dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
-
+/***** RENDER ******/
   return (
     <Container color="#4e8897" component="main" maxWidth="lg">
       {errors.loginMessage && (
@@ -58,6 +63,7 @@ export default function LoginForm() {
               <Typography component="h1" variant="h4">
                 Login
               </Typography>
+               {/* FORM INPUT FIELDs */}
               <Box component="form" noValidate onSubmit={login} sx={{mt:1 }}>
                 <TextField
                   margin="normal"
@@ -88,6 +94,7 @@ export default function LoginForm() {
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
+                {/* LOG IN BUTTON */}
                 <Button
                   name="submit"
                   value="Log In"

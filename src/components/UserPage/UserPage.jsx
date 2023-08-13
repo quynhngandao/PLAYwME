@@ -5,20 +5,23 @@ import { useEffect } from "react";
 /***** MUI *****/
 import { Box, Button, Grid } from "@mui/material";
 function UserPage() {
+  // useSelector
   const user = useSelector((store) => store.user);
+  // useHistory
   const history = useHistory();
+  // useDispatch 
   const dispatch = useDispatch();
 
   // DISPLAY ALL REQUEST
   useEffect(() => {
     dispatch({ type: "FETCH_REQUESTS" });
   }, []);
-
+// handleClick go to animals display page
   const handleClick = () => {
     history.push("/petfinder");
   };
+  /***** RENDER *****/
   return (
-
       <Grid className="user-page">
         <Box >
           <h2 className="user-page-title">Welcome, {user.username}</h2>
@@ -55,6 +58,5 @@ function UserPage() {
 
   );
 }
-
 // this allows us to use <App /> in index.js
 export default UserPage;

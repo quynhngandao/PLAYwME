@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+/***** MUI *****/
 import React from "react";
 import dayjs from "dayjs";
+import { Dayjs } from "dayjs";
 import {
   Box,
   Card,
@@ -18,9 +21,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteOutlineRounded from "@mui/icons-material/DeleteOutlineRounded";
 import PetsIcon from "@mui/icons-material/Pets";
 import FilterVintageIcon from "@mui/icons-material/FilterVintage";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { Dayjs } from "dayjs";
-
+/***** STYLE *****/
 const styledCard = {
   width: "100%",
   maxWidth: 330,
@@ -31,25 +32,25 @@ const styledCard = {
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
   m: 3,
 };
-
+/**** FUNCTION *****/
 export default function RequestResult({ request }) {
+  // useSelector
   const user = useSelector((store) => store.user);
   const requests = useSelector((store) => store.requests);
-
+  // useDispatch
   const dispatch = useDispatch();
+  //useHistory
   const history = useHistory();
 
-  // handleEdit
+  // handleEdit to edit request info
   const handleEditClick = (requestId) => {
-
     // Find the specific request object with the given requestId
     const request = requests.find(
       (req) => req.user_info.request_id === requestId
     );
-
+    // object deconstruct
     if (request && request.user_info) {
       const { email, last_name, first_name } = request.user_info;
-
       // Dispatch the action to set editRequest with the specific request data
       dispatch({
         type: "SET_EDIT_REQUEST",
@@ -60,7 +61,6 @@ export default function RequestResult({ request }) {
           email: email || "",
         },
       });
-
       // Navigate to the edit page for each animal
       history.push("/edit");
     } else {
@@ -69,6 +69,7 @@ export default function RequestResult({ request }) {
     }
   };
 
+  // colors for request card
   const colors = [
     "#ebeefc",
     "#fbe2dd",
@@ -79,7 +80,7 @@ export default function RequestResult({ request }) {
     "#fefef4",
     "#ecf2f9",
   ];
-
+  /***** RENDER *****/
   return (
     <Box alignContent="center">
       {requests && (
@@ -88,7 +89,6 @@ export default function RequestResult({ request }) {
           sx={{
             display: "flex",
             direction: "row",
-            // alignItems: "center",
             flexWrap: "wrap",
             alignContent: "stretch",
             justifyContent: "center",
@@ -125,11 +125,11 @@ export default function RequestResult({ request }) {
                         variant="h4"
                         component="div"
                       >
-                        Request 
+                        Request
                       </Typography>
                     </Grid>
-                    <Grid item></Grid>
                   </Grid>
+                  {/* DATETIME */}
                   <Typography
                     sx={{ m: 1, fontFamily: "varela round", fontWeight: "500" }}
                     color="text.secondary"
@@ -147,7 +147,6 @@ export default function RequestResult({ request }) {
                       <AccountCircleIcon
                         sx={{ width: 45, height: 45, verticalAlign: "middle" }}
                       />
-                      {/* <Avatar ><img src={"images/dog1.png"}/></Avatar> */}
                     </ListItemAvatar>
                     <ListItem sx={{ p: 0, ml: 1 }}>
                       <ListItemText
@@ -174,7 +173,6 @@ export default function RequestResult({ request }) {
                   </ListItem>
                 ))}
                 <Divider variant="middle" />
-
                 <Grid
                   sx={{
                     display: "flex",
