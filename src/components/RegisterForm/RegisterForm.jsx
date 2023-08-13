@@ -162,7 +162,7 @@ export default function RegisterForm() {
                   onChange={(event) => setEmail(event.target.value)}
                 />
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
+                  control={<Checkbox color="primary" />}
                   label="Remember me"
                   onChange={(event) => {
                     setFirstName(event.target.value);
