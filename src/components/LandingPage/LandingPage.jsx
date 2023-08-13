@@ -7,10 +7,10 @@ function LandingPage() {
 
 
   return (
-    <> 
+    <div className="landing-page"> 
      <HeroSection/>  
       <Footer />
-    </>
+    </div>
   );
 }
 

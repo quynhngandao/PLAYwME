@@ -1,11 +1,11 @@
+import { useSelector } from "react-redux";
+import { useState } from "react";
+/***** MUI *****/
 import dayjs from "dayjs";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-
 // Disables the hours outside of 9 AM to 6 PM.
 const shouldDisableTime = (value, view) => {
   if (view === "minutes") {
@@ -18,7 +18,6 @@ const shouldDisableTime = (value, view) => {
   }
   return false;
 };
-
 // Weekend
 const isWeekend = (date) => {
   const day = date.day();
@@ -27,20 +26,22 @@ const isWeekend = (date) => {
 // Range of allowed days
 const lastMonday = dayjs().startOf("week");
 const nextSunday = dayjs().endOf("week").startOf("day");
-
-/***** THIS IS BEING USED BY MODAL POPOVER COMPONENT ******/
+/***** FUNCTION *****/
+/***** THIS IS BEING USED BY MODAL POPOVER COMPONENT *****/
 export default function CustomDateTimePicker(props) {
+  // useSelector
   const requests = useSelector((store) => store.requests);
+  // useState
   const [selectedDateTime, setSelectedDateTime] = useState();
 
+  // handleDateTimeChange
   const handleDateTimeChange = (dateTime) => {
-   
     const formattedDateTime = dateTime.format("MMMM D, YYYY h:mm A");
     console.log("Selected Date:", formattedDateTime);
     props.handleDateTimeChange(formattedDateTime);
   };
 
-  // Dispatch user's date request to redux store
+/***** RENDER ******/
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DateTimePicker"]}>

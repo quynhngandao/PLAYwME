@@ -29,7 +29,7 @@ const title = {
   fontFamily: "fraunces",
 };
 /***** FUNCTION *****/
-export default function AnimalItem({
+export default function SearchAnimal({
   styledCard,
   styledCardMedia,
   styledCardMediaNoImage,
@@ -37,7 +37,8 @@ export default function AnimalItem({
   styledHeartButton,
 }) {
   // useSelector
-  const petfinder = useSelector((store) => store.petfinder);
+  const searchResult = useSelector((store) => store.searchResult);
+
   const user = useSelector((store) => store.user);
   // useDispatch
   const dispatch = useDispatch();
@@ -101,65 +102,60 @@ export default function AnimalItem({
   };
   /***** RENDER *****/
   return (
-    <div className="petfinder">
-      {petfinder.animals && ( // Check for both searchResult and petfinder
+    <div className="searchResult">
+      {searchResult.animals && (
         <div className="animals">
-          {petfinder.animals.map(
-            (
-              animal,
-              index // Use searchResult or petfinder
-            ) => (
-              <Tooltip title="Click For More Details" placement="top">
-                <Card key={index} className="card" sx={styledCard}>
-                  {/* Image */}
-                  {animal.photos && animal.photos.length > 0 ? (
-                    <CardActionArea onClick={() => openInNewTab(animal.url)}>
-                      <CardMedia
-                        sx={styledCardMedia}
-                        component="img"
-                        image={animal.photos[0].full}
-                        alt={animal.name}
-                      />
-                    </CardActionArea>
-                  ) : (
-                    // NOT AVAILABLE IMAGE
-                    <CardActionArea onClick={() => openInNewTab(animal.url)}>
-                      <CardMedia
-                        sx={styledCardMediaNoImage}
-                        component="img"
-                        image={placeholderImage}
-                        alt="not available"
-                      />
-                    </CardActionArea>
-                  )}
+          {searchResult.animals.map((animal, index) => (
+            <Tooltip title="Click For More Details" placement="top">
+              <Card key={index} className="card" sx={styledCard}>
+                {/* Image */}
+                {animal.photos && animal.photos.length > 0 ? (
+                  <CardActionArea onClick={() => openInNewTab(animal.url)}>
+                    <CardMedia
+                      sx={styledCardMedia}
+                      component="img"
+                      image={animal.photos[0].full}
+                      alt={animal.name}
+                    />
+                  </CardActionArea>
+                ) : (
+                  // NOT AVAILABLE IMAGE
+                  <CardActionArea onClick={() => openInNewTab(animal.url)}>
+                    <CardMedia
+                      sx={styledCardMediaNoImage}
+                      component="img"
+                      image={placeholderImage}
+                      alt="not available"
+                    />
+                  </CardActionArea>
+                )}
 
-                  {/* Favorite Button */}
-                  <Tooltip title="Add to Favorite" placement="left-start">
-                    <IconButton
-                      sx={styledHeartButton}
-                      onClick={(e) => handleFavorite(e, animal)}
-                    >
-                      <FavoriteBorderIcon sx={styledHeartIcon} />
-                    </IconButton>
-                  </Tooltip>
-                  {/* DETAILS */}
-                  <CardContent>
-                    {/* NAME */}
-                    <Typography sx={title}>{animal.name}</Typography>
-                    {/* AGE */}
-                    <Typography sx={body}>
-                      {animal.age} &#x2022; {animal.breeds?.primary}
-                    </Typography>
-                    {/* LOCATION */}
-                    <Typography sx={body}>
-                      {animal.contact.address.city},{" "}
-                      {animal.contact.address.state}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Tooltip>
-            )
-          )}
+                {/* Favorite Button */}
+                <Tooltip title="Add to Favorite" placement="left-start">
+                  <IconButton
+                    sx={styledHeartButton}
+                    onClick={(e) => handleFavorite(e, animal)}
+                  >
+                    <FavoriteBorderIcon sx={styledHeartIcon} />
+                  </IconButton>
+                </Tooltip>
+                {/* DETAILS */}
+                <CardContent>
+                  {/* NAME */}
+                  <Typography sx={title}>{animal.name}</Typography>
+                  {/* AGE */}
+                  <Typography sx={body}>
+                    {animal.age} &#x2022; {animal.breeds?.primary}
+                  </Typography>
+                  {/* LOCATION */}
+                  <Typography sx={body}>
+                    {animal.contact.address.city},{" "}
+                    {animal.contact.address.state}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Tooltip>
+          ))}
         </div>
       )}
     </div>

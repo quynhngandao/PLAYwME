@@ -1,13 +1,14 @@
 const petfinderReducer = (state = [], action) => {
-    switch (action.type) {
-      case 'SET_ANIMAL':
-        return action.payload.animals;
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case "SET_ANIMAL":
+      console.log("Updating petfinder ALL state:", action.payload);
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
-  // petfinder will be on the redux state at:
-  // state.petfinder
-  export default petfinderReducer;
-  
+
+// petfinder will be on the redux state at:
+// state.petfinder
+export default petfinderReducer;

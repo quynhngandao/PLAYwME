@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   HashRouter as Router,
   Redirect,
   Route,
   Switch,
 } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 // Import styling
 import Nav from "../Nav/Nav";
 import "./App.css";
@@ -113,7 +113,7 @@ function App() {
           <Route exact path="/home">
             {user.id ? (
               // If the user is already logged in,
-              // redirect them to the /user page
+              // redirect them to the /petfinder
               <Redirect to="/petfinder" />
             ) : (
               // Otherwise, show the Landing page

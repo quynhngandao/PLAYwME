@@ -24,6 +24,7 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
       WHERE "request"."user_id" = $1 
       GROUP BY "user"."first_name", "user"."last_name", "date_time", "user"."email", "animal_request"."request_id"
       ORDER BY "request"."date_time" ASC;`;
+
     /***** Execute GET QUERY *****/
     const result = await pool.query(requestResult, [user_id]);
 
@@ -31,7 +32,7 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
     console.log("GET request in '/request' from database sucessful");
     res.send(result.rows);
 
-    /***** CATCH ERROR *****/
+    /***** ERROR *****/
   } catch (error) {
     console.log("GET request in '/request' from database error: ", error);
     res.sendStatus(500);
@@ -83,7 +84,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     console.log("POST request in '/request' to database successful");
     res.sendStatus(201);
 
-    /***** CATCH ERROR *****/
+    /***** ERROR *****/
   } catch (error) {
     console.log("POST request in '/request' to database error: ", error);
     res.sendStatus(500);
@@ -107,9 +108,9 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     // Reformat date and time using moment
     const formattedDateTime = dateObject.format("MMMM D, YYYY h:mm A");
 
-    await connection.query("BEGIN"); // Start the SQL transaction
+    /***** BEGIN SQL transaction *****/
+    await connection.query("BEGIN"); // Begin the transaction to start
 
-    /***** Execute EDIT QUERIES *****/
     // INSERT INTO "user" table
     const userUpdateQuery = `
       UPDATE "user"
@@ -118,6 +119,7 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
       WHERE "user"."id" = $4;
 `;
     const userUpdateResult = [first_name, last_name, email, user_id];
+
     // INSERT INTO "request" table
     const requestUpdateQuery = `
       UPDATE "request"
@@ -126,20 +128,26 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
 `;
     const requestUpdateResult = [formattedDateTime, requestToUpdate];
 
+    /***** Execute EDIT QUERIES *****/
     await connection.query(userUpdateQuery, userUpdateResult);
     await connection.query(requestUpdateQuery, requestUpdateResult);
 
-    await connection.query("COMMIT"); // Commit the transaction
+    /***** COMMIT SQL transaction *****/
+    await connection.query("COMMIT"); // Commit the transaction to execute
 
     /***** SUCCESS *****/
     console.log("PUT request in '/request' to database successful");
     res.sendStatus(200);
+
+    /***** ERROR *****/
   } catch (error) {
-    await connection.query("ROLLBACK"); // Rollback the transaction in case of an error
     console.log(`PUT request in '/request' to database error: `, error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the request." });
+    res.status(500);
+
+    /***** ROLLBACK SQL transaction *****/
+    await connection.query("ROLLBACK"); // Rollback the transaction in case of an error
+
+    /***** RELEASE SQL transaction *****/
   } finally {
     connection.release(); // Release the connection back to the pool
   }
@@ -195,7 +203,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
       res.sendStatus(200);
     }
 
-    /***** CATCH ERROR *****/
+    /***** ERROR  *****/
   } catch (error) {
     console.log("DELETE request in '/request' from database: ", error);
     res.sendStatus(500);

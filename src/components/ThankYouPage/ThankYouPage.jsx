@@ -1,18 +1,17 @@
-import React from "react";
 import "./ThankYouPage.css";
 import { Button, Stack } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+// direct to user or review page 
 const CustomComponent = () => {
+  // useHistory
   const history = useHistory();
-
   const handleClick = () => {
     history.push("/user");
   };
   const handleClickAnother = () => {
     history.push("/review");
   };
-
+/***** RENDER *****/
   return (
     <div className="thankyou-page">
   
@@ -21,6 +20,14 @@ const CustomComponent = () => {
         <img
           className="image"
           src="images/thankyou.png"
+          style={{
+            maxWidth: "80%", 
+            height: "auto",
+            position: "absolute",
+            left: "70%",
+            transform: "translateX(-50%)",
+            top: "40px",
+          }}
         />
         <div className="text-container">
           <div className="title">Thank You</div>

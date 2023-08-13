@@ -21,6 +21,7 @@ export const GetStartedButton = ({
   return (
     
     <Link to="/registration" className='btn-mobile'>
+      {/* Go to registration */}
       <button      
         value="register"
         className={`btn ${checkButtonStyle} ${checkButtonSize}`}

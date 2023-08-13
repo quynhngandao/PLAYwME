@@ -148,7 +148,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     console.log("POST animal in '/favorite' to database successful");
     res.sendStatus(201);
 
-    /***** CATCH ERROR *****/
+    /***** ERROR *****/
   } catch (error) {
     console.log("POST animal in '/favorite' to database error: ", error);
     res.sendStatus(500);
@@ -197,7 +197,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
       res.sendStatus(200);
     }
 
-    /***** CATCH ERROR *****/
+    /***** ERROR *****/
   } catch (error) {
     console.log("DELETE animal in '/favorite' from database: ", error);
     res.sendStatus(500);
@@ -227,11 +227,11 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     /***** SUCCESS *****/
     console.log("PUT request in '/favorite' to database successful");
     res.sendStatus(200);
+    
+    /***** ERROR *****/
   } catch (error) {
     console.log(`PUT request in '/favorite' to database error: `, error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the request." });
+    res.status(500);
   }
 });
 

@@ -35,7 +35,6 @@ const styledFab = {
   margin: 0,
   size: "medium",
 };
-
 /***** FUNCTION *****/
 export default function RequestPage() {
   // useSelector
@@ -46,7 +45,6 @@ export default function RequestPage() {
   useEffect(() => {
     dispatch({ type: "FETCH_ANIMALS" });
   }, []);
-
   /***** RENDER *****/
   return (
     <div className="request-page">

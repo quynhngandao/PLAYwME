@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-/* MUI */
+/***** MUI *****/
 import {
   Box,
   Card,
@@ -13,7 +13,6 @@ import {
   ListItemAvatar,
   Avatar,
   TextField,
-  Stack,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SendIcon from "@mui/icons-material/Send";
@@ -29,7 +28,7 @@ const styledCard = {
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
-
+/***** FUNCTION *****/
 export default function EditRequest() {
   // useSelector
   const editRequest = useSelector((store) => store.editRequest);
@@ -66,8 +65,6 @@ export default function EditRequest() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("editRequest before submitting in editrequest", editRequest);
-
     dispatch({
       type: "SUBMIT_EDIT_REQUEST",
       payload: editRequest,
@@ -90,7 +87,7 @@ export default function EditRequest() {
     history.push("/user");
   };
 
-  /* DISPLAY */
+/***** RENDER *****/
   return (
     <Grid
       container
@@ -120,49 +117,63 @@ export default function EditRequest() {
             </Grid>
           </Grid>
           <Divider variant="middle" />
-          <Grid 
+          <Grid
             container
-            sx={{ alignContent: "center", justifyContent: "center", p:3, mb:1}}
+            sx={{
+              alignContent: "center",
+              justifyContent: "center",
+              p: 3,
+              mb: 1,
+            }}
           >
             <Grid item>
-              <ListItem sx={{width:230}}>
-            {/* CUSTOMDATETIMEPICKER */}
-            <EditCustomDateTimePicker
-              handleDateTimeChange={handleDateTimeChange}
-              date_time={editRequest.date_time}
-              setDate_time={(formattedDateTime) =>
-                handleChange(
-                  { target: { value: formattedDateTime } },
-                  "date_time"
-                )
-              }
-            />
-            </ListItem>
+              <ListItem sx={{ width: 230 }}>
+                {/* CUSTOMDATETIMEPICKER */}
+                <EditCustomDateTimePicker
+                  handleDateTimeChange={handleDateTimeChange}
+                  date_time={editRequest.date_time}
+                  setDate_time={(formattedDateTime) =>
+                    handleChange(
+                      { target: { value: formattedDateTime } },
+                      "date_time"
+                    )
+                  }
+                />
+              </ListItem>
             </Grid>
-<Grid item >
-  <ListItem >
-            <TextField
-              label="First Name"
-              value={editRequest.first_name}
-              placeholder="First name"
-              onChange={(e) => handleChange(e, "first_name")}
-            /></ListItem></Grid>
-<Grid item >
-<ListItem>
-            <TextField
-              label="Last Name"
-              value={editRequest.last_name}
-              placeholder="Last name"
-              onChange={(e) => handleChange(e, "last_name")}
-            /></ListItem></Grid>
-<Grid item >
-<ListItem>
-            <TextField
-              label="Email"
-              value={editRequest.email}
-              placeholder="Email"
-              onChange={(e) => handleChange(e, "email")}
-            /></ListItem></Grid>
+            <Grid item>
+              <ListItem>
+                {/* FIRST NAME */}
+                <TextField
+                  label="First Name"
+                  value={editRequest.first_name}
+                  placeholder="First name"
+                  onChange={(e) => handleChange(e, "first_name")}
+                />
+              </ListItem>
+            </Grid>
+            <Grid item>
+              <ListItem>
+                {/* LAST NAME */}
+                <TextField
+                  label="Last Name"
+                  value={editRequest.last_name}
+                  placeholder="Last name"
+                  onChange={(e) => handleChange(e, "last_name")}
+                />
+              </ListItem>
+            </Grid>
+            <Grid item>
+              <ListItem>
+                {/* EMAIL */}
+                <TextField
+                  label="Email"
+                  value={editRequest.email}
+                  placeholder="Email"
+                  onChange={(e) => handleChange(e, "email")}
+                />
+              </ListItem>
+            </Grid>
           </Grid>
           <Divider variant="middle" />
           {/* SUBMIT BUTTON */}

@@ -1,3 +1,8 @@
+
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+/***** MUI *****/
 import {
   Container,
   Button,
@@ -11,21 +16,32 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-
+/***** FUNCTION ******/
 export default function RegisterForm() {
+  // useState
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const errors = useSelector((store) => store.errors);
-  const dispatch = useDispatch();
-  const history = useHistory()
-  
+  // hidden button 
+  const [showAutofillButton, setShowAutofillButton] = useState(false); // Default: hidden
+  const handleAutofill = () => {
+    setUsername("PiPixPoopy");
+    setPassword("123");
+    setFirstName("Quynh");
+    setLastName("Dao");
+    setEmail("PiPixPoopy@gmail.com");
+  };
 
+  // useSelector
+  const errors = useSelector((store) => store.errors);
+  // useDispatch
+  const dispatch = useDispatch();
+  // useHistory
+  const history = useHistory()
+
+  // handle registeruser action 
   const registerUser = (event) => {
     event.preventDefault();
 
@@ -41,10 +57,8 @@ export default function RegisterForm() {
     });
 
      history.push("/petfinder"); // Redirect to /petfinder
-   };
-
-   // end registerUser
-
+   }; // end registerUser
+/***** RENDER *****/
   return (
     <Container component="main" maxWidth="lg">
       {errors.registrationMessage && (
@@ -76,15 +90,17 @@ export default function RegisterForm() {
                 alignItems: "center",
               }}
             >
-              <Typography component="h1" variant="h4">
-                Create Account
+              <Typography component="h1" variant="h4" >
+                Create Account  
+                 
               </Typography>
-              <Box
-                component="form"
+              {/* REGISTRATION FORM INPUT FILED */}
+              <Box 
+                 component="form"
                 noValidate
                 onSubmit={registerUser}
                 sx={{ mt: 1 }}
-              >
+              > 
                 <Stack spacing={2} direction="row" alignItems="baseline">
                   <TextField
                     margin="normal"
@@ -148,16 +164,35 @@ export default function RegisterForm() {
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
+                  onChange={(event) => {
+                    setFirstName(event.target.value);
+                    setShowAutofillButton(true); // Show the button when interacting with the first name input
+                  }}
                 />
+                {/* Autofill Button */}
+                {showAutofillButton && (
+                  <Button
+                    onClick={handleAutofill}
+            
+                    sx={{p:1}}
+                  >
+                  </Button>
+                )}
+                     
+                {/* REGISTRATION BUTTON */}
+                <br/>
+                <Box sx={{ textAlign: "center", mt: 2 }}>
                 <Button
                   name="submit"
                   type="submit"
-                  fullWidth
+                  halfWidth
+                  alignItems="center"
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 2, mb: 2 }}
                 >
                   Sign Up
                 </Button>
+                </Box>
                 <Grid container justifyContent="center">
                   <Grid item>
                     <Link href="#/login" variant="body2">

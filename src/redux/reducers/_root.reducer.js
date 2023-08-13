@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import petfinder from './petfinder.reducer'
+import petfinder from './petfinder.reducer';
 import favorite from './favorite.reducer'
 import loading from './loading.reducer'
 import requests from './requests.reducer';
 import editRequest from './editRequest.reducer';
+import searchResult from './searchResult.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   loading, // loading reducer will perform loading spinner for API 
   requests, // requests reducer will store user's animal requests
   editRequest, // edit request reducer will store user's edit infos
+  searchResult, // searchResult reducer store searched results
 });
 
 export default rootReducer;
