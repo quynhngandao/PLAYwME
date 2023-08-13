@@ -86,6 +86,7 @@
 <a target="_blank" href="mailto:nguy2884@umn.edu">Email</a>
 <br/> 
 * **Project** - 
+
 [PLAYwME](https://github.com/quynhngandao/PLAYwME-solo-project)
 
 <!-- ACKNOWLEDGMENTS -->
