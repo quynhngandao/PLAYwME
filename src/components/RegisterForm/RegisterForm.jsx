@@ -91,7 +91,7 @@ export default function RegisterForm() {
               }}
             >
               <Typography component="h1" variant="h4" >
-                Create Account  
+              Create Your Account
                  
               </Typography>
               {/* REGISTRATION FORM INPUT FILED */}
@@ -99,9 +99,9 @@ export default function RegisterForm() {
                  component="form"
                 noValidate
                 onSubmit={registerUser}
-                sx={{ mt: 1 }}
+                sx={{ m: 1, mt:3}}
               > 
-                <Stack spacing={2} direction="row" alignItems="baseline">
+                <Stack spacing={2} direction="row" alignItems="baseline" sx={{mb:2}}>
                   <TextField
                     margin="normal"
                     required
@@ -181,14 +181,14 @@ export default function RegisterForm() {
                      
                 {/* REGISTRATION BUTTON */}
                 <br/>
-                <Box sx={{ textAlign: "center", mt: 2 }}>
+                <Box sx={{ textAlign: "center"}}>
                 <Button
                   name="submit"
                   type="submit"
                   halfWidth
                   alignItems="center"
                   variant="contained"
-                  sx={{ mt: 2, mb: 2 }}
+                  sx={{ mt: 1, mb: 2 }}
                 >
                   Sign Up
                 </Button>

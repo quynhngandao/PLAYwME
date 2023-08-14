@@ -54,7 +54,7 @@ export default function RequestPage() {
       ) : (
         <>
           <header className="App-header">
-            <h2 className="review-page-title">Review Select Schedule</h2>
+            <h2 className="review-page-title">Review Your Selection</h2>
           </header><Stack sx={{ direction: "row" }}>
             {/* SCHEDULE REQUEST FORM */}
             <RequestForm />

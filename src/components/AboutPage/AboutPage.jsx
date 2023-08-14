@@ -2,10 +2,10 @@ import { Typography, List, ListItem, Box, Grid } from "@mui/material";
 
 function AboutPage() {
   return (
-    <Grid container spacing={2} columns={16} className="aboutPage">
+    <Grid container spacing={2} columns={16} className="aboutPage" marginTop="25px">
       <Grid item sx={{ textAlign: "center" }} xs={8}>
         <Typography
-          sx={{ fontFamily: "varela round", fontWeight: 800 }}
+          sx={{ fontFamily: "varela round", fontWeight: 800, mt:2 }}
           variant="h3"
           gutterBottom
         >

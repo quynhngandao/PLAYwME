@@ -47,35 +47,32 @@ export default function SearchBar() {
 
   const handleSearch = (typeInput, event) => {
     event.preventDefault();
-
-     // Empty the search result before fetching new data
-     dispatch({ type: "CLEAR_SEARCH_RESULT" });
-
+    // Empty the search result before fetching new data
+    dispatch({ type: "CLEAR_SEARCH_RESULT" });
     // Conditional to fetch type or all depending on input
     if (typeInput === "dog" || "cat" || "rabbit" || "bird") {
       dispatch({ type: "FETCH_TYPE", payload: typeInput });
     } else if (typeInput === "") {
       dispatch({ type: "FETCH_ALL" });
     }
-
     setTypeInput("");
-   
   };
   /***** RENDER *****/
   return (
     <Box sx={{ display: "flex", justifyContent: "center", margin: 4 }}>
-      <Search>
+      <Search sx={{ borderRadius: 2 }}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search for animals…"
-          inputProps={{ "ariaLabel": "search for animal..." }}
+          inputProps={{ ariaLabel: "search for animal..." }}
           value={typeInput}
           onChange={(event) => setTypeInput(event.target.value)}
         />
       </Search>
       <Button
+        sx={{ ml: 2, borderRadius: 2, fontFamily: "fraunces" }}
         variant="contained"
         color="primary"
         onClick={(event) => handleSearch(typeInput, event)}

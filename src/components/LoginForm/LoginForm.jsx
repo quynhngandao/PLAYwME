@@ -30,7 +30,7 @@ export default function LoginForm() {
   }; // end login
 /***** RENDER ******/
   return (
-    <Container color="#4e8897" component="main" maxWidth="lg">
+    <Container color="#4e8897" component="main" width="lg" justifyContent="center" verticalAlign="middle">
       {errors.loginMessage && (
         <Typography variant="h5" className="alert" role="alert">
           {errors.loginMessage}
@@ -41,7 +41,7 @@ export default function LoginForm() {
           marginTop: 8,
         }}
       >
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" maxWidth="400">
           <Grid
             item
             xs={12}
@@ -49,23 +49,26 @@ export default function LoginForm() {
             md={5}
             component={Paper}
             elevation={6}
-            square
+            square  
+
           >
             <Box
               sx={{
                 my: 6,
-                mx: 4,
+                mx: 5,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+              
               }}
             >
               <Typography component="h1" variant="h4">
                 Login
               </Typography>
                {/* FORM INPUT FIELDs */}
-              <Box component="form" noValidate onSubmit={login} sx={{mt:1 }}>
+              <Box component="form" noValidate onSubmit={login} sx={{mt:2, mx:2}}>
                 <TextField
+            
                   margin="normal"
                   required
                   fullWidth
@@ -95,16 +98,20 @@ export default function LoginForm() {
                   label="Remember me"
                 />
                 {/* LOG IN BUTTON */}
+                <Box sx={{ textAlign: "center" , my:1}}>
                 <Button
                   name="submit"
                   value="Log In"
                   type="submit"
-                  fullWidth
+           
+                  alignItems="center"
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mb: 2 }}
                 >
                   Login
                 </Button>
+                </Box>
+
                 <Grid container>
                   <Grid item xs>
                     <Link  variant="body2">

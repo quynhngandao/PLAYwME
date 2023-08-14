@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import React, { forwardRef, useState } from 'react';
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
 import "./AnimalItem.css";
@@ -11,7 +12,10 @@ import {
   Card,
   CardMedia,
   Tooltip,
+  Stack,
+  Snackbar, 
 } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // STYLING
 const body = {
@@ -28,6 +32,10 @@ const title = {
   fontSize: "1.5em",
   fontFamily: "fraunces",
 };
+// Snackbar alert 
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert ref={ref} width="80%" variant="filled" {...props} />;
+});
 /***** FUNCTION *****/
 export default function SearchAnimal({
   styledCard,
@@ -36,15 +44,26 @@ export default function SearchAnimal({
   styledHeartIcon,
   styledHeartButton,
 }) {
-  // useSelector
-  const searchResult = useSelector((store) => store.searchResult);
-
-  const user = useSelector((store) => store.user);
-  // useDispatch
-  const dispatch = useDispatch();
+   // useSelector
+   const searchResult = useSelector((store) => store.searchResult);
+   const user = useSelector((store) => store.user);
+   // useDispatch
+   const dispatch = useDispatch(); 
+   // useState for alert 
+   const [open, setOpen] = useState(false);
+   // handleClose for alert
+   const handleClose = (event, reason) => {
+     if (reason === 'clickaway') {
+       return;
+     }
+ // close alert
+     setOpen(false);
+   };
   // handleFavorite to post animal from API to database
   const handleFavorite = (e, clickedAnimal) => {
     e.preventDefault();
+     // open alert 
+     setOpen(true);
     // conditional statement: if clickedAnimal=true
     // set newAnimal's properties => clickedAnimal's values
     // handleFavorite function => send clickedAnimal data
@@ -133,12 +152,17 @@ export default function SearchAnimal({
                 {/* Favorite Button */}
                 <Tooltip title="Add to Favorite" placement="left-start">
                   <IconButton
-                    sx={styledHeartButton}
-                    onClick={(e) => handleFavorite(e, animal)}
-                  >
-                    <FavoriteBorderIcon sx={styledHeartIcon} />
-                  </IconButton>
-                </Tooltip>
+                      sx={styledHeartButton}
+                      onClick={(e) => handleFavorite(e, animal)}
+                    >
+                      <FavoriteBorderIcon sx={styledHeartIcon} />
+                    </IconButton>
+      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{bgColor: "primary"}} fontFamily="varela round">
+          Animal Added!
+        </Alert>
+      </Snackbar>
+    </Tooltip>
                 {/* DETAILS */}
                 <CardContent>
                   {/* NAME */}

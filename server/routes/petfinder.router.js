@@ -9,27 +9,34 @@ const {
  * CACHE ACCESS TOKEN FOR PETFINDER 
  *********************************/
  let cachedAccessToken = null;
+ let tokenExpirationTime = null;
  // Function to handle authentication and caching of the access token
  async function authenticateAndCacheToken() {
-   if (!cachedAccessToken) {
-     try {
-       const response = await client.authenticate();
-       cachedAccessToken = response.data.access_token;
-       console.log("Access token cached:", cachedAccessToken);
-     } catch (error) {
-       console.error("Authentication error:", error);
-     }
-   }
- }
+  if (!cachedAccessToken || Date.now() > tokenExpirationTime) {
+    try {
+      const response = await client.authenticate();
+      cachedAccessToken = response.data.access_token;
+      tokenExpirationTime = Date.now() + (response.data.expires_in * 1000);
+      console.log("Access token cached:", cachedAccessToken);
+    } catch (error) {
+      console.error("Authentication error:", error);
+    }
+  }
+}
  // Create the Petfinder client instance
 const client = new petfinder.Client({
   apiKey: process.env.PETFINDER_API_KEY,
   secret: process.env.PETFINDER_SECRET,
   token: cachedAccessToken, // Use cached token if available
 });
+// Set an interval to check and refresh the token if needed
+const tokenRefreshInterval = setInterval(authenticateAndCacheToken, 1200000); // Refresh every 20 minutes
 // Call the authentication function to cache the token
 authenticateAndCacheToken();
-
+// Clear the interval when the app is shutting down
+process.on('exit', () => {
+  clearInterval(tokenRefreshInterval);
+}); // END OF ACCESS TOKEN CACHING
 /*********************************
  * DEFAULT RESPONSE FROM PETFINDER
  ********************************/
@@ -56,7 +63,7 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
 router.get("/rabbit", rejectUnauthenticated, async (req, res) => {
   try {
     const location = req.query.location || "MN";
-    const limit = req.query.limit || 30;
+    const limit = req.query.limit || 50;
     const type = req.query.type || "Rabbit";
 
     const response = await client.animal.search({
@@ -82,7 +89,7 @@ router.get("/rabbit", rejectUnauthenticated, async (req, res) => {
 router.get("/dog", rejectUnauthenticated, async (req, res) => {
   try {
     const location = req.query.location || "MN";
-    const limit = req.query.limit || 30;
+    const limit = req.query.limit || 50;
     const type = req.query.type || "Dog";
 
     const response = await client.animal.search({
@@ -108,7 +115,7 @@ router.get("/dog", rejectUnauthenticated, async (req, res) => {
 router.get("/cat", rejectUnauthenticated, async (req, res) => {
   try {
     const location = req.query.location || "MN";
-    const limit = req.query.limit || 30;
+    const limit = req.query.limit || 50;
     const type = req.query.type || "Cat";
 
     const response = await client.animal.search({
@@ -134,7 +141,7 @@ router.get("/cat", rejectUnauthenticated, async (req, res) => {
  router.get("/bird", rejectUnauthenticated, async (req, res) => {
   try {
     const location = req.query.location || "MN";
-    const limit = req.query.limit || 30;
+    const limit = req.query.limit || 50;
     const type = req.query.type || "Bird";
 
     const response = await client.animal.search({
