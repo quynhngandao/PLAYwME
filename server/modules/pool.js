@@ -1,11 +1,6 @@
 const pg = require('pg');
 let pool;
 
-// When our app is deployed to the internet 
-// we'll use the DATABASE_URL environment variable
-// to set the connection info: web address, username/password, db name
-// eg: 
-//  DATABASE_URL=postgres://quynhdao:o6iLlF59lpReKZguWdkVU9SAotMcBZ15@dpg-cj22ps407spkp67jj0m0-a/playwme
 if (process.env.DATABASE_URL) {
     pool = new pg.Pool({
         connectionString: process.env.DATABASE_URL,
