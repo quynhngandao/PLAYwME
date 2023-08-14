@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-  <a href="https://github.com/quynhngandao/PLAYwME-solo-project">
+  <a href="[https://github.com/quynhngandao/PLAYwME-solo-project](https://protected-tundra-96868-dd04b8c05221.herokuapp.com/)">
    <h3 align="center"> <img alt="Logo" width="150" height="50" src="public/images/playwme.png"/></h3>
   </a>
  <a href="https://protected-tundra-96868-dd04b8c05221.herokuapp.com/">View Demo</a>
