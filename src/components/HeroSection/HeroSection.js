@@ -9,10 +9,6 @@ function HeroSection() {
 
   return (
     <div className="hero-container">
-      <img
-      className="animal-img"
-        alt="animal"
-      />
       <h1>Find Your New Best Friend</h1>
       <p>Browse animals from local shelters and rescues</p>
       <div className="hero-btns">

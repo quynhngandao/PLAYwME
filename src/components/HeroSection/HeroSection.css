@@ -9,7 +9,8 @@
 .hero-container {
   background: url("/public/images/pet-background1.jpeg") center center/cover
     no-repeat;
-  height: 85vh;
+  min-height: 84vh;
+  max-height: 90vh;
   width: 100%;
   display: flex;
   flex-direction: column;

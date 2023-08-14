@@ -24,15 +24,6 @@ export default function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  // hidden button 
-  const [showAutofillButton, setShowAutofillButton] = useState(false); // Default: hidden
-  const handleAutofill = () => {
-    setUsername("PiPixPoopy");
-    setPassword("123");
-    setFirstName("Quynh");
-    setLastName("Dao");
-    setEmail("PiPixPoopy@gmail.com");
-  };
 
   // useSelector
   const errors = useSelector((store) => store.errors);
@@ -164,21 +155,7 @@ export default function RegisterForm() {
                 <FormControlLabel
                   control={<Checkbox color="primary" />}
                   label="Remember me"
-                  onChange={(event) => {
-                    setFirstName(event.target.value);
-                    setShowAutofillButton(true); // Show the button when interacting with the first name input
-                  }}
                 />
-                {/* Autofill Button */}
-                {showAutofillButton && (
-                  <Button
-                    onClick={handleAutofill}
-            
-                    sx={{p:1}}
-                  >
-                  </Button>
-                )}
-                     
                 {/* REGISTRATION BUTTON */}
                 <br/>
                 <Box sx={{ textAlign: "center"}}>

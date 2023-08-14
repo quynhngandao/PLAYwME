@@ -30,7 +30,7 @@ const client = new petfinder.Client({
   token: cachedAccessToken, // Use cached token if available
 });
 // Set an interval to check and refresh the token if needed
-const tokenRefreshInterval = setInterval(authenticateAndCacheToken, 1200000); // Refresh every 20 minutes
+const tokenRefreshInterval = setInterval(authenticateAndCacheToken, 300000); // Refresh every 5 minutes
 // Call the authentication function to cache the token
 authenticateAndCacheToken();
 // Clear the interval when the app is shutting down
