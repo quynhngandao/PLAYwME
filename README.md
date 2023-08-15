@@ -5,10 +5,10 @@
 </p>
 
 <div align="center">
-  <a href="https://github.com/quynhngandao/PLAYwME-solo-project">
+  <a href="[https://github.com/quynhngandao/PLAYwME-solo-project](https://protected-tundra-96868-dd04b8c05221.herokuapp.com/)">
    <h3 align="center"> <img alt="Logo" width="150" height="50" src="public/images/playwme.png"/></h3>
   </a>
- <a href="#screenshot">View Demo</a>
+ <a href="https://protected-tundra-96868-dd04b8c05221.herokuapp.com/">View Demo</a>
   <p align="center">
           A platform to bridge the gap between animal lovers who want
           to contribute to bettering the well-being of shelter animals. PLAYwME
