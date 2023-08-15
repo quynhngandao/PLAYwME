@@ -1,6 +1,6 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { isMobile } from "react-device-detect";
 /*****STYLE and IMPORT*****/
 import "../App/App.css";
 import AnimalItem from "../Animals/AnimalItem";
@@ -11,40 +11,70 @@ import { Grid } from "@mui/material";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
-  minheight: 150,
-  height: 200,
+  minHeight: isMobile ? 100 : 150,
+  height: isMobile ? 130 : 200,
   objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
+const styledCardMediaNoImageMobile = {
+  width: "100%",
+  minheight: 100,
+  height: 130,
+  objectFit: "fill",
+  bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
+  color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
+};
+
 const styledCard = {
   width: "100%",
-  minheight: 380,
-  maxHeight: 400,
-  borderRadius: 4,
-  boxShadow: 3,
+  minHeight: isMobile ? 150 : 380,
+  maxHeight: isMobile ? 220: 400,
+  borderRadius: isMobile ? 2 : 4,
+  boxShadow: isMobile ? 1 : 3,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
-const styledCardMedia = {
+const styledCardMobile = {
   width: "100%",
   minheight: 150,
-  height: 200,
+  maxHeight: 220,
+  borderRadius: 2,
+  boxShadow: 1,
+  bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
+  color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
+};
+
+const styledCardMedia = {
+  width: "100%",
+  minHeight: isMobile ? 100 : 150,
+  height: isMobile ? 130 : 200,
   objectFit: "fill",
 };
-const styledFab = {
-  position: "absolute",
-  transform: "translate(450%, -100%)",
-  opacity: "0.7",
-  size: "medium",
+const styledCardMediaMobile = {
+  width: "100%",
+  minheight: 100,
+  height: 130,
+  objectFit: "fill",
 };
+
 const styledHeartIcon = {
   marginRight: 1,
   htmlColor: "#ff95a6",
-  fontSize: "1.5em",
+  fontSize: isMobile ? "1.5rem" : "2.2rem",
+  color: "pink",
+};
+const styledHeartIconMobile = {
+  marginRight: 1,
+  htmlColor: "#ff95a6",
+  fontSize: "1.5rem",
   color: "pink",
 };
 const styledHeartButton = {
+  float: "right",
+  borderRadius: isMobile ? 5 : 5,
+};
+const styledHeartButtonMobile = {
   float: "right",
   borderRadius: 5,
 };
@@ -55,8 +85,8 @@ const textLink = {
 /*****STYLE-END*****/
 /***** FUNCTION *****/
 export default function AnimalsPage() {
-  // useSelector 
-  const loading = useSelector((store) => store.loading) // loading spinner
+  // useSelector
+  const loading = useSelector((store) => store.loading); // loading spinner
   const searchResult = useSelector((store) => store.searchResult); // animal type
   const petfinder = useSelector((store) => store.petfinder.animals); // all animals
   // useDispatch
@@ -68,7 +98,6 @@ export default function AnimalsPage() {
     } else {
       dispatch({ type: "FETCH_ALL" });
     }
-
   }, [dispatch, searchResult]);
 
   return (
@@ -89,25 +118,33 @@ export default function AnimalsPage() {
           </Grid>
           <Grid>
             {/* Display this for dog, cat, bird, rabbit */}
-          {searchResult.animals?.length > 0 ? (
+            {searchResult.animals?.length > 0 ? (
               <SearchAnimal
-                styledFab={styledFab}
-                styledCardMedia={styledCardMedia}
-                styledCard={styledCard}
-                textLink={textLink}
-                styledCardMediaNoImage={styledCardMediaNoImage}
-                styledHeartIcon={styledHeartIcon}
-                styledHeartButton={styledHeartButton}
+              styledCardMedia={styledCardMedia}
+              styledCardMediaMobile={styledCardMediaMobile}
+              styledCard={styledCard}
+              styledCardMobile={styledCardMobile}
+              textLink={textLink}
+              styledCardMediaNoImage={styledCardMediaNoImage}
+              styledCardMediaNoImageMobile={styledCardMediaNoImageMobile}
+              styledHeartIcon={styledHeartIcon}
+              styledHeartButton={styledHeartButton}
+              styledHeartIconMobile={styledHeartIconMobile}
+              styledHeartButtonMobile={styledHeartButtonMobile}
               />
             ) : (
               <AnimalItem
-                styledFab={styledFab}
                 styledCardMedia={styledCardMedia}
+                styledCardMediaMobile={styledCardMediaMobile}
                 styledCard={styledCard}
+                styledCardMobile={styledCardMobile}
                 textLink={textLink}
                 styledCardMediaNoImage={styledCardMediaNoImage}
+                styledCardMediaNoImageMobile={styledCardMediaNoImageMobile}
                 styledHeartIcon={styledHeartIcon}
                 styledHeartButton={styledHeartButton}
+                styledHeartIconMobile={styledHeartIconMobile}
+                styledHeartButtonMobile={styledHeartButtonMobile}
               />
             )}
           </Grid>

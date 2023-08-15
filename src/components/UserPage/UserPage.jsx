@@ -18,7 +18,7 @@ function UserPage() {
   }, []);
 // handleClick go to animals display page
   const handleClick = () => {
-    history.push("/petfinder");
+    history.push("/user");
   };
   /***** RENDER *****/
   return (
@@ -26,7 +26,8 @@ function UserPage() {
         <Box >
           <h2 className="user-page-title">Welcome, {user.username}</h2>
         </Box>
-        <Grid sx={{ my: 3 }}>
+        <Grid sx={{
+      my: { xs: 1, sm: 2, md: 3 } }}>
           <Box
             sx={{
               alignContent: "center",

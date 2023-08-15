@@ -1,0 +1,7 @@
+.logout-button {
+    background: none;
+    border: none; /* This removes the button border */
+    color: white;
+    cursor: pointer;
+  }
+  
