@@ -57,9 +57,7 @@
   height: 80px;
 }
 
-.nav-links.item {
-height:  100vh;
-}
+
 
 .nav-links {
   background-color:#1c364b;
@@ -118,6 +116,10 @@ height:  100vh;
     display: table;
   }
 
+  .nav-links.item {
+    height:  100vh;
+    }
+    
   .nav-links:hover {
     background-color: #fff;
     color: #242424;

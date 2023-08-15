@@ -21,30 +21,31 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // STYLING
 const body = {
   color: "primary.dark",
-  fontSize: isMobile? "8px":"15px",
-fontWeight: 800,
+  fontSize: isMobile? ".5rem":".9rem",
+fontWeight:  isMobile ? 600 : 800,
   fontFamily:  "fraunces",
   verticalAlign: "middle",
 };
 const bodyMobile = {
   color: "primary.dark",
-  fontSize: "8px",
-  fontWeight: 800,
+  fontSize: ".5rem",
+  fontWeight: 600,
   fontFamily: "fraunces",
   verticalAlign: "middle",
 };
 const title = {
-  mt: isMobile? "1": "2",
-  mb:  isMobile? "1":"2",
+  mt:  isMobile? 0:1,
+  mb:  isMobile? 0.5:1,
+  fontWeight: 800,
   color: "primary.main",
-  fontSize: isMobile ? ".85rem":"1.5rem",
+  fontSize: isMobile ? ".7rem":"1.5rem",
   fontFamily: "fraunces",
 };
 const titleMobile = {
-  mt:  "1" ,
-  mb:  "1" ,
+  mt: 0,
+  mb:  .5,
   color: "primary.main",
-  fontSize:  ".85rem",
+  fontSize:  ".7rem",
   fontFamily: "fraunces",
 };
 // Snackbar alert 

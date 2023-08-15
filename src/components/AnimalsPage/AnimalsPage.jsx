@@ -11,24 +11,35 @@ import { Grid } from "@mui/material";
 // Custom sx props
 const styledCardMediaNoImage = {
   width: "100%",
-  minHeight: isMobile ? 100 : 150,
-  height: isMobile ? 130 : 200,
+  minHeight: isMobile ? 110 : 190,
+  maxHeight: isMobile ? 120 : 190,
   objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
 const styledCardMediaNoImageMobile = {
   width: "100%",
-  minheight: 100,
-  height: 130,
+  minheight: 110,
+  maxHeight: 120,
   objectFit: "fill",
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
 };
-
+const styledCardMedia = {
+  width: "100%",
+  minHeight: isMobile ? 110 : 190,
+  maxHeight: isMobile ? 120 : 190,
+  objectFit: "fill",
+};
+const styledCardMediaMobile = {
+  width: "100%",
+  minheight: 110,
+  maxHeight: 120,
+  objectFit: "fill",
+};
 const styledCard = {
   width: "100%",
-  minHeight: isMobile ? 150 : 380,
+  minHeight: isMobile ? 150 : 300,
   maxHeight: isMobile ? 220: 400,
   borderRadius: isMobile ? 2 : 4,
   boxShadow: isMobile ? 1 : 3,
@@ -43,19 +54,6 @@ const styledCardMobile = {
   boxShadow: 1,
   bgcolor: (theme) => (theme.palette.mode === "dark" ? "#101010" : "#fff"),
   color: (theme) => (theme.palette.mode === "dark" ? "grey.200" : "grey.500"),
-};
-
-const styledCardMedia = {
-  width: "100%",
-  minHeight: isMobile ? 100 : 150,
-  height: isMobile ? 130 : 200,
-  objectFit: "fill",
-};
-const styledCardMediaMobile = {
-  width: "100%",
-  minheight: 100,
-  height: 130,
-  objectFit: "fill",
 };
 
 const styledHeartIcon = {
