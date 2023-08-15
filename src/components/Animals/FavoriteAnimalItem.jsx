@@ -60,7 +60,8 @@ export default function FavoriteAnimalItem({
           display: "flex",
           overflowX: "auto",
           gap: 4,
-          paddingLeft: 5,
+          paddingLeft: 4,
+          paddingRight: 4,
           paddingBottom: 3,
           textAlign: "center",
         }}
@@ -79,7 +80,7 @@ export default function FavoriteAnimalItem({
                       display: "flex",
                       flexDirection: "column",
                       gap: 1,
-                      padding: 2,
+                      padding: 1,
                       paddingBottom: 3,
                     }}
                   >
