@@ -7,6 +7,16 @@
   padding: 20px;
 }
 
+/* MOBILE */
+@media screen and (max-width: 390px) {
+  .animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 25px;
+    justify-items: center;
+  }
+}
+
 ul {
   list-style: none;
 }
@@ -16,7 +26,6 @@ ul {
   background-color: transparent;
   text-decoration: none;
 }
-
 .link:visited {
   color: rgb(0, 0, 0);
   background-color: transparent;

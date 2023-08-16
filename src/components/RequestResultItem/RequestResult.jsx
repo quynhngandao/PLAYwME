@@ -112,7 +112,7 @@ export default function RequestResult({ request }) {
                   backgroundColor: colors[index % colors.length],
                 }}
               >
-                <Box sx={{ my: 2, mx: 1 }}>
+                <Box sx={{  m: 1 }}>
                   <Grid container border="1px" alignItems="center">
                     <Grid item xs>
                       <Typography

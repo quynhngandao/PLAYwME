@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { forwardRef, useState } from 'react';
+import { isMobile } from "react-device-detect";
 // Import the placeholder image
 import placeholderImage from "./notfoundcat.gif";
 import "./AnimalItem.css";
@@ -20,16 +21,31 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // STYLING
 const body = {
   color: "primary.dark",
-  fontSize: "15px",
-  fontWeight: "bold",
+  fontSize: isMobile? ".5rem":".9rem",
+fontWeight:  isMobile ? 600 : 800,
+  fontFamily:  "fraunces",
+  verticalAlign: "middle",
+};
+const bodyMobile = {
+  color: "primary.dark",
+  fontSize: ".5rem",
+  fontWeight: 600,
   fontFamily: "fraunces",
   verticalAlign: "middle",
 };
 const title = {
-  mt: "3px",
-  mb: "7px",
+  mt:  isMobile? 0:1,
+  mb:  isMobile? 0.5:1,
+  fontWeight: 800,
   color: "primary.main",
-  fontSize: "1.5em",
+  fontSize: isMobile ? ".7rem":"1.5rem",
+  fontFamily: "fraunces",
+};
+const titleMobile = {
+  mt: 0,
+  mb:  .5,
+  color: "primary.main",
+  fontSize:  ".7rem",
   fontFamily: "fraunces",
 };
 // Snackbar alert 
@@ -39,10 +55,15 @@ const Alert = forwardRef(function Alert(props, ref) {
 /***** FUNCTION *****/
 export default function AnimalItem({
   styledCard,
-  styledCardMedia,
+  styledCardMobile,
+  styledCardMedia,  
+  styledCardMediaMobile, 
   styledCardMediaNoImage,
+  styledCardMediaNoImageMobile,
   styledHeartIcon,
+  styledHeartIconMobile,
   styledHeartButton,
+  styledHeartButtonMobile,
 }) {
   // useSelector
   const petfinder = useSelector((store) => store.petfinder);
@@ -130,12 +151,12 @@ export default function AnimalItem({
               index // Use searchResult or petfinder
             ) => (
               <Tooltip title="Click For More Details" placement="top">
-                <Card key={index} className="card" sx={styledCard}>
+               <Card key={index} className="card" sx={isMobile ? styledCardMobile : styledCard}>
                   {/* Image */}
                   {animal.photos && animal.photos.length > 0 ? (
                     <CardActionArea onClick={() => openInNewTab(animal.url)}>
                       <CardMedia
-                        sx={styledCardMedia}
+                       sx={isMobile ? styledCardMediaMobile : styledCardMedia}
                         component="img"
                         image={animal.photos[0].full}
                         alt={animal.name}
@@ -145,7 +166,7 @@ export default function AnimalItem({
                     // NOT AVAILABLE IMAGE
                     <CardActionArea onClick={() => openInNewTab(animal.url)}>
                       <CardMedia
-                        sx={styledCardMediaNoImage}
+                     sx={isMobile ? styledCardMediaNoImageMobile : styledCardMediaNoImage}
                         component="img"
                         image={placeholderImage}
                         alt="not available"
@@ -156,10 +177,11 @@ export default function AnimalItem({
                   {/* Favorite Button */}
                   <Tooltip title="Add to Favorite" placement="left-start">
                   <IconButton
-                      sx={styledHeartButton}
+                      sx={isMobile ? styledHeartButtonMobile : styledHeartButton}
+                    
                       onClick={(e) => handleFavorite(e, animal)}
                     >
-                      <FavoriteBorderIcon sx={styledHeartIcon} />
+                      <FavoriteBorderIcon  sx={isMobile ? styledHeartIconMobile : styledHeartIcon} />
                     </IconButton>
       <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{bgColor: "primary"}} fontFamily="varela round">
@@ -171,13 +193,13 @@ export default function AnimalItem({
                   {/* DETAILS */}
                   <CardContent>
                     {/* NAME */}
-                    <Typography sx={title}>{animal.name}</Typography>
+                    <Typography sx={isMobile ? titleMobile : title}>{animal.name}</Typography>
                     {/* AGE */}
-                    <Typography sx={body}>
+                    <Typography sx={isMobile ? bodyMobile: body}>
                       {animal.age} &#x2022; {animal.breeds?.primary}
                     </Typography>
                     {/* LOCATION */}
-                    <Typography sx={body}>
+                    <Typography sx={isMobile ? bodyMobile: body}>
                       {animal.contact.address.city},{" "}
                       {animal.contact.address.state}
                     </Typography>

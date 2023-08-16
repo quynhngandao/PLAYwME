@@ -1,13 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'fraunces', sans-serif;
+}
+
 html,
 body,
 #react-root {
   height: 100%;
 
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
 }
 
 img {
@@ -41,51 +43,35 @@ PAGES
   text-align: center;
 }
 
-.grid {
-  height:75vh;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: #003e3f;
-  text-decoration: none;
-}
-
-/* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #444;
-  border-radius: 0;
-  background: none;
-  font: inherit;
-  color: #444;
-}
-
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: #004d4f;
-  color: #025a5c;
+/* MOBILE */
+@media screen and (max-width: 390px) {
+  .user-page-title, .animal-page-title, .review-page-title {
+    color:#326186;
+    text-shadow: 1px 1px #464444b9;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: 'Merienda', sans-serif;
+    margin-top: 1.5rem;
+    text-align: center;
+    margin-bottom: .5rem;
+  }
+  .request-heading, .animal-page-heading {
+    color:#4b7ba0;
+    text-shadow: 1px 1px #464444b9;
+    font-size: 1.5em;
+    font-weight: 600;
+    font-family: 'varela round', sans-serif;
+    margin-bottom: 10px;
+    margin-left: 25px;
+    margin-top:10px;
+    padding-top: 0 ;
+    text-align: center;
+  }
 }
 
 /* --------------------------------------------------------------------------------
 Alert
 -------------------------------------------------------------------------------- */
-
 .alert {
   box-sizing: border-box;
   padding: 15px 10px;
@@ -95,21 +81,6 @@ Alert
   border-radius: 3px;
   color: #e01616;
   font-size: 0.8rem;
-}
-
-/* --------------------------------------------------------------------------------
-Form Treatment
--------------------------------------------------------------------------------- */
-
-.formPanel {
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  padding: 25px;
-  margin: 0 auto 20px;
-  background-color: #efefef;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
 }
 
 input {

@@ -6,6 +6,7 @@ import { IconButton, Fab, Popover, Box, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 /* COMPONENT */
 import Modalpopup from "./Modalpopup";
+import '../Nav/Nav.css'
 /* HOOK */
 import { usePopupState, bindPopover } from "material-ui-popup-state/hooks";
 
@@ -46,7 +47,9 @@ export default function PopoverPopupState() {
   return (
     <Box className="popover" justifyContent="center">
       {/* SUBMIT BUTTON */}
-       <Grid container justifyContent="center" alignItems="center"> <IconButton
+       <Grid container justifyContent="center" alignItems="center"> 
+       <IconButton
+        className="add-request-button"
         margin="20px"
         variant="contained"
         color="primary"

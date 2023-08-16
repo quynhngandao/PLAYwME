@@ -1,6 +1,7 @@
 const pg = require('pg');
 let pool;
 
+// DATABASE_URL=postgres://quynhdao:o6iLlF59lpReKZguWdkVU9SAotMcBZ15@dpg-cj22ps407spkp67jj0m0-a/playwme
 if (process.env.DATABASE_URL) {
     pool = new pg.Pool({
         connectionString: process.env.DATABASE_URL,
