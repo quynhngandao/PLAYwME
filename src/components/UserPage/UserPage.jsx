@@ -18,7 +18,7 @@ function UserPage() {
   }, []);
 // handleClick go to animals display page
   const handleClick = () => {
-    history.push("/user");
+    history.push("/petfinder");
   };
   /***** RENDER *****/
   return (

@@ -1,5 +1,5 @@
 .navbar {
-  background:#1c364b;
+  background: #1c364b;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -9,13 +9,15 @@
   top: 0;
   z-index: 1000;
 }
+
 /* request button */
 .add-request-button {
   z-index: 1;
 }
+
 /* logout button */
 .nav-links.logout-button {
-  z-index: 1001; 
+  z-index: 1001;
 }
 
 .navbar-container {
@@ -46,7 +48,7 @@
 }
 
 .nav-menu {
- display: inline-flex;
+  display: inline-flex;
   list-style: none;
   text-align: center;
   width: 80vw;
@@ -57,10 +59,8 @@
   height: 80px;
 }
 
-
-
 .nav-links {
-  background-color:#1c364b;
+  background-color: #1c364b;
   color: #fff;
   display: flex;
   align-items: center;
@@ -69,6 +69,7 @@
   height: 100%;
   font-family: "varela round";
   font-weight: 800;
+  font-size: 1rem;
 }
 
 .nav-links:hover {
@@ -117,9 +118,9 @@
   }
 
   .nav-links.item {
-    height:  100vh;
-    }
-    
+    height: 100vh;
+  }
+
   .nav-links:hover {
     background-color: #fff;
     color: #242424;
