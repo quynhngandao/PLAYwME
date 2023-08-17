@@ -16,6 +16,21 @@ function* fetchAnimals() {
   }
 }
 
+// Fetch ALL animals
+function* fetchAllAnimals() {
+  try {
+    // Loading spinner while page loads
+    yield put({ type: "SET_LOADING" });
+
+    const response = yield axios.get("/favorite/all");
+    yield put({ type: "SET_ALL_ANIMALS", payload: response.data });
+  } catch (error) {
+    console.log("Error with GET ALL animals in redux: ", error);
+  } finally {
+    yield put({ type: "UNSET_LOADING" });
+  }
+}
+
 function* addAnimal(action) {
   try {
     yield axios.post("/favorite", action.payload);
@@ -50,6 +65,7 @@ function* animalSaga() {
   yield takeLatest("ADD_ANIMAL", addAnimal);
   yield takeLatest("DELETE_ANIMAL", deleteAnimal);
   yield takeLatest("SUBMIT_EDIT_REQUEST", editRequest);
+  yield takeEvery("FETCH_ALL_ANIMALS", fetchAllAnimals);
 }
 
 export default animalSaga;

@@ -5,6 +5,29 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
+/******************************************
+ * GET ALL animals from database to display
+ *****************************************/
+router.get("/all", async (req, res) => {
+  try {
+      let sqlQuery = `
+      SELECT * FROM "animal"
+      LIMIT 50;`; // limit to 50 animals max
+
+    /***** Execute GET QUERY *****/
+    const result = await pool.query(sqlQuery);
+
+    /***** SUCCESS *****/
+    res.send(result.rows);
+    console.log("GET ALL animals from '/favorite' database successful: ");
+
+    /***** ERROR *****/
+  } catch (error) {
+    console.log("Error in GET ALL animals from '/favorite' database: ", error);
+    res.sendStatus(500);
+  }
+});
+
 /**************************************************
  * GET logged-in user's favorite animals to display
  *************************************************/
@@ -12,7 +35,7 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
   try {
     const user_id = req.user.id; // Get the user_id from the logged in user
 
-    // GET REQUEST QUERY (Request user's favanimal animals) ROW_TO_JSON turns row into object
+    // GET REQUEST QUERY (Request user's favorite animals) ROW_TO_JSON turns row into object
     let sqlQuery = `
       SELECT "username", "user"."id" AS "user_id", ROW_TO_JSON("animal") AS "animal_details"
       FROM "user" 

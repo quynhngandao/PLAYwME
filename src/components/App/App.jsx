@@ -21,6 +21,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import RequestPage from "../RequestPage/RequestPage";
 import ThankYouPage from "../ThankYouPage/ThankYouPage";
 import EditRequest from "../EditRequest/EditRequest";
+import AllAnimalsPage from "../AnimalsPage/AllAnimalsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,14 @@ function App() {
           >
             <AboutPage />
           </Route>
+          <Route
+            // shows AllAnimalsPage at all times (logged in or not)
+            exact
+            path="/display"
+          >
+            <AllAnimalsPage />
+          </Route>
+
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

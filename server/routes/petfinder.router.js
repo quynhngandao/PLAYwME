@@ -37,6 +37,7 @@ authenticateAndCacheToken();
 process.on('exit', () => {
   clearInterval(tokenRefreshInterval);
 }); // END OF ACCESS TOKEN CACHING
+
 /*********************************
  * DEFAULT RESPONSE FROM PETFINDER
  ********************************/

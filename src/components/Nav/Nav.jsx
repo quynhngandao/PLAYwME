@@ -60,6 +60,16 @@ function Nav() {
                   Login / Register
                 </Link>
               </li>
+              {/* AllAnimalsPage viewable to everyone */}
+              <li className="nav-item">
+                <Link
+                  className="nav-links item"
+                  to="/display"
+                  onClick={closeMobileMenu}
+                >
+                  Animals
+                </Link>
+              </li>
             </>
           )}
 
@@ -101,9 +111,14 @@ function Nav() {
               </li>
             </>
           )}
+
           {/* AboutPage viewable to everyone */}
           <li className="nav-item">
-            <Link className="nav-links item" to="/about" onClick={closeMobileMenu}>
+            <Link
+              className="nav-links item"
+              to="/about"
+              onClick={closeMobileMenu}
+            >
               About
             </Link>
           </li>
