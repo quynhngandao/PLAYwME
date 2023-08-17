@@ -31,10 +31,9 @@
 .navbar-logo {
   color: #fff;
   justify-self: start;
-  margin-left: 20px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   font-family: 'fraunces';
@@ -94,19 +93,17 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 70vh;
     position: absolute;
-
-    bottom:-400px;
     left: -100%;
-    opacity: .7;
+    opacity: 1;
     transition: all 0.5s ease;
   }
 
   .nav-menu.active {
     background: #1c364b;
     left: 0;
-    opacity: .7;
+    opacity: 1;
     transition: all 0.5s ease;
     z-index: 1;
   }
@@ -137,9 +134,9 @@
   .menu-icon {
     display: block;
     position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
+    right: 0%;
+    top: 50%; 
+    transform: translate(-100%, -50%); 
     font-size: 1.5rem;
     cursor: pointer;
     z-index: 1001;
@@ -147,7 +144,7 @@
 
   .fa-times {
     color: #fff;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .nav-links-mobile {
