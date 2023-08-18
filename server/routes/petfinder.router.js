@@ -1,3 +1,4 @@
+const Memcached = require("memcached");
 const express = require("express");
 const router = express.Router();
 const petfinder = require("@petfinder/petfinder-js");
@@ -5,36 +6,53 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
+
+// Initialize Memcached client
+const memcached = new Memcached({
+  servers: process.env.MEMCACHIER_SERVERS,
+  username: process.env.MEMCACHIER_USERNAME,
+  password: process.env.MEMCACHIER_PASSWORD
+});
+
 /**********************************
- * CACHE ACCESS TOKEN FOR PETFINDER 
+ * CACHE ACCESS TOKEN FOR PETFINDER
  *********************************/
- let cachedAccessToken = null;
- let tokenExpirationTime = null;
- // Function to handle authentication and caching of the access token
- async function authenticateAndCacheToken() {
+let cachedAccessToken = null;
+let tokenExpirationTime = null;
+// Function to handle authentication and caching of the access token
+async function authenticateAndCacheToken() {
   if (!cachedAccessToken || Date.now() > tokenExpirationTime) {
     try {
       const response = await client.authenticate();
       cachedAccessToken = response.data.access_token;
-      tokenExpirationTime = Date.now() + (response.data.expires_in * 1000);
+      tokenExpirationTime = Date.now() + response.data.expires_in * 1000;
       console.log("Access token cached:", cachedAccessToken);
+       // Cache the access token in Memcached
+      await memcached.set("access_token", cachedAccessToken, response.data.expires_in);
     } catch (error) {
       console.error("Authentication error:", error);
     }
   }
 }
- // Create the Petfinder client instance
+// Create the Petfinder client instance
 const client = new petfinder.Client({
   apiKey: process.env.PETFINDER_API_KEY,
   secret: process.env.PETFINDER_SECRET,
   token: cachedAccessToken, // Use cached token if available
+});
+memcached.get(cachedAccessToken, (err, data) => {
+  if (err) {
+    console.error('Error fetching access token from cache:', err);
+  } else {
+    console.log('Access token from cachee', data);
+  }
 });
 // Set an interval to check and refresh the token if needed
 const tokenRefreshInterval = setInterval(authenticateAndCacheToken, 300000); // Refresh every 5 minutes
 // Call the authentication function to cache the token
 authenticateAndCacheToken();
 // Clear the interval when the app is shutting down
-process.on('exit', () => {
+process.on("exit", () => {
   clearInterval(tokenRefreshInterval);
 }); // END OF ACCESS TOKEN CACHING
 
@@ -139,7 +157,7 @@ router.get("/cat", rejectUnauthenticated, async (req, res) => {
 /******************************
  * BIRD RESPONSE FROM PETFINDER
  *****************************/
- router.get("/bird", rejectUnauthenticated, async (req, res) => {
+router.get("/bird", rejectUnauthenticated, async (req, res) => {
   try {
     const location = req.query.location || "MN";
     const limit = req.query.limit || 50;

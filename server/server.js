@@ -11,7 +11,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const petfinderRouter = require('./routes/petfinder.router')
-const favoriteRouter = require('./routes/favorite.router.js')
+const favoriteRouter = require('./routes/favorite.router')
 const requestRouter = require('./routes/request.router')
 
 // Body parser middleware
