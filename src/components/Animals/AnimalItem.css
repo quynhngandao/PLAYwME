@@ -17,7 +17,7 @@
   }
 }
 
-@media screen and (min-width: 321px) and (max-width: 375px) {
+@media screen and (min-width: 321px) and (max-width: 359px) {
   .animals {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -26,7 +26,16 @@
   }
 }
 
-@media screen and (min-width: 376px) and (max-width: 425px) {
+@media screen and (min-width: 360px) and (max-width: 389px) {
+  .animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
+    margin: 5px;
+  }
+}
+
+@media screen and (min-width: 390px) and (max-width: 425px) {
   .animals {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 30px;

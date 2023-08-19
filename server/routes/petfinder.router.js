@@ -8,22 +8,29 @@ const {
 /**********************************
  * CACHE ACCESS TOKEN FOR PETFINDER
  *********************************/
+let tokenData = null;
 // Create the Petfinder client instance
 const client = new petfinder.Client({
   apiKey: process.env.PETFINDER_API_KEY,
   secret: process.env.PETFINDER_SECRET,
 });
 
-// Set an interval to check and refresh the token if needed
-const tokenRefreshInterval = setInterval(async () => {
+const refreshToken = async () => {
   try {
-    await client.refresh();
-    console.log('Token refreshed successfully.');
+    const tokenResponse = await client.authenticate();
+    tokenData = tokenResponse.data;
+    console.log("Token refreshed successfully.");
   } catch (error) {
-    console.log('Error refreshing token:', error);
+    console.log("Error refreshing token:", error);
   }
-}, 1800000); // Refresh every 30 minutes
+};
 
+// Call refreshToken initially to get the token
+refreshToken();
+
+// Set an interval to check and refresh the token if needed
+// Set an interval to check and refresh the token if needed
+const tokenRefreshInterval = setInterval(refreshToken, 1800000); // Refresh every 30 minutes
 
 // Clear the interval when the app is shutting down
 process.on("exit", () => {
