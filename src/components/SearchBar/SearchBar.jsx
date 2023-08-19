@@ -65,7 +65,7 @@ export default function SearchBar() {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search for animals…"
+          placeholder="Search…"
           inputProps={{ ariaLabel: "search for animal..." }}
           value={typeInput}
           onChange={(event) => setTypeInput(event.target.value)}

@@ -1,3 +1,4 @@
+/* Default */
 .animals {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -8,7 +9,28 @@
 }
 
 /* MOBILE */
-@media screen and (max-width: 390px) {
+/* Breakpoint for screen width up to 320px */
+@media screen and (max-width: 320px) {
+  .animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 15px;
+    justify-items: center;
+  }
+}
+
+/* Breakpoint for screen width between 321px and 375px */
+@media screen and (min-width: 321px) and (max-width: 375px) {
+  .animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 20px;
+    justify-items: center;
+  }
+}
+
+/* Breakpoint for screen width between 376px and 425px */
+@media screen and (min-width: 376px) and (max-width: 425px) {
   .animals {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -17,10 +39,44 @@
   }
 }
 
+/* TABLET */
+@media 
+screen and (max-width: 601px), 
+screen and (max-width: 768px), 
+screen and (max-width: 800px), 
+screen and (max-width: 810px),
+screen and (max-width: 834px),
+screen and (max-width: 1024px),
+screen and (max-width: 1280px)
+{
+  .animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 25px;
+    justify-items: center;
+    margin: 5px;
+  }
+}
+
+/* LAPTOP */
+@media 
+screen and (max-width: 	1366px),
+screen and (max-width: 	1440px),
+screen and (max-width: 1536px), 
+screen and (max-width: 	1600px),
+screen and (max-width: 1920px)
+{
+  .animals {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 40px;
+    justify-items: center;
+  }
+}
+
 ul {
   list-style: none;
 }
-
 .link:link {
   color: rgb(0, 0, 0);
   background-color: transparent;

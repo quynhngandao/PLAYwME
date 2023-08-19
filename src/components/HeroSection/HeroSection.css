@@ -1,9 +1,6 @@
-/* MAIN */
+/* DEFAULT */
 .hero-container {
-  background: url("/public/images/pet-background1.jpeg") center center/cover
-    no-repeat;
-  min-height: 85vh;
-  max-height: 90vh;
+  background: url("/public/images/pet-background1.jpeg") center center/cover no-repeat;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -11,8 +8,10 @@
   align-items: center;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.568);
   object-fit: contain;
+  min-height: 100vh;
 }
-.hero-container > h1 {
+
+.hero-container>h1 {
   color: #fff;
   text-shadow: 4px 2px #434242;
   font-size: 86px;
@@ -23,7 +22,8 @@
   padding-top: 15px;
   margin-bottom: 15px;
 }
-.hero-container > p {
+
+.hero-container>p {
   margin-top: 8px;
   color: #fff;
   text-shadow: 3px 2px #434242ac;
@@ -32,16 +32,20 @@
   font-weight: 600px;
   text-align: center;
 }
+
+/* BUTTON STUFF */
+@import url("https://fonts.googleapis.com/css?family=Lato:100&display=swap");
+
 .hero-btns {
   margin-top: 32px;
 }
+
 .hero-btns .btn {
   margin: 10px;
   padding: 10px;
   font-family: "barlow";
 }
-/* BUTTON STUFF */
-@import url("https://fonts.googleapis.com/css?family=Lato:100&display=swap");
+
 .btn {
   width: 180px;
   height: 60px;
@@ -51,6 +55,7 @@
   outline: none;
   transition: 1s ease-in-out;
 }
+
 svg {
   fill: none;
   stroke: #fff;
@@ -58,13 +63,16 @@ svg {
   stroke-dashoffset: 150;
   transition: 1s ease-in-out;
 }
+
 .btn:hover {
   transition: 1s ease-in-out;
   background: #4f95da;
 }
+
 .hero-btns:hover svg {
   stroke-dashoffset: -480;
 }
+
 .hero-btns span {
   color: white;
   font-size: 18px;
@@ -72,92 +80,181 @@ svg {
 }
 
 /****** RESPONSIVE ******/
-@media screen and (max-width: 390px) {
+@media screen and (min-width: 320px) and (max-width: 424px) {
   .hero-container {
-    background: url("/public/images/cat-dog-background.jpeg") center
-      center/cover no-repeat;
+    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
     width: 100%;
     display: flex;
-    min-height: 80vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 82vh;
   }
-  .hero-container > h1 {
-    font-size: 30px;
-    margin-top: 3rem;
-    text-shadow: 1px 1px #434242;
+
+  .hero-container>h1 {
+    font-size: 1.6rem;
+    margin-top: 8rem;
   }
-  .hero-container > p {
-    color: #fff;
-    font-size: 15px;
-    font-family: "fraunces", serif;
-    text-align: center;
-    text-shadow: 1px 1px #434242;
+
+  .hero-container>p {
+    font-size: .8rem;
   }
-  .btn-mobile {
-    display: block;
-    text-decoration: none;
-  }
-  .btn {
-    width: 100%;
-    height: 50px;
-  }
-  .hero-btns span {
-    color: white;
-    font-size: 10px;
-    font-weight: 100;
-  }
-  .hero-btns {
-    margin: 10px;
-  }
-  .hero-btns .btn {
-    margin: 10px;
-    font-family: "barlow";
-  }
+
+  
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 425px) and (max-width: 449px) {
   .hero-container {
-    background: url("/public/images/cat-dog-background.jpeg") center
-      center/cover no-repeat;
+    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
     width: 100%;
     display: flex;
-    min-height: 80vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 82vh;
   }
-  .hero-container > h1 {
-    font-size: 50px;
-    margin-top: 3rem;
-    text-shadow: 1px 1px #434242;
+
+  .hero-container>h1 {
+    font-size: 1.7rem;
+    margin-top: 7rem;
   }
-  .hero-container > p {
-    color: #fff;
-    font-size: 25px;
-    font-family: "fraunces", serif;
-    text-align: center;
-    text-shadow: 1px 1px #434242;
+
+  .hero-container>p {
+    font-size: .8rem;
   }
-  .btn-mobile {
-    display: block;
-    text-decoration: none;
-  }
-  .btn {
+
+  
+}
+
+@media screen and (min-width: 450px) and (max-width: 599px) {
+  .hero-container {
+    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
     width: 100%;
-    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 81vh;
   }
-  .hero-btns span {
-    color: white;
-    font-size: 15px;
-    font-weight: 100;
+
+  .hero-container>h1 {
+    font-size: 2.1rem;
+    margin-top: 7rem;
   }
-  .hero-btns {
-    margin: 10px;
+
+  .hero-container>p {
+    font-size: 1rem;
   }
-  .hero-btns .btn {
-    margin: 10px;
-    font-family: "barlow";
+
+  
+}
+
+@media screen and (min-width: 600px) and (max-width: 767px) {
+  .hero-container {
+    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 81vh;
+  }
+
+  .hero-container>h1 {
+    font-size: 2.8rem;
+    margin-top: 5rem;
+  }
+
+  .hero-container>p {
+    font-size: 1.4rem;
+  }
+
+  
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .hero-container {
+    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 82vh;
+  }
+
+  .hero-container>h1 {
+    font-size: 3.6rem;
+    margin-top: 4rem;
+  }
+
+  .hero-container>p {
+    font-size: 1.8rem;
+  }
+
+ 
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .hero-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 82vh;
+  }
+
+  .hero-container>h1 {
+    font-size: 4.5rem;
+    margin-top: 4rem;
+  }
+
+  .hero-container>p {
+    font-size: 2rem;
+  }
+
+ 
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1899px) {
+  .hero-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 82vh;
+  }
+
+  .hero-container>h1 {
+    font-size: 6.5rem;
+    margin-top: 2rem;
+  }
+
+  .hero-container>p {
+    font-size: 3rem;
+  }
+
+  
+}
+
+@media screen and (min-width: 1900px) and (max-width: 2560px) {
+  .hero-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 82vh;
+  }
+
+  .hero-container>h1 {
+    font-size: 8rem;
+    margin-top: 4rem;
+  }
+
+  .hero-container>p {
+    font-size: 3.5rem;
   }
 }
