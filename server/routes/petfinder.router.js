@@ -15,9 +15,15 @@ const client = new petfinder.Client({
 });
 
 // Set an interval to check and refresh the token if needed
-const tokenRefreshInterval = setInterval(() => {
-  client.authenticate(); // Automatically refresh the token
-}, 3000000); // Refresh every 50 minutes
+const tokenRefreshInterval = setInterval(async () => {
+  try {
+    await client.refresh();
+    console.log('Token refreshed successfully.');
+  } catch (error) {
+    console.log('Error refreshing token:', error);
+  }
+}, 1800000); // Refresh every 30 minutes
+
 
 // Clear the interval when the app is shutting down
 process.on("exit", () => {
