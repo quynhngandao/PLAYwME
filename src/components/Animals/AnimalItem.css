@@ -1,87 +1,81 @@
 /* Default */
 .animals {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 50px;
   justify-items: center;
   margin: 20px;
   padding: 20px;
 }
 
-/* MOBILE */
+/* Media queries for specific screen sizes */
 /* Breakpoint for screen width up to 320px */
 @media screen and (max-width: 320px) {
   .animals {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 15px;
-    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 50px;
   }
 }
 
-/* Breakpoint for screen width between 321px and 375px */
 @media screen and (min-width: 321px) and (max-width: 375px) {
   .animals {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 20px;
-    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 50px;
   }
 }
 
-/* Breakpoint for screen width between 376px and 425px */
 @media screen and (min-width: 376px) and (max-width: 425px) {
   .animals {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 25px;
-    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
   }
 }
 
-/* TABLET */
-@media 
-screen and (max-width: 601px), 
-screen and (max-width: 768px), 
-screen and (max-width: 800px), 
-screen and (max-width: 810px),
-screen and (max-width: 834px),
-screen and (max-width: 1024px),
-screen and (max-width: 1280px)
-{
+@media screen and (min-width: 426px) and (max-width: 767px) {
   .animals {
-    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 25px;
-    justify-items: center;
-    margin: 5px;
+    gap: 30px;
   }
 }
 
-/* LAPTOP */
-@media 
-screen and (max-width: 	1366px),
-screen and (max-width: 	1440px),
-screen and (max-width: 1536px), 
-screen and (max-width: 	1600px),
-screen and (max-width: 1920px)
-{
+@media screen and (min-width: 768px) and (max-width: 1023px) {
   .animals {
-    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1440px) {
+  .animals {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 40px;
-    justify-items: center;
+  }
+}
+
+@media screen and (min-width: 1536px) and (max-width: 1920px) {
+  .animals {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 55px;
+  }
+}
+
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
+  .animals {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 60px;
   }
 }
 
 ul {
   list-style: none;
 }
+
 .link:link {
   color: rgb(0, 0, 0);
   background-color: transparent;
   text-decoration: none;
 }
+
 .link:visited {
   color: rgb(0, 0, 0);
   background-color: transparent;

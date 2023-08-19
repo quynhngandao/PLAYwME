@@ -37,14 +37,14 @@ const title = {
   mt:  isMobile? 0:1,
   mb:  isMobile? 0.5:1,
   fontWeight: 800,
-  color: "primary.main",
+  color: "primary.dark",
   fontSize: isMobile ? ".7rem":"1.5rem",
   fontFamily: "fraunces",
 };
 const titleMobile = {
   mt: 0,
   mb:  .5,
-  color: "primary.main",
+  color: "primary.dark",
   fontSize:  ".7rem",
   fontFamily: "fraunces",
 };
