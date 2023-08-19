@@ -11,16 +11,18 @@
 @media screen and (max-width: 320px) {
   .animals {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 50px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 25px;
+    margin: 0px;
   }
 }
 
 @media screen and (min-width: 321px) and (max-width: 375px) {
   .animals {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 50px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 25px;
+    margin: 5px;
   }
 }
 
