@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const pool = require("../modules/pool");
 const petfinder = require("@petfinder/petfinder-js");
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
-
 const jwt_decode = require("jwt-decode");
 
 /**********************************
@@ -21,41 +21,81 @@ const client = new petfinder.Client({
 
 // Function to handle authentication and caching of the access token
 async function authenticateAndCacheToken() {
-  var token = client.config.token;
+  let token = client.config.token;
   if (!token) {
     return;
   }
-  var tokenData = jwt_decode(token);
 
-  // console.log(tokenData);
+  let tokenData = jwt_decode(token); // decode token
 
-  if (tokenData.exp * 1000 > Date.now()) {
+  // if token expire in less than 30 min, reauthenticate
+  if (tokenData.exp * 1000 - 30 * 60 * 1000 < Date.now()) {
     try {
       const response = await client.authenticate();
+
+      // update token value
+      token = client.config.token;
+
+      // console.log(new Date(tokenData.exp * 1000).toString(), "Token expiration");
+      // console.log(new Date(Date.now()).toString(), "Current DateTime");
+      
     } catch (error) {
       console.error("Authentication error:", error);
     }
   }
 }
 
+/*********************
+ * UPDATE CACHED TOKEN
+ ********************/
+router.put("/update-token", async (req, res) => {
+  try {
+    await authenticateAndCacheToken(); // Wait for the authentication process to complete
+
+    // set token value
+    const token = client.config.token;
+
+    const response = await pool.query(`UPDATE "token" SET "token" = $1`, [
+      token,
+    ]);
+
+    console.log("Token inserted into the database");
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Error updating token:", error);
+    res.sendStatus(500);
+  }
+});
+
 /*********************************
  * DEFAULT RESPONSE FROM PETFINDER
  ********************************/
-router.get("/", rejectUnauthenticated, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const location = req.query.location || "MN";
     const limit = req.query.limit || 50;
 
-    authenticateAndCacheToken();
-    const response = await client.animal.search({ location, limit });
+    // Get the token from the database
+    const result = await pool.query(
+      `SELECT "token" FROM "token" ORDER BY "id" DESC LIMIT 1;`
+    );
+    if (result.rows.length > 0) {
+      const token = result.rows[0].token;
 
-    console.log("server response from Petfinder API successful:");
-    res.send(response.data);
+      // Fetch animals using the token
+      const response = await client.animal.search({ location, limit }, token);
+      console.log("Server response for ALL ANIMAL from Petfinder API successful:");
+      res.send(response.data);
+    } else {
+      console.log("No cached token available in the database.");
+      res.sendStatus(404); // Send a 404 status code if no token is found
+    }
   } catch (error) {
-    console.log("Error fetching animals from Petfinder API:", error);
+    console.log("Error fetching ALL animals from Petfinder API:", error);
     res.sendStatus(500);
   }
 });
+
 /********************************
  * RABBIT RESPONSE FROM PETFINDER
  *******************************/
@@ -64,15 +104,22 @@ router.get("/rabbit", rejectUnauthenticated, async (req, res) => {
     const location = req.query.location || "MN";
     const limit = req.query.limit || 50;
     const type = req.query.type || "Rabbit";
-    authenticateAndCacheToken();
-    const response = await client.animal.search({
-      location,
-      limit,
-      type,
-    });
+    
+    // Get the token from the database
+    const result = await pool.query(
+      `SELECT "token" FROM "token" ORDER BY "id" DESC LIMIT 1;`
+    );
+    if (result.rows.length > 0) {
+      const token = result.rows[0].token;
 
-    console.log("server response for RABBIT from Petfinder API successful:");
-    res.send(response.data);
+      // Fetch animals using the token
+      const response = await client.animal.search({ location, limit, type }, token);
+      console.log("Server response for RABBIT from Petfinder API successful:");
+      res.send(response.data);
+    } else {
+      console.log("No cached token available in the database.");
+      res.sendStatus(404); // Send a 404 status code if no token is found
+    }
   } catch (error) {
     console.log("Error fetching RABBIT from Petfinder API:", error);
     res.sendStatus(500);
@@ -87,15 +134,22 @@ router.get("/dog", rejectUnauthenticated, async (req, res) => {
     const location = req.query.location || "MN";
     const limit = req.query.limit || 50;
     const type = req.query.type || "Dog";
-    authenticateAndCacheToken();
-    const response = await client.animal.search({
-      location,
-      limit,
-      type,
-    });
+    
+    // Get the token from the database
+    const result = await pool.query(
+      `SELECT "token" FROM "token" ORDER BY "id" DESC LIMIT 1;`
+    );
+    if (result.rows.length > 0) {
+      const token = result.rows[0].token;
 
-    console.log("server response for DOG from Petfinder API successful:");
-    res.send(response.data);
+      // Fetch animals using the token
+      const response = await client.animal.search({ location, limit, type }, token);
+      console.log("Server response for DOG from Petfinder API successful:");
+      res.send(response.data);
+    } else {
+      console.log("No cached token available in the database.");
+      res.sendStatus(404); // Send a 404 status code if no token is found
+    }
   } catch (error) {
     console.log("Error fetching DOG from Petfinder API:", error);
     res.sendStatus(500);
@@ -110,15 +164,22 @@ router.get("/cat", rejectUnauthenticated, async (req, res) => {
     const location = req.query.location || "MN";
     const limit = req.query.limit || 50;
     const type = req.query.type || "Cat";
-    authenticateAndCacheToken();
-    const response = await client.animal.search({
-      location,
-      limit,
-      type,
-    });
+    
+    // Get the token from the database
+    const result = await pool.query(
+      `SELECT "token" FROM "token" ORDER BY "id" DESC LIMIT 1;`
+    );
+    if (result.rows.length > 0) {
+      const token = result.rows[0].token;
 
-    console.log("server response for CAT from Petfinder API successful:");
-    res.send(response.data);
+      // Fetch animals using the token
+      const response = await client.animal.search({ location, limit, type }, token);
+      console.log("Server response for CAT from Petfinder API successful:");
+      res.send(response.data);
+    } else {
+      console.log("No cached token available in the database.");
+      res.sendStatus(404); // Send a 404 status code if no token is found
+    }
   } catch (error) {
     console.log("Error fetching CAT from Petfinder API:", error);
     res.sendStatus(500);
@@ -133,19 +194,27 @@ router.get("/bird", rejectUnauthenticated, async (req, res) => {
     const location = req.query.location || "MN";
     const limit = req.query.limit || 50;
     const type = req.query.type || "Bird";
-    authenticateAndCacheToken();
-    const response = await client.animal.search({
-      location,
-      limit,
-      type,
-    });
+    
+    // Get the token from the database
+    const result = await pool.query(
+      `SELECT "token" FROM "token" ORDER BY "id" DESC LIMIT 1;`
+    );
+    if (result.rows.length > 0) {
+      const token = result.rows[0].token;
 
-    console.log("server response for BIRD from Petfinder API successful:");
-    res.send(response.data);
+      // Fetch animals using the token
+      const response = await client.animal.search({ location, limit, type }, token);
+      console.log("Server response for BIRD from Petfinder API successful:");
+      res.send(response.data);
+    } else {
+      console.log("No cached token available in the database.");
+      res.sendStatus(404); // Send a 404 status code if no token is found
+    }
   } catch (error) {
     console.log("Error fetching BIRD from Petfinder API:", error);
     res.sendStatus(500);
   }
 });
+
 
 module.exports = router;
