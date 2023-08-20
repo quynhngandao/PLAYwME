@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isMobile } from "react-device-detect";
+import axios from "axios";
 /*****STYLE and IMPORT*****/
 import "../App/App.css";
 import AnimalItem from "../Animals/AnimalItem";
@@ -89,14 +90,27 @@ export default function AnimalsPage() {
   const petfinder = useSelector((store) => store.petfinder.animals); // all animals
   // useDispatch
   const dispatch = useDispatch();
+
+  // Function to execute update the token on refresh 
+  const handlePutToken = async () => {
+    try {
+      await axios.put("/api/animal/update-token"); // Post the token to the backend
+      const responseData = await postToken();
+    } catch (error) {
+      console.error("Error posting token:", error);
+    }
+  };
+
   useEffect(() => {
+    // Execute 
+    handlePutToken();
     // Fetch based on the condition (FETCH_TYPE for SearchAnimal, FETCH_ALL for AnimalItem)
     if (searchResult.length > 0) {
       dispatch({ type: "FETCH_TYPE" });
     } else {
       dispatch({ type: "FETCH_ALL" });
     }
-  }, [dispatch, searchResult]);
+  }, []);
 
   return (
     <div className="petfinder-page">
