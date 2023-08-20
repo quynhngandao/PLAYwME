@@ -95,7 +95,6 @@ export default function AnimalsPage() {
   const handlePutToken = async () => {
     try {
       await axios.put("/api/animal/update-token"); // Post the token to the backend
-      const responseData = await postToken();
     } catch (error) {
       console.error("Error posting token:", error);
     }
