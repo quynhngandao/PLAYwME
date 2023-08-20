@@ -59,3 +59,8 @@ CREATE TABLE "animal_request" (
     "animal_id" INTEGER NOT NULL REFERENCES "animal" ("id") ON DELETE CASCADE
 );
 
+-- CREATE table to store access token (api)
+CREATE TABLE "token" (
+    "id" SERIAL PRIMARY KEY NOT NULL,
+    "token" VARCHAR(10000) 
+);
