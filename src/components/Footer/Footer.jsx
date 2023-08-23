@@ -16,14 +16,25 @@ function Footer() {
           </div>
           <small className='website-rights'>PiPiPoopy © 2023</small>
           <div className='social-icons'>
-            <Link
-              className='social-icon-link facebook'
-              to='/'
-              target='_blank'
-              aria-label='Facebook'
+          <a
+              className="social-icon-link linkedin"
+              href="https://www.linkedin.com/in/daoquynh29/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
             >
-              <i className='fab fa-facebook-f' />
-            </Link>
+              <i class="fab fa-linkedin" />
+              
+           </a>
+           <a
+              className="social-icon-link github"
+              href="https://github.com/quynhngandao"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <i className="fab fa-github" />
+            </a>
             <Link
               className='social-icon-link instagram'
               to='/'
@@ -39,14 +50,6 @@ function Footer() {
               aria-label='Twitter'
             >
               <i className='fab fa-twitter' />
-            </Link>
-            <Link
-              className='social-icon-link linkedin'
-              to='/'
-              target='_blank'
-              aria-label='LinkedIn'
-            >
-              <i className='fab fa-linkedin' />
             </Link>
           </div>
         </div>
