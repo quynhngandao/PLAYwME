@@ -106,7 +106,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       // First, INSERT QUERY (insert into animal table AND return the id)
       const insertAnimalQuery = `
         INSERT INTO "animal" ("petfinder_id", "name", "age", "attribute", "environment", "breeds", "type", "size", "organization_id", "organization_animal_id", "status", "status_changed_at", "published_at","location", "contact", "photos", "url")
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16,$17)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
         RETURNING "id"; 
     `;
 
