@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
@@ -30,9 +29,9 @@ export default function RegisterForm() {
   // useDispatch
   const dispatch = useDispatch();
   // useHistory
-  const history = useHistory()
+  const history = useHistory();
 
-  // handle registeruser action 
+  // handle registeruser action
   const registerUser = (event) => {
     event.preventDefault();
 
@@ -47,9 +46,27 @@ export default function RegisterForm() {
       },
     });
 
-     history.push("/petfinder"); // Redirect to /petfinder
-   }; // end registerUser
-/***** RENDER *****/
+    history.push("/petfinder"); // Redirect to /petfinder
+  }; // end registerUser
+
+  const handleGuest = ( event) => {
+    event.preventDefault();
+    setUsername("guest")
+    setPassword('123')
+    if (username && password) {
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          username: username,
+          password: password,
+        },
+      });
+    } else {
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
+    }
+  }
+
+  /***** RENDER *****/
   return (
     <Container component="main" maxWidth="lg">
       {errors.registrationMessage && (
@@ -81,18 +98,22 @@ export default function RegisterForm() {
                 alignItems: "center",
               }}
             >
-              <Typography component="h1" variant="h4" >
-              Create Your Account
-                 
+              <Typography component="h1" variant="h4">
+                Create Your Account
               </Typography>
               {/* REGISTRATION FORM INPUT FILED */}
-              <Box 
-                 component="form"
+              <Box
+                component="form"
                 noValidate
                 onSubmit={registerUser}
-                sx={{ m: 1, mt:3}}
-              > 
-                <Stack spacing={2} direction="row" alignItems="baseline" sx={{mb:2}}>
+                sx={{ m: 1, mt: 3 }}
+              >
+                <Stack
+                  spacing={2}
+                  direction="row"
+                  alignItems="baseline"
+                  sx={{ mb: 2 }}
+                >
                   <TextField
                     margin="normal"
                     required
@@ -157,25 +178,39 @@ export default function RegisterForm() {
                   label="Remember me"
                 />
                 {/* REGISTRATION BUTTON */}
-                <br/>
-                <Box sx={{ textAlign: "center"}}>
-                <Button
-                  name="submit"
-                  type="submit"
-                  halfWidth
-                  alignItems="center"
-                  variant="contained"
-                  sx={{ mt: 1, mb: 2 }}
-                >
-                  Sign Up
-                </Button>
+                <br />
+                <Box sx={{ textAlign: "center" }}>
+                  <Button
+                    name="submit"
+                    type="submit"
+                    halfWidth
+                    alignItems="center"
+                    variant="contained"
+                    sx={{ mt: 1, mb: 2 }}
+                  >
+                    Sign Up
+                  </Button>
                 </Box>
-                <Grid container justifyContent="center">
+                <Grid container className="text-center justify-center">
+                <Grid item xs> 
+                      <Link
+                        className="text-center"
+                        value="Log In"
+                        type="submit"
+                        onClick={handleGuest}
+                        variant="body2"
+                      >
+                        Log in as Guest?
+                      </Link>
+                    </Grid>
                   <Grid item>
                     <Link href="#/login" variant="body2">
-                      {"Already have an account? Login"}
+                      {"Already have an account? Log in"}
                     </Link>
+                  
                   </Grid>
+    
+                 
                 </Grid>
               </Box>
             </Box>

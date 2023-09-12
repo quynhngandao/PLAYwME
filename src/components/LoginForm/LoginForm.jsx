@@ -7,7 +7,6 @@ export default function LoginForm() {
   // useState
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [guest, setGuest] = useState()
   // useSelector
   const errors = useSelector((store) => store.errors);
   // useDispatch
@@ -34,7 +33,6 @@ export default function LoginForm() {
     event.preventDefault();
     setUsername("guest")
     setPassword('123')
-   console.log("clicked");
     if (username && password) {
       dispatch({
         type: "LOGIN",
