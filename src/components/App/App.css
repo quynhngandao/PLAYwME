@@ -17,8 +17,8 @@ PAGES
   color:#326186;
   text-shadow: 2px 1px #a6a5a5e2;
   font-size: 3.5rem;
-  font-weight: 800;
-  font-family: 'Merienda', sans-serif;
+  font-weight: 900;
+  font-family: 'Mulish','Merienda', sans-serif;
   margin-top:2rem;
   text-align: center;
   margin-bottom: 1rem;
@@ -38,98 +38,39 @@ PAGES
 /****** RESPONSIVE ******/
 @media screen and (min-width: 320px) and (max-width: 424px) {
   .user-page-title, .animal-page-title, .review-page-title {
-    color:#326186;
-    text-shadow: 1.5px 1.5px #a6a5a5e2;
     font-size: 2rem;
     font-weight: 400;
-    font-family: 'Merienda', sans-serif;
-    margin-top: 2rem;
-    text-align: center;
-    margin-bottom: 1rem;
   }
   .request-heading, .animal-page-heading {
-    color:#4b7ba0;
-    text-shadow: 1.5px 1.5px #a6a5a5e2;
     font-size: 1em;
     font-weight: 400;
-    font-family: 'varela round', sans-serif;
-    margin-bottom: 10px;
-    margin-left: 25px;
-    margin-top:10px;
-    padding-top: 0 ;
-    text-align: center;
   }
 }
 @media screen and (min-width: 425px) and (max-width: 767px) {
   .user-page-title, .animal-page-title, .review-page-title {
-    color:#326186;
-    text-shadow: 2px 1px #a6a5a5e2;
     font-size: 2.5rem;
     font-weight: 600;
-    font-family: 'Merienda', sans-serif;
-    margin-top: 2rem;
-    text-align: center;
-    margin-bottom: 1rem;
+   
   }
   .request-heading, .animal-page-heading {
-    color:#4b7ba0;
-    text-shadow: 1.5px 1.5px #a6a5a5e2;
     font-size: 1.5rem;
     font-weight: 600;
-    font-family: 'varela round', sans-serif;
-    margin-bottom: 10px;
-    margin-left: 25px;
-    margin-top: 10px;
-    padding-top: 0 ;
-    text-align: center;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1024px ) {
   .user-page-title, .animal-page-title, .review-page-title {
-    color:#326186;
-    text-shadow: 2px 1px #a6a5a5e2;
     font-size: 3.5rem;
-    font-weight: 700;
-    font-family: 'Merienda', sans-serif;
-    margin-top: 2rem;
-    text-align: center;
-    margin-bottom: 1rem;
   }
   .request-heading, .animal-page-heading {
-    color:#4b7ba0;
-    text-shadow: 1.5px 1.5px #a6a5a5e2;
     font-size: 2rem;
-    font-weight: 700;
-    font-family: 'varela round', sans-serif;
-    margin-bottom: 10px;
-    margin-left: 25px;
-    margin-top: 10px;
-    padding-top: 0 ;
-    text-align: center;
   }
 }
 @media screen and (min-width: 1025px) {
   .user-page-title, .animal-page-title, .review-page-title {
-    color:#326186;
-    text-shadow: 2px 1px #a6a5a5e2;
     font-size: 4rem;
-    font-weight: 700;
-    font-family: 'Merienda', sans-serif;
-    margin-top: 2rem;
-    text-align: center;
-    margin-bottom: 1rem;
   }
   .request-heading, .animal-page-heading {
-    color:#4b7ba0;
-    text-shadow: 1.5px 1.5px #a6a5a5e2;
     font-size: 2.5rem;
-    font-weight: 700;
-    font-family: 'varela round', sans-serif;
-    margin-bottom: 10px;
-    margin-left: 25px;
-    margin-top: 10px;
-    padding-top: 0 ;
-    text-align: center;
   }
 }
 /* --------------------------------------------------------------------------------

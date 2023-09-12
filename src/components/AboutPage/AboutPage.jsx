@@ -1,10 +1,13 @@
 import { Typography, Box, Grid } from "@mui/material";
+import Footer
+from "../Footer/Footer";
 function AboutPage() {
   // for mobile
   const isMobile = window.innerWidth <= 390;
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <div className="flex flex-col">
+         <Box className=" flex items-center pb-20">
       <Grid
         container
         spacing={2}
@@ -71,7 +74,7 @@ function AboutPage() {
                 }}
                 width="150"
                 height="150"
-                src="https://scontent-msp1-1.xx.fbcdn.net/v/t1.15752-9/365384761_1121952718763948_2083754579984283983_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=j5cRm39PUI4AX8pqhNU&_nc_ht=scontent-msp1-1.xx&oh=03_AdQtvrd-zp0oxvfJE1O1EG-Zton0QAkbRUQp7N4j6ii49g&oe=64FF6A34"
+                src="./images/image.png"
               />
             </Box>
           </Box>
@@ -263,6 +266,12 @@ function AboutPage() {
         </Grid>
       </Grid>
     </Box>
+    <div className="flex-1">
+      </div>
+    <div className="grid justify-items-bottom">
+        <Footer/>
+      </div>
+    </div>
   );
 }
 

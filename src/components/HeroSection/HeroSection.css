@@ -80,181 +80,154 @@ svg {
 }
 
 /****** RESPONSIVE ******/
-@media screen and (min-width: 320px) and (max-width: 424px) {
+@media screen and (min-width: 320px) {
   .hero-container {
     background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 82vh;
+    min-height: 80vh;
   }
 
   .hero-container>h1 {
-    font-size: 1.6rem;
+    font-size: 2rem;
     margin-top: 8rem;
-  }
-
-  .hero-container>p {
-    font-size: .8rem;
-  }
-
-  
-}
-
-@media screen and (min-width: 425px) and (max-width: 449px) {
-  .hero-container {
-    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 82vh;
-  }
-
-  .hero-container>h1 {
-    font-size: 1.7rem;
-    margin-top: 7rem;
-  }
-
-  .hero-container>p {
-    font-size: .8rem;
-  }
-
-  
-}
-
-@media screen and (min-width: 450px) and (max-width: 599px) {
-  .hero-container {
-    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 81vh;
-  }
-
-  .hero-container>h1 {
-    font-size: 2.1rem;
-    margin-top: 7rem;
+    text-shadow: 2px 1px #434242;
   }
 
   .hero-container>p {
     font-size: 1rem;
   }
 
-  
+  .hero-btns .btn {
+    margin: 7px;
+    padding: 7px;
+  }
+
+  .btn {
+    width: 150px;
+    height: 50px;
+  }
+
+  .hero-btns span {
+    color: white;
+    font-size: 14px;
+  }
 }
 
-@media screen and (min-width: 600px) and (max-width: 767px) {
+@media screen and (min-width: 425px) {
   .hero-container {
-    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 81vh;
+      min-height: 80vh;
   }
 
   .hero-container>h1 {
-    font-size: 2.8rem;
-    margin-top: 5rem;
+    font-size: 2rem;
+    margin-top: 8rem;
   }
 
   .hero-container>p {
-    font-size: 1.4rem;
+    font-size: 1rem;
   }
-
-  
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
+@media screen and (min-width: 768px) {
   .hero-container {
-    background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 82vh;
+    min-height: 83vh;
   }
 
   .hero-container>h1 {
-    font-size: 3.6rem;
-    margin-top: 4rem;
+    font-size: 3.5rem;
+    margin-top: 7rem;
   }
 
   .hero-container>p {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
-
- 
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1439px) {
+@media screen and (min-width: 1024px) {
   .hero-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 82vh;
+    min-height: 83vh;
+    background: url("/public/images/pet-background1.jpeg") center center/cover no-repeat;
   }
 
   .hero-container>h1 {
     font-size: 4.5rem;
-    margin-top: 4rem;
+    margin-top: 7rem;
   }
 
   .hero-container>p {
     font-size: 2rem;
   }
 
- 
+  .btn {
+    width: 180px;
+    height: 60px;
+  }
+
+  .hero-btns span {
+    font-size: 16px;
+  }
 }
 
-@media screen and (min-width: 1440px) and (max-width: 1899px) {
+@media screen and (min-width: 1440px) {
   .hero-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 82vh;
+    min-height: 88vh;
   }
 
   .hero-container>h1 {
     font-size: 6.5rem;
-    margin-top: 2rem;
   }
 
   .hero-container>p {
     font-size: 3rem;
   }
 
-  
+  .btn {
+    width: 200px;
+    height: 70px;
+  }
+
+  .hero-btns span {
+    font-size: 20px;
+  }
 }
 
-@media screen and (min-width: 1900px) and (max-width: 2560px) {
+@media screen and (min-width: 1990px) {
   .hero-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 82vh;
+    min-height: 87vh;
   }
 
   .hero-container>h1 {
-    font-size: 8rem;
-    margin-top: 4rem;
+    font-size: 9rem;
   }
 
   .hero-container>p {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
+  }
+  .btn {
+    width: 300px;
+    height: 120px;
+  }
+  .hero-btns span {
+    font-size: 32px;
+  }
+}
+
+@media screen and (min-width: 2560px) {
+  .hero-container {
+    min-height: 94vh;
+  }
+
+  .hero-container>h1 {
+    font-size: 12rem;
+  }
+
+  .hero-container>p {
+    font-size: 6rem;
+  }
+  .btn {
+    width: 400px;
+    height: 150px;
+  }
+  .hero-btns span {
+    font-size: 42px;
   }
 }

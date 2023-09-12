@@ -52,6 +52,17 @@
   justify-content: end;
 }
 
+/* .nav-menu {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  list-style: none;
+  text-align: center;
+  width: 60vw;
+  justify-content: end;
+  margin-right: 2rem;
+} */
+
 .nav-links {
   background-color: #1c364b;
   color: #fff;
@@ -106,6 +117,11 @@
     z-index: 1;
   }
 
+  .nav-menu {
+  
+    justify-content: flex-start;
+  }
+
   .nav-links {
     text-align: center;
     padding: 2rem;
@@ -120,8 +136,7 @@
 
   .navbar-logo {
     position: absolute;
-    left: 0;
-    transform: translate(25%, 0);
+    text-align: center;
   }
 
   .menu-icon {
@@ -159,5 +174,15 @@
     background: #fff;
     color: #242424;
     transition: 250ms;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-logo {
+    margin-left: 25px;
+  }
+
+  .nav-links {
+    margin-right: 25px;
   }
 }

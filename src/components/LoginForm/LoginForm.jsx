@@ -7,6 +7,7 @@ export default function LoginForm() {
   // useState
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [guest, setGuest] = useState()
   // useSelector
   const errors = useSelector((store) => store.errors);
   // useDispatch
@@ -28,9 +29,29 @@ export default function LoginForm() {
       dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
+
+  const handleGuest = ( event) => {
+    event.preventDefault();
+    setUsername("guest")
+    setPassword('123')
+   console.log("clicked");
+    if (username && password) {
+      dispatch({
+        type: "LOGIN",
+        payload: {
+          username: username,
+          password: password,
+        },
+      });
+    } else {
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
+    }
+  }
+
 /***** RENDER ******/
   return (
-    <Container color="#4e8897" component="main" width="lg" justifyContent="center" verticalAlign="middle">
+    <div className="">
+    <Container color="#4e8897" component="main" justifyContent="center" verticalAlign="middle">
       {errors.loginMessage && (
         <Typography variant="h5" className="alert" role="alert">
           {errors.loginMessage}
@@ -41,7 +62,7 @@ export default function LoginForm() {
           marginTop: 8,
         }}
       >
-        <Grid container justifyContent="center" maxWidth="400">
+        <Grid container justifyContent="center" maxWidth="300">
           <Grid
             item
             xs={12}
@@ -55,7 +76,7 @@ export default function LoginForm() {
             <Box
               sx={{
                 my: 6,
-                mx: 5,
+                mx: 8,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -114,8 +135,9 @@ export default function LoginForm() {
 
                 <Grid container>
                   <Grid item xs>
-                    <Link  variant="body2">
-                      Forgot password?
+                    <Link  value="Log In"
+                  type="submit" onClick={handleGuest} variant="body2">
+                     Log in as Guest?
                     </Link>
                   </Grid>
                   <Grid item>
@@ -130,5 +152,6 @@ export default function LoginForm() {
         </Grid>
       </Box>
     </Container>
+    </div>
   );
 }
