@@ -61,9 +61,7 @@ export default function RegisterForm() {
           password: password,
         },
       });
-    } else {
-      dispatch({ type: "LOGIN_INPUT_ERROR" });
-    }
+    } 
   }
 
   /***** RENDER *****/
@@ -191,10 +189,10 @@ export default function RegisterForm() {
                     Sign Up
                   </Button>
                 </Box>
-                <Grid container className="text-center justify-center">
-                <Grid item xs> 
+                <Grid container className=" items-center justify-center">
+                <Grid className="text-center" item>
                       <Link
-                        className="text-center"
+                     
                         value="Log In"
                         type="submit"
                         onClick={handleGuest}
@@ -202,15 +200,13 @@ export default function RegisterForm() {
                       >
                         Log in as Guest?
                       </Link>
-                    </Grid>
-                  <Grid item>
-                    <Link href="#/login" variant="body2">
+                      <Grid  className="p-2" item>
+                    <Link   href="#/login" variant="body2">
                       {"Already have an account? Log in"}
                     </Link>
                   
                   </Grid>
-    
-                 
+                    </Grid>         
                 </Grid>
               </Box>
             </Box>
