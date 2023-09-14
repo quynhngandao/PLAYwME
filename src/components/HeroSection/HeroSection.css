@@ -80,10 +80,11 @@ svg {
 }
 
 /****** RESPONSIVE ******/
-@media screen and (min-width: 320px) {
+@media screen and (min-width: 320px) and (max-width: 390px){
   .hero-container {
     background: url("/public/images/cat-dog-background.jpeg") center center/cover no-repeat;
-    min-height: 80vh;
+    min-height: 85vh;
+    max-height: 95vh;
   }
 
   .hero-container>h1 {
