@@ -1,11 +1,11 @@
 <div align="center" id="top"></div>
 <p>
 <a target="_blank" href="https://www.linkedin.com/in/daoquynh29"><img src="https://img.shields.io/badge/LinkedIn-20232A?style=for-the-badge&logo=linkedin"></img></a>
-<a target="_blank" href="mailto:nguy2884@umn.edu"><img src="https://img.shields.io/badge/Gmail-20232A?style=for-the-badge&logo=gmail&logoColor=white"></img></a>
+<a target="_blank" href="mailto:quynhngannguyendao@gmail.com"><img src="https://img.shields.io/badge/Gmail-20232A?style=for-the-badge&logo=gmail&logoColor=white"></img></a>
 </p>
 
 <div align="center">
-  <a href="[https://github.com/quynhngandao/PLAYwME-solo-project](https://protected-tundra-96868-dd04b8c05221.herokuapp.com/)">
+  <a href="[https://github.com/quynhngandao/PLAYwME](https://playwme-1cf74549f561.herokuapp.com/#/home)">
    <h3 align="center"> <img alt="Logo" width="150" height="50" src="public/images/playwme.png"/></h3>
   </a>
  <a href="https://protected-tundra-96868-dd04b8c05221.herokuapp.com/">View Demo</a>
