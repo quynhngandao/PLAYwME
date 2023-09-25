@@ -83,7 +83,7 @@
 ### **Contact**
 
 * **Quynh Dao** - 
-<a target="_blank" href="mailto:nguy2884@umn.edu">Email</a>
+<a target="_blank" href="mailto:quynhngannguyendao@gmail.com">Email</a>
 
 <!-- ACKNOWLEDGMENTS -->
 
