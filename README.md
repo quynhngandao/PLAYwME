@@ -6,7 +6,7 @@
 
 <div align="center">
   <a href="[https://github.com/quynhngandao/PLAYwME](https://playwme-1cf74549f561.herokuapp.com/#/home)">
-   <h3 align="center"> <img alt="Logo" width="150" height="50" src="public/images/playwme.png"/></h3>
+<!--    <h3 align="center"> <img alt="Logo" width="150" height="50" src="public/images/playwme.png"/></h3> -->
   </a>
  <a href="https://playwme-1cf74549f561.herokuapp.com/#/home">View Demo</a>
   <p align="center">
